@@ -44,7 +44,7 @@ export default function Nav() {
 
 const StyledNav = styled.nav`
   width: 20vw;
-  height: 100vh;
+  height: 125vh;
   display: flex;
   flex-direction: column;
   // margin: auto;
@@ -69,16 +69,24 @@ const StyledNav = styled.nav`
 
   button {
     display: flex;
+    font-weight: 400;
     color: #7481a4;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     height: 5vh;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
     width: 100%;
     align-items: center;
     position: relative;
     border: none;
     text-align: start;
     padding-left: 5rem;
+    background: transparent;
+    transition: all 0.5 ease;
     &:hover {
-      color: #b2bacf;
+      background-color: #243153;
+      color: white;
     }
     img {
       width: 1rem;
