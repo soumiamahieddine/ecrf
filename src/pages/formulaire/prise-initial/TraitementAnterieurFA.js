@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -11,6 +12,7 @@ import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
 export default function TraitementAnterieurFA() {
+  const navigate = useNavigate();
   const initialValues = {
     traitementMedical: [],
     traitementMedicalInput: "",
@@ -19,14 +21,16 @@ export default function TraitementAnterieurFA() {
     implantationPaceMaker: [],
   };
   const validationSchema = Yup.object({
-    traitementMedical: Yup.array().required(),
-    traitementMedicalInput: Yup.string().required(),
-    antecedentCardioversion: Yup.array().required(),
-    antecedentAblation: Yup.array().required(),
-    implantationPaceMaker: Yup.array().required(),
+    traitementMedical: Yup.array().required("ce champs est obligatoire"),
+    traitementMedicalInput: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    antecedentCardioversion: Yup.array().required("ce champs est obligatoire"),
+    antecedentAblation: Yup.array().required("ce champs est obligatoire"),
+    implantationPaceMaker: Yup.array().required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/motifDAdmission");
 
   const traitementOptions = [
     {
@@ -46,10 +50,10 @@ export default function TraitementAnterieurFA() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={5} />
         <div className="form">
           <h1>Traitement Antérieur de La FA</h1>
           <Formik

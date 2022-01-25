@@ -5,8 +5,10 @@ import home from "../img/home.svg";
 import listPatients from "../img/listPatients.svg";
 import location from "../img/location.svg";
 import logout from "../img/logout.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
+  const navigate = useNavigate();
   return (
     <StyledNav>
       <div className="logo">
@@ -15,13 +17,21 @@ export default function Nav() {
       </div>
       <ul>
         <li>
-          <button>
+          <button
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
             <img src={home} alt="" />
             <span>Acceuil</span>
           </button>
         </li>
         <li>
-          <button>
+          <button
+            onClick={() => {
+              navigate("/listPatients");
+            }}
+          >
             <img src={listPatients} alt="" /> <span>Liste des patients</span>
           </button>
         </li>
@@ -32,7 +42,11 @@ export default function Nav() {
           </button>
         </li>
         <li>
-          <button>
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
             <img src={logout} alt="" />
             <span>Déconnecter</span>
           </button>

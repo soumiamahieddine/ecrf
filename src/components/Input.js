@@ -24,7 +24,7 @@ const StyledDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 0.5rem 2rem;
+  margin: 0.5rem 1rem;
   label {
     color: #a8a7a7;
   }

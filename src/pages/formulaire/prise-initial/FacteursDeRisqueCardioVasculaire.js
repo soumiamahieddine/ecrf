@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -11,6 +12,7 @@ import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
 export default function FacteursDeRisqueCardioVasculaire() {
+  const navigate = useNavigate();
   const htaOptions = [{ key: "Oui", value: "oui" }];
   const diabeteOptions = [{ key: "Oui", value: "oui" }];
   const dyslipidemieOptions = [{ key: "Oui", value: "oui" }];
@@ -38,26 +40,32 @@ export default function FacteursDeRisqueCardioVasculaire() {
     sedentarite: [],
   };
   const validationSchema = Yup.object({
-    bmi: Yup.string().required(),
-    hta: Yup.array().required(),
-    htaDate: Yup.string().required(),
-    diabete: Yup.array().required(),
-    diabeteDate: Yup.string().required(),
-    dyslipidemieDate: Yup.string().required(),
-    dyslipidemie: Yup.array().required(),
-    tabagisme: Yup.string().required(),
-    consommationAlcool: Yup.string().required(),
-    sedentarite: Yup.array().required(),
+    bmi: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    hta: Yup.array().required("ce champs est obligatoire"),
+    htaDate: Yup.string("ce champs doit être alpahnumiérique"),
+    diabete: Yup.array().required("ce champs est obligatoire"),
+    diabeteDate: Yup.string("ce champs doit être alpahnumiérique"),
+    dyslipidemieDate: Yup.string("ce champs doit être alpahnumiérique"),
+    dyslipidemie: Yup.array().required("ce champs est obligatoire"),
+    tabagisme: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    consommationAlcool: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    sedentarite: Yup.array().required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/pathologiesAssociees");
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={2} />
         <div className="form">
           <h1>Données démographiques</h1>
           <Formik

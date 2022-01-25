@@ -9,8 +9,10 @@ import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
+import { useNavigate } from "react-router-dom";
 
 export default function DonnéesDémograghiques() {
+  const navigate = useNavigate();
   const circonstanceOptions = [
     { key: "Consultation", value: "consultation" },
     { key: "Urgence", value: "urgence" },
@@ -57,23 +59,37 @@ export default function DonnéesDémograghiques() {
     niveau: "",
   };
   const validationSchema = Yup.object({
-    circonstance: Yup.string().required(),
-    sexe: Yup.string().required(),
-    age: Yup.string().required(),
-    residence: Yup.string().required(),
-    situationFamiliale: Yup.string().required(),
-    assurance: Yup.string().required(),
-    niveau: Yup.string().required(),
+    circonstance: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    sexe: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    age: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    residence: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    situationFamiliale: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    assurance: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    niveau: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/facteursDeRisqueCardioVasculaire");
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={1} />
         <div className="form">
           <h1>Données démographiques</h1>
           <Formik

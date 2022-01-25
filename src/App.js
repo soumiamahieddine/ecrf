@@ -1,5 +1,6 @@
+import { Route, Routes } from "react-router-dom";
+
 import GlobalStyle from "./components/GlobalStyle";
-import Nav from "./components/Nav";
 import DonnéesDémograghiques from "./pages/formulaire/prise-initial/DonnéesDémograghiques";
 import LoginScreen from "./pages/LoginScreen";
 import styled from "styled-components";
@@ -12,13 +13,53 @@ import MotifDAdmission from "./pages/formulaire/prise-initial/MotifDAdmission";
 import TraitementAntiThrombotique from "./pages/formulaire/priseEnChargeMedical/TraitementAntiThrombotique";
 import TraitementDeLaFA from "./pages/formulaire/priseEnChargeMedical/TraitementDeLaFA";
 import AutreTraitementMedical from "./pages/formulaire/priseEnChargeMedical/AutreTraitementMedical";
+import ListPatients from "./pages/ListPatients";
+import Dashboard from "./pages/Dashboard";
+import SubApp from "./SubApp";
 
 function App() {
   return (
     <StyledApp>
       <GlobalStyle />
-      <Nav />
-      <TraitementDeLaFA />
+      <Routes>
+        <Route path="/login" index element={<LoginScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/" element={<SubApp />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="listPatients" element={<ListPatients />} />
+          <Route
+            path="donneesDemograghiques"
+            element={<DonnéesDémograghiques />}
+          />
+          <Route
+            path="facteursDeRisqueCardioVasculaire"
+            element={<FacteursDeRisqueCardioVasculaire />}
+          />
+          <Route
+            path="pathologiesAssociees"
+            element={<PathologiesAssociées />}
+          />
+          <Route path="comorbidite" element={<Comorbidité />} />
+          <Route
+            path="traitementAnterieurFA"
+            element={<TraitementAnterieurFA />}
+          />
+          <Route path="motifDAdmission" element={<MotifDAdmission />} />
+          <Route
+            path="symptomesALinclusion"
+            element={<SymptomesALinclusion />}
+          />
+          <Route
+            path="traitementAntiThrombotique"
+            element={<TraitementAntiThrombotique />}
+          />
+          <Route path="traitementDeLaFA" element={<TraitementDeLaFA />} />
+          <Route
+            path="autreTraitementMedical"
+            element={<AutreTraitementMedical />}
+          />
+        </Route>
+      </Routes>
     </StyledApp>
   );
 }

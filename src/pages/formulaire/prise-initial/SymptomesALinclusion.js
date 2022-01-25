@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -11,18 +12,23 @@ import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
 export default function SymptomesALinclusion() {
+  const navigate = useNavigate();
   const initialValues = {
     symptomeFA: "",
     symptomes: [],
     severitéSymptome: "",
   };
   const validationSchema = Yup.object({
-    symptomeFA: Yup.string().required(),
-    symptomes: Yup.array().required(),
-    severitéSymptome: Yup.string().required(),
+    symptomeFA: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    symptomes: Yup.array().required("ce champs est obligatoire"),
+    severitéSymptome: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/traitementAntiThrombotique");
 
   const symptomeFAOptions = [
     {
@@ -56,10 +62,10 @@ export default function SymptomesALinclusion() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={7} />
         <div className="form">
           <h1>Symptômes à l'inclusion</h1>
           <Formik

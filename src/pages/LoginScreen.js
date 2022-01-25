@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import logo from "../img/logo.svg";
 
 export default function LoginScreen() {
+  const navigate = useNavigate();
   return (
     <Page>
       <div className="container">
@@ -15,7 +17,13 @@ export default function LoginScreen() {
         <div className="form">
           <input type="text" placeholder="utilisateur" />
           <input type="text" placeholder="mot de passe" />
-          <button>LOGIN</button>
+          <button
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
+            LOGIN
+          </button>
           <p>
             Veuillez introduire votre nom d'utilisateur et mot de passe qu'on
             vous a fourni, au cas ou vous avez oublié votre mot de passe
@@ -29,6 +37,7 @@ export default function LoginScreen() {
 
 const Page = styled.div`
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;

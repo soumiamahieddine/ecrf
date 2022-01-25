@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -11,6 +12,7 @@ import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
 export default function Comorbidité() {
+  const navigate = useNavigate();
   const initialValues = {
     antecedent: [],
     evenementHemoragiqueMajeur: [],
@@ -18,13 +20,15 @@ export default function Comorbidité() {
     pathologieVasculaire: [],
   };
   const validationSchema = Yup.object({
-    antecedent: Yup.array().required(),
-    evenementHemoragiqueMajeur: Yup.array().required(),
-    cancer: Yup.array().required(),
-    pathologieVasculaire: Yup.array().required(),
+    antecedent: Yup.array().required("ce champs est obligatoire"),
+    evenementHemoragiqueMajeur: Yup.array().required(
+      "ce champs est obligatoire"
+    ),
+    cancer: Yup.array().required("ce champs est obligatoire"),
+    pathologieVasculaire: Yup.array().required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/traitementAnterieurFA");
 
   const antecendentOptions = [
     { key: "Antécédent d'AVC/AIT/Hombolie systémique", value: "antecedent" },
@@ -42,10 +46,10 @@ export default function Comorbidité() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={4} />
         <div className="form">
           <h1>Comorbidité</h1>
           <Formik

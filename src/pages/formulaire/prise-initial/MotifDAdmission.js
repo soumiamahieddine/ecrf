@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -11,6 +12,7 @@ import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
 export default function MotifDAdmission() {
+  const navigate = useNavigate();
   const initialValues = {
     circonstance1: "",
     circonstance2: "",
@@ -19,14 +21,22 @@ export default function MotifDAdmission() {
     typeFA: "",
   };
   const validationSchema = Yup.object({
-    circonstance1: Yup.string().required(),
-    circonstance2: Yup.string().required(),
-    episodeFA: Yup.array().required(),
-    episodeFADate: Yup.string().required(),
-    typeFA: Yup.string().required(),
+    circonstance1: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    circonstance2: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    episodeFA: Yup.array().required("ce champs est obligatoire"),
+    episodeFADate: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    typeFA: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/symptomesALinclusion");
 
   const circonstanceOptions1 = [
     { key: "Symptomatologie", value: "symptomatologie" },
@@ -45,10 +55,10 @@ export default function MotifDAdmission() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={6} />
         <div className="form">
           <h1>Motif d’admission/consultation</h1>
           <Formik

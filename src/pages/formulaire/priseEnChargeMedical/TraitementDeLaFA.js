@@ -3,14 +3,16 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
-import VertiBar from "../../../components/VertiBar";
+import VertiBar from "../../../components/Vertibar3";
 import NextButton from "../../../components/NextButton";
 
 export default function TraitementDeLaFA() {
+  const navigate = useNavigate();
   const initialValues = {
     strategieRythme: [],
     strategieRythme1: "",
@@ -22,17 +24,23 @@ export default function TraitementDeLaFA() {
     strategieFrequence11: "",
   };
   const validationSchema = Yup.object({
-    strategieRythme: Yup.array().required(),
-    strategieRythme1: Yup.string().required(),
-    strategieRythme2: Yup.array().required(),
-    strategieRythme21: Yup.string().required(),
-    strategieRythme3: Yup.array().required(),
-    strategieFrequence: Yup.array().required(),
-    strategieFrequence1: Yup.array().required(),
-    strategieFrequence11: Yup.string().required(),
+    strategieRythme: Yup.array().required("ce champs est obligatoire"),
+    strategieRythme1: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    strategieRythme2: Yup.array().required("ce champs est obligatoire"),
+    strategieRythme21: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    strategieRythme3: Yup.array().required("ce champs est obligatoire"),
+    strategieFrequence: Yup.array().required("ce champs est obligatoire"),
+    strategieFrequence1: Yup.array().required("ce champs est obligatoire"),
+    strategieFrequence11: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/autreTraitementMedical");
 
   const strategieRythmeOptions = [
     {
@@ -59,15 +67,15 @@ export default function TraitementDeLaFA() {
   const strategieRythmeOptions21 = [
     {
       key: "Amiodarone",
-      value: "amiodarone",
+      value: "amiodarone2",
     },
     {
       key: "Amiodarone",
-      value: "amiodarone",
+      value: "amiodarone1",
     },
     {
       key: "Amiodarone",
-      value: "amiodarone",
+      value: "amiodarone3",
     },
   ];
   const strategieRythmeOptions3 = [
@@ -106,10 +114,10 @@ export default function TraitementDeLaFA() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={3} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={2} />
         <div className="form">
           <h1>Traitement de la FA</h1>
           <Formik

@@ -3,14 +3,16 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
-import VertiBar from "../../../components/VertiBar";
+import VertiBar from "../../../components/Vertibar3";
 import NextButton from "../../../components/NextButton";
 
 export default function AutreTraitementMedical() {
+  const navigate = useNavigate();
   const initialValues = {
     iec: [],
     iecDate: "",
@@ -29,24 +31,36 @@ export default function AutreTraitementMedical() {
     hormonesThyroidiennes: [],
   };
   const validationSchema = Yup.object({
-    iec: Yup.array().required(),
-    iecDate: Yup.string().required(),
-    betabloquant: Yup.array().required(),
-    betabloquantDate: Yup.string().required(),
-    diurétiqueAnse: Yup.array().required(),
-    diurétiqueAnseDate: Yup.string().required(),
-    diurétiqueThiazidique: Yup.array().required(),
-    diurétiqueThiazidiqueDate: Yup.string().required(),
-    aldosterone: Yup.array().required(),
-    aldosteroneDate: Yup.string().required(),
-    statine: Yup.array().required(),
-    statineDate: Yup.string().required(),
-    antiDiabetiqueOraux: Yup.array().required(),
-    insuline: Yup.array().required(),
-    hormonesThyroidiennes: Yup.array().required(),
+    iec: Yup.array().required("ce champs est obligatoire"),
+    iecDate: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    betabloquant: Yup.array().required("ce champs est obligatoire"),
+    betabloquantDate: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    diurétiqueAnse: Yup.array().required("ce champs est obligatoire"),
+    diurétiqueAnseDate: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    diurétiqueThiazidique: Yup.array().required("ce champs est obligatoire"),
+    diurétiqueThiazidiqueDate: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
+    aldosterone: Yup.array().required("ce champs est obligatoire"),
+    aldosteroneDate: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    statine: Yup.array().required("ce champs est obligatoire"),
+    statineDate: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    antiDiabetiqueOraux: Yup.array().required("ce champs est obligatoire"),
+    insuline: Yup.array().required("ce champs est obligatoire"),
+    hormonesThyroidiennes: Yup.array().required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/dashboard");
 
   const iecOptions = [
     {
@@ -105,10 +119,10 @@ export default function AutreTraitementMedical() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={3} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={3} />
         <div className="form">
           <h1>Autre traitement médical</h1>
           <Formik

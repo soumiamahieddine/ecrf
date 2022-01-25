@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
+import { useNavigate } from "react-router-dom";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -11,6 +12,8 @@ import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
 export default function PathologiesAssociées() {
+  const navigate = useNavigate();
+
   const initialValues = {
     coronaropathie: [],
     valvupathies: [],
@@ -23,18 +26,22 @@ export default function PathologiesAssociées() {
     insuffisanceRenaleChronique: [],
   };
   const validationSchema = Yup.object({
-    coronaropathie: Yup.array().required(),
-    valvupathies: Yup.array().required(),
-    cardiomyopathieHypertrophique: Yup.array().required(),
-    cardiomyoathieDilatee: Yup.array().required(),
-    autreMaladie: Yup.array().required(),
-    autreMaladieDate: Yup.string().required(),
-    sas: Yup.array().required(),
-    dysthyroidie: Yup.array().required(),
-    insuffisanceRenaleChronique: Yup.array().required(),
+    coronaropathie: Yup.array().required("ce champs est obligatoire"),
+    valvupathies: Yup.array().required("ce champs est obligatoire"),
+    cardiomyopathieHypertrophique: Yup.array().required(
+      "ce champs est obligatoire"
+    ),
+    cardiomyoathieDilatee: Yup.array().required("ce champs est obligatoire"),
+    autreMaladie: Yup.array().required("ce champs est obligatoire"),
+    autreMaladieDate: Yup.string("ce champs doit être alpahnumiérique"),
+    sas: Yup.array().required("ce champs est obligatoire"),
+    dysthyroidie: Yup.array().required("ce champs est obligatoire"),
+    insuffisanceRenaleChronique: Yup.array().required(
+      "ce champs est obligatoire"
+    ),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => navigate("/comorbidite");
 
   const valvupathiesOptions = [{ key: "Valvupathies", value: "valvupathies" }];
   const cardioHyperOptions = [
@@ -67,10 +74,10 @@ export default function PathologiesAssociées() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title />
-      <Horibar />
+      <Title title="inscription d'un patient" />
+      <Horibar number={1} />
       <div className="form-container">
-        <VertiBar />
+        <VertiBar number={3} />
         <div className="form">
           <h1>Pathologies Associées</h1>
           <Formik
