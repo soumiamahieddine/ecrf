@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  auth,
+  addingInformationsPatient,
+} from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -57,8 +61,14 @@ export default function FacteursDeRisqueCardioVasculaire() {
     ).required("ce champs est obligatoire"),
     sedentarite: Yup.array().required("ce champs est obligatoire"),
   });
-
-  const onSubmit = (values) => navigate("/pathologiesAssociees");
+  const param = useParams();
+  const onSubmit = (values) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      await addingInformationsPatient(user, param, values);
+      navigate(`/pathologiesAssociees/${param.idpatient}`);
+    });
+    return unsubscribe;
+  };
   return (
     <StyledDiv>
       <NavTop />
@@ -74,7 +84,6 @@ export default function FacteursDeRisqueCardioVasculaire() {
             onSubmit={onSubmit}
           >
             {(formik) => {
-              console.log(formik);
               return (
                 <Form>
                   <FormikControl control="input" name="bmi" label="BMI" />

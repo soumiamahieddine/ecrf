@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import {
+  auth,
+  addingInformationsPatient,
+} from "../../../firebase/firebase.utils";
+
 import FormikControl from "../../../components/FormikControl";
 
 import NavTop from "../../../components/NavTop";
@@ -9,10 +14,11 @@ import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function DonnéesDémograghiques() {
   const navigate = useNavigate();
+  const param = useParams();
   const circonstanceOptions = [
     { key: "Consultation", value: "consultation" },
     { key: "Urgence", value: "urgence" },
@@ -82,7 +88,13 @@ export default function DonnéesDémograghiques() {
     ),
   });
 
-  const onSubmit = (values) => navigate("/facteursDeRisqueCardioVasculaire");
+  const onSubmit = (values) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      await addingInformationsPatient(user, param, values);
+      navigate(`/facteursDeRisqueCardioVasculaire/${param.idpatient}`);
+    });
+    return unsubscribe;
+  };
   return (
     <StyledDiv>
       <NavTop />

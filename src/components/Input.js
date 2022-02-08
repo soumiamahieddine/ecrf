@@ -24,12 +24,12 @@ const StyledDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 0.5rem 1rem;
+  margin: 0rem 0rem;
   label {
     color: #a8a7a7;
   }
   input {
-    margin: 1rem 0rem;
+    margin: 0.5rem 0rem;
     color: #696969;
     font-size: 1rem;
     padding: 0.5rem 1rem;

@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  auth,
+  addingInformationsPatient,
+} from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -28,7 +32,14 @@ export default function Comorbidité() {
     pathologieVasculaire: Yup.array().required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => navigate("/traitementAnterieurFA");
+  const param = useParams();
+  const onSubmit = (values) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      await addingInformationsPatient(user, param, values);
+      navigate(`/traitementAnterieurFA/${param.idpatient}`);
+    });
+    return unsubscribe;
+  };
 
   const antecendentOptions = [
     { key: "Antécédent d'AVC/AIT/Hombolie systémique", value: "antecedent" },

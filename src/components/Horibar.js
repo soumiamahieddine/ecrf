@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import prise from "../img/prise-de-donnés-initiales.png";
 import HoriBarItem from "./HoribarItem";
 
 export default function Horibar({ number }) {

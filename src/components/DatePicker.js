@@ -3,7 +3,6 @@ import DateView from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
-import styled from "styled-components";
 
 export default function DatePicker({ label, name, ...rest }) {
   return (

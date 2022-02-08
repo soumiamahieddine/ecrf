@@ -22,40 +22,45 @@ function App() {
     <StyledApp>
       <GlobalStyle />
       <Routes>
-        <Route path="/login" index element={<LoginScreen />} />
-        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/" index element={<LoginScreen />} />
         <Route path="/" element={<SubApp />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="listPatients" element={<ListPatients />} />
           <Route
-            path="donneesDemograghiques"
+            path="donneesDemograghiques/:idpatient"
             element={<DonnéesDémograghiques />}
           />
           <Route
-            path="facteursDeRisqueCardioVasculaire"
+            path="facteursDeRisqueCardioVasculaire/:idpatient"
             element={<FacteursDeRisqueCardioVasculaire />}
           />
           <Route
-            path="pathologiesAssociees"
+            path="pathologiesAssociees/:idpatient"
             element={<PathologiesAssociées />}
           />
-          <Route path="comorbidite" element={<Comorbidité />} />
+          <Route path="comorbidite/:idpatient" element={<Comorbidité />} />
           <Route
-            path="traitementAnterieurFA"
+            path="traitementAnterieurFA/:idpatient"
             element={<TraitementAnterieurFA />}
           />
-          <Route path="motifDAdmission" element={<MotifDAdmission />} />
           <Route
-            path="symptomesALinclusion"
+            path="motifDAdmission/:idpatient"
+            element={<MotifDAdmission />}
+          />
+          <Route
+            path="symptomesALinclusion/:idpatient"
             element={<SymptomesALinclusion />}
           />
           <Route
-            path="traitementAntiThrombotique"
+            path="traitementAntiThrombotique/:idpatient"
             element={<TraitementAntiThrombotique />}
           />
-          <Route path="traitementDeLaFA" element={<TraitementDeLaFA />} />
           <Route
-            path="autreTraitementMedical"
+            path="traitementDeLaFA/:idpatient"
+            element={<TraitementDeLaFA />}
+          />
+          <Route
+            path="autreTraitementMedical/:idpatient"
             element={<AutreTraitementMedical />}
           />
         </Route>

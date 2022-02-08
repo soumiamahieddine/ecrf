@@ -5,13 +5,13 @@ import DashboardButton from "../components/DashboardButton";
 import plus from "../img/PlusLogo.svg";
 import modify from "../img/modify.svg";
 import { useState } from "react";
-import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
 import { DateRangePickerCalendar, START_DATE } from "react-nice-dates";
 import "react-nice-dates/build/style.css";
 import "./style.scss";
 import Title from "../components/Inscreptiontitle";
 import { useNavigate } from "react-router-dom";
+import { auth, firestore } from "../firebase/firebase.utils";
 
 export default function Dashboard() {
   const startDate = new Date("2022-01-01");
@@ -21,6 +21,25 @@ export default function Dashboard() {
     setFocus(newFocus || START_DATE);
   };
   const navigate = useNavigate();
+  const addPatient = () => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      const createdAt = new Date();
+      const patientsRef = firestore.collection(
+        `medecins/${user.uid}/patients/`
+      );
+
+      try {
+        const patientRef = await patientsRef.add({
+          createdAt,
+        });
+        navigate(`/donneesDemograghiques/${patientRef.id}`);
+      } catch (error) {
+        console.log("error creating user", error.message);
+      }
+    });
+
+    return unsubscribe;
+  };
   return (
     <StyledDiv>
       <NavTop />
@@ -29,9 +48,7 @@ export default function Dashboard() {
         <div id="firstWidget" className=" widget">
           <div className="buttons">
             <DashboardButton
-              onClick={() => {
-                navigate("/donneesDemograghiques");
-              }}
+              onClick={addPatient}
               imgName={plus}
               name="Ajouter un Patient"
             />
@@ -43,7 +60,7 @@ export default function Dashboard() {
               }}
             />
           </div>
-          <div className="datePickerWrapper" className="date-input-field">
+          <div className="datePickerWrapper date-input-field">
             <DateRangePickerCalendar
               startDate={startDate}
               endDate={endDate}

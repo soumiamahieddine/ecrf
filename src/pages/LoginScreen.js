@@ -1,12 +1,42 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import FormikControl from "../components/FormikControl";
 import logo from "../img/logo.svg";
+import { auth } from "../firebase/firebase.utils";
+import { useEffect } from "react";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
+  const checkUser = async () => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/dashboard");
+      }
+    });
+    return unsubscribe;
+  };
+  useEffect(() => {
+    checkUser();
+  }, []);
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().email().required(),
+    password: Yup.string().required(),
+  });
+
+  const onSubmit = async ({ email, password }) => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(navigate("/dashboard"))
+      .catch((e) => alert(e.message));
+  };
   return (
     <Page>
       <div className="container">
@@ -14,22 +44,38 @@ export default function LoginScreen() {
           <img src={logo} alt="" />
           <h1>Bienvenue</h1>
         </div>
-        <div className="form">
-          <input type="text" placeholder="utilisateur" />
-          <input type="text" placeholder="mot de passe" />
-          <button
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            LOGIN
-          </button>
-          <p>
-            Veuillez introduire votre nom d'utilisateur et mot de passe qu'on
-            vous a fourni, au cas ou vous avez oublié votre mot de passe
-            veuillez nous contacter en <a href="#">cliquant ici</a>
-          </p>
-        </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {(formik) => (
+            <Form className="form">
+              <FormikControl
+                control="input"
+                type="email"
+                name="email"
+                placeholder="email"
+                width="350px"
+              />
+              <FormikControl
+                control="input"
+                type="password"
+                name="password"
+                placeholder="password"
+                width="350px"
+              />
+
+              <button type="submit">LOGIN</button>
+              <p>
+                Veuillez introduire votre nom d'utilisateur et mot de passe
+                qu'on vous a fourni, au cas ou vous avez oublié votre mot de
+                passe veuillez nous contacter en{" "}
+                <Link to="/motDePasseOublier">cliquant ici</Link>
+              </p>
+            </Form>
+          )}
+        </Formik>
       </div>
     </Page>
   );
@@ -69,20 +115,10 @@ const Page = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    input {
-      width: 100%;
-      height: 2.5rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      border: 3px solid white;
-      color: #7481a4;
-      font-size: 1rem;
-      padding: 0rem 1rem;
-    }
     button {
       background: #7481a4;
       width: 100%;
-      height: 2.5rem;
+      height: 40px;
       border: 3px solid #7481a4;
       border-radius: 10px;
       color: white;

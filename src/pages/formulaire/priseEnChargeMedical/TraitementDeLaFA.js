@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  auth,
+  addingInformationsPatient,
+} from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -40,7 +44,14 @@ export default function TraitementDeLaFA() {
     ).required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => navigate("/autreTraitementMedical");
+  const param = useParams();
+  const onSubmit = (values) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      await addingInformationsPatient(user, param, values);
+      navigate(`/autreTraitementMedical/${param.idpatient}`);
+    });
+    return unsubscribe;
+  };
 
   const strategieRythmeOptions = [
     {
@@ -68,14 +79,6 @@ export default function TraitementDeLaFA() {
     {
       key: "Amiodarone",
       value: "amiodarone2",
-    },
-    {
-      key: "Amiodarone",
-      value: "amiodarone1",
-    },
-    {
-      key: "Amiodarone",
-      value: "amiodarone3",
     },
   ];
   const strategieRythmeOptions3 = [

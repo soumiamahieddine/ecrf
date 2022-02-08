@@ -4,7 +4,6 @@ import styled from "styled-components";
 import NavTop from "../components/NavTop";
 import Title from "../components/Inscreptiontitle";
 import ListPatientsItem from "../components/ListPatientsItem";
-import FacteursDeRisqueCardioVasculaire from "./formulaire/prise-initial/FacteursDeRisqueCardioVasculaire";
 
 export default function ListPatients() {
   const patients = [

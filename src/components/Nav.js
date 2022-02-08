@@ -6,8 +6,9 @@ import listPatients from "../img/listPatients.svg";
 import location from "../img/location.svg";
 import logout from "../img/logout.svg";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase/firebase.utils";
 
-export default function Nav() {
+export default function Nav({ currentUser }) {
   const navigate = useNavigate();
   return (
     <StyledNav>
@@ -44,7 +45,7 @@ export default function Nav() {
         <li>
           <button
             onClick={() => {
-              navigate("/login");
+              auth.signOut().then(navigate("/"));
             }}
           >
             <img src={logout} alt="" />

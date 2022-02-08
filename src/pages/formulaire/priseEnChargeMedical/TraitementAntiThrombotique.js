@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../../components/FormikControl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  auth,
+  addingInformationsPatient,
+} from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
 import Title from "../../../components/Inscreptiontitle";
@@ -32,8 +36,14 @@ export default function TraitementAntiThrombotique() {
     ).required("ce champs est obligatoire"),
   });
 
-  const onSubmit = (values) => navigate("/traitementDeLaFA");
-
+  const param = useParams();
+  const onSubmit = (values) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      await addingInformationsPatient(user, param, values);
+      navigate(`/traitementDeLaFA/${param.idpatient}`);
+    });
+    return unsubscribe;
+  };
   const traitementOptions = [
     {
       key: "Le patient suit un traitement antithrombotique",

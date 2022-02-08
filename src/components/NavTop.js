@@ -2,16 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import logo192 from "../img/logo192.png";
 
-export default function NavTop() {
+export default function NavTop({ name }) {
   return (
     <NavBar className="nav-bar">
       <div className="text">
-        <a href="#">
-          {" "}
-          <h1>
-            Massi <br /> Dris
-          </h1>
-        </a>
+        <h1>{name}</h1>
       </div>
       <div className="sep"></div>
       <div className="profil-pic">
