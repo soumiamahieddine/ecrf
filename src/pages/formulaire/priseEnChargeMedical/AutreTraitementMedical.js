@@ -68,7 +68,7 @@ export default function AutreTraitementMedical() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/dashboard`);
+      navigate(`/patientinfo/${param.idpatient}`);
     });
     return unsubscribe;
   };

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import NavTop from "../components/NavTop";
 import styled from "styled-components";
 import DashboardButton from "../components/DashboardButton";
 import plus from "../img/PlusLogo.svg";
 import modify from "../img/modify.svg";
-import { useState } from "react";
 import { enGB } from "date-fns/locale";
 import { DateRangePickerCalendar, START_DATE } from "react-nice-dates";
 import "react-nice-dates/build/style.css";
 import "./style.scss";
+import HistListPatients from "./HistListPatients";
+import Covid19 from "../components/WilayasData";
 import Title from "../components/Inscreptiontitle";
 import { useNavigate } from "react-router-dom";
 import { auth, firestore } from "../firebase/firebase.utils";
+import { serverTimestamp } from "firebase/firestore";
 
 export default function Dashboard() {
   const startDate = new Date("2022-01-01");
@@ -24,13 +26,21 @@ export default function Dashboard() {
   const addPatient = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       const createdAt = new Date();
+      const created = JSON.stringify(
+        createdAt.getDate() +
+          "/" +
+          (createdAt.getMonth() + 1) +
+          "/" +
+          createdAt.getFullYear()
+      );
       const patientsRef = firestore.collection(
         `medecins/${user.uid}/patients/`
       );
 
       try {
         const patientRef = await patientsRef.add({
-          createdAt,
+          createdAt: created,
+          timestamp: serverTimestamp(),
         });
         navigate(`/donneesDemograghiques/${patientRef.id}`);
       } catch (error) {
@@ -70,8 +80,17 @@ export default function Dashboard() {
             />
           </div>
         </div>
-        <div className="widget widgetOther"></div>
-        <div className="widget widgetOther"></div>
+        <div className="widget widgetOther">
+          <Covid19 />
+        </div>
+        <div
+          className="widget widgetOther historique"
+          onClick={() => {
+            navigate("/listPatients");
+          }}
+        >
+          <HistListPatients />
+        </div>
       </div>
     </StyledDiv>
   );
@@ -95,7 +114,13 @@ const StyledDiv = styled.div`
     height: 70vh;
     border: solid 2px #243153;
     border-radius: 25px;
+    overflow: hidden;
+
+    &.historique {
+      cursor: pointer;
+    }
   }
+
   .datePickerWrapper {
   }
   #firstWidget {

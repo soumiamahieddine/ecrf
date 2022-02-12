@@ -1,49 +1,31 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import NavTop from "../components/NavTop";
 import Title from "../components/Inscreptiontitle";
 import ListPatientsItem from "../components/ListPatientsItem";
+import { auth, firestore } from "../firebase/firebase.utils";
 
 export default function ListPatients() {
-  const patients = [
-    {
-      nom: "dris",
-      prenom: "massi",
-      pathologie: "Fa",
-      sf: "1",
-      traitement: "Traitement1",
-      dateInclusion: "12/12/2012",
-      age: "27",
-    },
-    {
-      nom: "khoudi",
-      prenom: "anis",
-      pathologie: "Fa",
-      sf: "1",
-      traitement: "Traitement1",
-      dateInclusion: "12/12/2012",
-      age: "27",
-    },
-    {
-      nom: "mehieddine",
-      prenom: "nassim",
-      pathologie: "Fa",
-      sf: "1",
-      traitement: "Traitement1",
-      dateInclusion: "12/12/2012",
-      age: "27",
-    },
-    {
-      nom: "alloun",
-      prenom: "soumia",
-      pathologie: "Fa",
-      sf: "1",
-      traitement: "Traitement1",
-      dateInclusion: "12/12/2012",
-      age: "27",
-    },
-  ];
+  const navigate = useNavigate();
+  const [list, setList] = useState([]);
+  useLayoutEffect(() => {
+    const unsubscribe = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      //.orderBy("timestamp", "asc")
+      .onSnapshot((snapshot) =>
+        setList(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+    return unsubscribe;
+  }, []);
+
   return (
     <StyledDiv>
       <NavTop />
@@ -53,7 +35,6 @@ export default function ListPatients() {
           <ListPatientsItem
             age="Age"
             nom="Nom"
-            prenom="Prenom"
             pathologie="Pathologie"
             sf="SF"
             traitement="Traitement"
@@ -61,32 +42,32 @@ export default function ListPatients() {
             color="white"
             background="#243153"
           />
-          {patients.map((patient, index) => {
+          {list.map((patient, index) => {
             return (
-              <div>
+              <div key={patient.id}>
                 {index % 2 === 0 ? (
                   <ListPatientsItem
-                    key={index}
-                    age={patient.age}
-                    nom={patient.nom}
-                    prenom={patient.prenom}
-                    pathologie={patient.pathologie}
-                    sf={patient.sf}
-                    traitement={patient.traitement}
-                    dateInclusion={patient.dateInclusion}
+                    key={patient.id}
+                    age={patient.data.age}
+                    nom={patient.data.nom}
+                    pathologie={patient.data.pathologieVasculaire}
+                    sf={patient.data.strategieFrequence1}
+                    traitement={patient.data.traitementOption1}
+                    dateInclusion={patient.data.createdAt}
+                    onClick={() => navigate(`/patientinfo/${patient.id}`)}
                     color="#243153"
                     background="white"
                   />
                 ) : (
                   <ListPatientsItem
-                    key={index}
-                    age={patient.age}
-                    nom={patient.nom}
-                    prenom={patient.prenom}
-                    pathologie={patient.pathologie}
-                    sf={patient.sf}
-                    traitement={patient.traitement}
-                    dateInclusion={patient.dateInclusion}
+                    key={patient.id}
+                    age={patient.data.age}
+                    nom={patient.data.nom}
+                    pathologie={patient.data.pathologieVasculaire}
+                    sf={patient.data.strategieFrequence1}
+                    traitement={patient.data.traitementOption1}
+                    dateInclusion={patient.data.createdAt}
+                    onClick={() => navigate(`/patientinfo/${patient.id}`)}
                     color="#243153"
                     background="#cdd7f3"
                   />

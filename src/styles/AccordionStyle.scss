@@ -1,0 +1,80 @@
+@import "react-accessible-accordion/dist/fancy-example.css";
+
+.myAcc {
+  width: 80%;
+}
+.accordion__button {
+  background-color: #243153;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 15px;
+}
+
+.accordion__button:hover {
+  background-color: #283a68 !important;
+  transition: ease 0.3s;
+}
+
+.accordion__panel {
+  width: 100%;
+  padding: 20px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 2px solid #2c3b62;
+  border-top: none;
+}
+
+.accordion__button[aria-expanded="true"]::before,
+.accordion__button[aria-selected="true"]::before {
+  transition: ease 0.3s !important;
+}
+
+.accordion__button:before {
+  transition: ease 0.3s !important;
+}
+
+.accordion__panel {
+  animation: fadein 0.35s ease-in alternate;
+}
+
+.accordion {
+  border: none !important;
+}
+
+.accordion__item + .accordion__item {
+  border: none !important;
+}
+
+p {
+  padding: 10px;
+}
+
+.inside__acc {
+  .accordion__button {
+    background-color: #7481a4;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 15px;
+  }
+
+  .accordion__button:hover {
+    background-color: #8393c3 !important;
+    transition: ease 0.3s;
+  }
+
+  .accordion__panel {
+    border-color: #7481a4;
+  }
+}

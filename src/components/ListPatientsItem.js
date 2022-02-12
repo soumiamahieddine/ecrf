@@ -11,6 +11,7 @@ export default function ListPatientsItem({
   traitement,
   age,
   dateInclusion,
+  onClick,
 }) {
   const StyledItem = styled.div`
     display: flex;
@@ -19,9 +20,10 @@ export default function ListPatientsItem({
     height: 5vh;
     background: ${background};
     color: ${color};
+    cursor: pointer;
     div {
       height: 5vh;
-      width: 10vw;
+      width: 11vw;
       background: transparent;
       display: flex;
       justify-content: center;
@@ -33,12 +35,9 @@ export default function ListPatientsItem({
     }
   `;
   return (
-    <StyledItem>
+    <StyledItem onClick={onClick}>
       <div className="nom">
         <h3>{nom}</h3>
-      </div>
-      <div className="prenom">
-        <h3>{prenom}</h3>
       </div>
       <div className="pathologie">
         <h3>{pathologie} </h3>

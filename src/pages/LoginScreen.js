@@ -20,7 +20,7 @@ export default function LoginScreen() {
   };
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [checkUser]);
   const initialValues = {
     email: "",
     password: "",

@@ -16,6 +16,8 @@ import AutreTraitementMedical from "./pages/formulaire/priseEnChargeMedical/Autr
 import ListPatients from "./pages/ListPatients";
 import Dashboard from "./pages/Dashboard";
 import SubApp from "./SubApp";
+import AddDoctor from "./pages/Admin/AddDoctor";
+import PatientInfos from "./pages/PatientInfos";
 
 function App() {
   return (
@@ -63,6 +65,7 @@ function App() {
             path="autreTraitementMedical/:idpatient"
             element={<AutreTraitementMedical />}
           />
+          <Route path="patientinfo/:idpatient" element={<PatientInfos />} />
         </Route>
       </Routes>
     </StyledApp>

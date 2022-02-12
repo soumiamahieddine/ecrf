@@ -13,10 +13,10 @@ export default function Select({ label, name, options, width, ...rest }) {
         as="select"
         style={{
           width: `${width}`,
-          margin: "1rem 0rem",
+
           color: "gray",
           padding: "0.5rem 1rem",
-          border: "1.75px solid #243153",
+          border: "2px solid #243153",
           borderRadius: "10px",
           fontSize: "1rem",
           background: "white",
@@ -41,9 +41,10 @@ const StyledDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 0.5rem 1rem;
+  margin: 1rem 0rem;
   label {
     color: #a8a7a7;
+    margin-bottom: 1rem;
   }
   /* input {
     margin: 1rem 0rem;
