@@ -18,23 +18,17 @@ import NextButton from "../../../components/NextButton";
 export default function MotifDAdmission() {
   const navigate = useNavigate();
   const initialValues = {
-    circonstance1: "",
-    circonstance2: "",
+    circonstance1: [],
+    circonstance2: [],
     episodeFA: [],
     episodeFADate: "",
     typeFA: "",
   };
   const validationSchema = Yup.object({
-    circonstance1: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
-    circonstance2: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    circonstance1: Yup.array().required("ce champs est obligatoire"),
+    circonstance2: Yup.array().required("ce champs est obligatoire"),
     episodeFA: Yup.array().required("ce champs est obligatoire"),
-    episodeFADate: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    episodeFADate: Yup.string("ce champs doit être alpahnumiérique"),
     typeFA: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
@@ -80,13 +74,13 @@ export default function MotifDAdmission() {
             {(formik) => (
               <Form>
                 <FormikControl
-                  control="radio"
+                  control="checkbox"
                   label="Dans quelles circonstances la FA a-t-elle été diagnostiquée"
                   name="circonstance1"
                   options={circonstanceOptions1}
                 />
                 <FormikControl
-                  control="radio"
+                  control="checkbox"
                   name="circonstance2"
                   options={circonstanceOptions2}
                 />

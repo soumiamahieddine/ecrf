@@ -123,6 +123,7 @@ const Page = styled.div`
       border-radius: 10px;
       color: white;
       font-size: 1rem;
+      cursor: pointer;
     }
     p {
       color: #7481a4;

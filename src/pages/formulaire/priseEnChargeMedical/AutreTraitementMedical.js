@@ -36,29 +36,19 @@ export default function AutreTraitementMedical() {
   };
   const validationSchema = Yup.object({
     iec: Yup.array().required("ce champs est obligatoire"),
-    iecDate: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    iecDate: Yup.string("ce champs doit être alpahnumiérique"),
     betabloquant: Yup.array().required("ce champs est obligatoire"),
-    betabloquantDate: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
+    betabloquantDate: Yup.string("ce champs doit être alpahnumiérique"),
     diurétiqueAnse: Yup.array().required("ce champs est obligatoire"),
-    diurétiqueAnseDate: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
+    diurétiqueAnseDate: Yup.string("ce champs doit être alpahnumiérique"),
     diurétiqueThiazidique: Yup.array().required("ce champs est obligatoire"),
     diurétiqueThiazidiqueDate: Yup.string(
       "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
+    ),
     aldosterone: Yup.array().required("ce champs est obligatoire"),
-    aldosteroneDate: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    aldosteroneDate: Yup.string("ce champs doit être alpahnumiérique"),
     statine: Yup.array().required("ce champs est obligatoire"),
-    statineDate: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    statineDate: Yup.string("ce champs doit être alpahnumiérique"),
     antiDiabetiqueOraux: Yup.array().required("ce champs est obligatoire"),
     insuline: Yup.array().required("ce champs est obligatoire"),
     hormonesThyroidiennes: Yup.array().required("ce champs est obligatoire"),
@@ -150,11 +140,7 @@ export default function AutreTraitementMedical() {
                     options={iecOptions}
                   />
                   {formik.values.iec.length !== 0 ? (
-                    <FormikControl
-                      control="input"
-                      name="iecDate"
-                      placeholder="depuis"
-                    />
+                    <FormikControl control="input" name="iecDate" />
                   ) : (
                     ""
                   )}
@@ -166,11 +152,7 @@ export default function AutreTraitementMedical() {
                     options={betabloquantOptions}
                   />
                   {formik.values.betabloquant.length !== 0 ? (
-                    <FormikControl
-                      control="input"
-                      name="betabloquantDate"
-                      placeholder="depuis"
-                    />
+                    <FormikControl control="input" name="betabloquantDate" />
                   ) : (
                     ""
                   )}
@@ -182,11 +164,7 @@ export default function AutreTraitementMedical() {
                     options={diurétiqueAnseOptions}
                   />
                   {formik.values.diurétiqueAnse.length !== 0 ? (
-                    <FormikControl
-                      control="input"
-                      name="diurétiqueAnseDate"
-                      placeholder="depuis"
-                    />
+                    <FormikControl control="input" name="diurétiqueAnseDate" />
                   ) : (
                     ""
                   )}
@@ -201,7 +179,6 @@ export default function AutreTraitementMedical() {
                     <FormikControl
                       control="input"
                       name="diurétiqueThiazidiqueDate"
-                      placeholder="depuis"
                     />
                   ) : (
                     ""
@@ -214,11 +191,7 @@ export default function AutreTraitementMedical() {
                     options={aldosteroneOptions}
                   />
                   {formik.values.aldosterone.length !== 0 ? (
-                    <FormikControl
-                      control="input"
-                      name="aldosteroneDate"
-                      placeholder="depuis"
-                    />
+                    <FormikControl control="input" name="aldosteroneDate" />
                   ) : (
                     ""
                   )}
@@ -230,11 +203,7 @@ export default function AutreTraitementMedical() {
                     options={statineOptions}
                   />
                   {formik.values.statine.length !== 0 ? (
-                    <FormikControl
-                      control="input"
-                      name="statineDate"
-                      placeholder="depuis"
-                    />
+                    <FormikControl control="input" name="statineDate" />
                   ) : (
                     ""
                   )}

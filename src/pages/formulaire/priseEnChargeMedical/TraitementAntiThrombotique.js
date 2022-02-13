@@ -25,15 +25,11 @@ export default function TraitementAntiThrombotique() {
     antiagrégantPlaquettaire: "",
   };
   const validationSchema = Yup.object({
-    traitement: Yup.array().required("ce champs est obligatoire"),
-    traitementOption1: Yup.array().required("ce champs est obligatoire"),
-    traitementOption2: Yup.array().required("ce champs est obligatoire"),
-    anticoagulantOral: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
-    antiagrégantPlaquettaire: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
+    traitement: Yup.array(),
+    traitementOption1: Yup.array(),
+    traitementOption2: Yup.array(),
+    anticoagulantOral: Yup.string("ce champs doit être alpahnumiérique"),
+    antiagrégantPlaquettaire: Yup.string("ce champs doit être alpahnumiérique"),
   });
 
   const param = useParams();

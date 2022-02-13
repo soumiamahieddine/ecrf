@@ -77,7 +77,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
       <div className="form-container">
         <VertiBar number={2} />
         <div className="form">
-          <h1>Données démographiques</h1>
+          <h1>Facteurs de risque cardio vasculaire</h1>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

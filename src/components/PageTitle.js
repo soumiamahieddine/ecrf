@@ -7,7 +7,7 @@ export default function PageTitle({ title, isStat }) {
   return (
     <Title>
       <h1>{title}</h1>
-      {isStat === "true" && (
+      {isStat && (
         <div className="stat">
           <img src={statLogo} />
           <p>
@@ -15,7 +15,7 @@ export default function PageTitle({ title, isStat }) {
           </p>
           <img src={statLogo} />
           <p>
-            + {nombre} patiens <br /> ajoutés aujourd'hui
+            + {nombre} patients <br /> ajoutés aujourd'hui
           </p>
         </div>
       )}

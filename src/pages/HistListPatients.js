@@ -11,7 +11,7 @@ export default function HistListPatients() {
       .collection("medecins")
       .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
       .collection("patients")
-      //.orderBy("timestamp", "asc")
+      .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) =>
         setList(
           snapshot.docs.map((doc) => ({

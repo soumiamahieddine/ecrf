@@ -5,7 +5,6 @@ import ProfilePatient from "../components/ProfilePatient";
 import styled from "styled-components";
 import { firestore } from "../firebase/firebase.utils";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
 
 export default function PatientInfos() {
   const [patient, setPatient] = useState(null);
@@ -27,7 +26,6 @@ export default function PatientInfos() {
   useEffect(() => {
     gettingPatient();
   }, []);
-
   return (
     <StyledDiv>
       <NavTop />

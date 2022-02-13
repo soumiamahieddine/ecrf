@@ -20,7 +20,7 @@ export default function CheckboxGroup({ label, name, options, ...rest }) {
                     value={option.value}
                     checked={field.value.includes(option.value)}
                   />
-                  <label htmlFor={option.value}> {option.key} </label>
+                  <label className="label"> {option.key} </label>
                 </React.Fragment>
               );
             });
@@ -34,7 +34,7 @@ export default function CheckboxGroup({ label, name, options, ...rest }) {
 
 const Label = styled.label`
   display: flex;
-  width: 50px;
+  width: 800px;
   justify-self: flex-start;
   color: #a8a7a7;
 `;
@@ -46,7 +46,7 @@ const StyledDiv = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    label {
+    .label {
       margin: 1rem;
       color: gray;
     }

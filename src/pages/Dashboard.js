@@ -10,7 +10,7 @@ import "react-nice-dates/build/style.css";
 import "./style.scss";
 import HistListPatients from "./HistListPatients";
 import Covid19 from "../components/WilayasData";
-import Title from "../components/Inscreptiontitle";
+import Title from "../components/PageTitle";
 import { useNavigate } from "react-router-dom";
 import { auth, firestore } from "../firebase/firebase.utils";
 import { serverTimestamp } from "firebase/firestore";
@@ -50,10 +50,11 @@ export default function Dashboard() {
 
     return unsubscribe;
   };
+
   return (
     <StyledDiv>
       <NavTop />
-      <Title title="Dashboard" />
+      <Title isStat title="Dashboard" />
       <div className="widgets">
         <div id="firstWidget" className=" widget">
           <div className="buttons">

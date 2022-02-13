@@ -26,9 +26,7 @@ export default function TraitementAnterieurFA() {
   };
   const validationSchema = Yup.object({
     traitementMedical: Yup.array().required("ce champs est obligatoire"),
-    traitementMedicalInput: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
+    traitementMedicalInput: Yup.string("ce champs doit être alpahnumiérique"),
     antecedentCardioversion: Yup.array().required("ce champs est obligatoire"),
     antecedentAblation: Yup.array().required("ce champs est obligatoire"),
     implantationPaceMaker: Yup.array().required("ce champs est obligatoire"),

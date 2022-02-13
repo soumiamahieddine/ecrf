@@ -28,20 +28,14 @@ export default function TraitementDeLaFA() {
     strategieFrequence11: "",
   };
   const validationSchema = Yup.object({
-    strategieRythme: Yup.array().required("ce champs est obligatoire"),
-    strategieRythme1: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
-    strategieRythme2: Yup.array().required("ce champs est obligatoire"),
-    strategieRythme21: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
-    strategieRythme3: Yup.array().required("ce champs est obligatoire"),
-    strategieFrequence: Yup.array().required("ce champs est obligatoire"),
-    strategieFrequence1: Yup.array().required("ce champs est obligatoire"),
-    strategieFrequence11: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
+    strategieRythme: Yup.array(),
+    strategieRythme1: Yup.string("ce champs doit être alpahnumiérique"),
+    strategieRythme2: Yup.array(),
+    strategieRythme21: Yup.string("ce champs doit être alpahnumiérique"),
+    strategieRythme3: Yup.array(),
+    strategieFrequence: Yup.array(),
+    strategieFrequence1: Yup.array(),
+    strategieFrequence11: Yup.string("ce champs doit être alpahnumiérique"),
   });
 
   const param = useParams();

@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import logo192 from "../img/logo192.png";
+import { auth } from "../firebase/firebase.utils";
 
 export default function NavTop({ name }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => setUser(user));
+    console.log(user);
+    return unsubscribe;
+  }, []);
   return (
     <NavBar className="nav-bar">
-      <div className="text">
-        <h1>{name}</h1>
-      </div>
+      <div className="text">{user && <h1>{user.email}</h1>}</div>
       <div className="sep"></div>
       <div className="profil-pic">
         <div className="avatar">
@@ -40,9 +46,9 @@ const NavBar = styled.div`
     width: 10vw;
     height: 10vh;
     margin-right: 2rem;
-    a {
+    h1 {
       color: #243153;
-      font-size: 0.5rem;
+      font-size: 1rem;
       text-decoration: none;
     }
   }
