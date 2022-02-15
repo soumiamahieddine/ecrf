@@ -6,7 +6,7 @@ import styled from "styled-components";
 export default function CheckboxGroup({ label, name, options, ...rest }) {
   return (
     <StyledDiv className="formControl">
-      {label && <Label>{label} </Label>}
+      {label && <Label className="titre">{label} </Label>}
       <div className="group">
         <Field name={name} {...rest}>
           {({ field }) => {
@@ -34,13 +34,13 @@ export default function CheckboxGroup({ label, name, options, ...rest }) {
 
 const Label = styled.label`
   display: flex;
-  width: 800px;
   justify-self: flex-start;
   color: #a8a7a7;
 `;
 
 const StyledDiv = styled.div`
-  margin: 0.5rem 1rem;
+  margin: 0.5rem 0rem;
+
   .group {
     display: flex;
     flex-direction: row;

@@ -10,7 +10,7 @@ import "../styles/AccordionStyle.scss";
 import styled from "styled-components";
 import NiceButton from "../components/NiceButton";
 
-export default function ProfilePatient({ isAdminPage, data }) {
+export default function ProfilePatient({ isAdminPage, data, onClick }) {
   return (
     <StyledDiv>
       <div className="myAcc">
@@ -200,7 +200,7 @@ export default function ProfilePatient({ isAdminPage, data }) {
       {isAdminPage === true ? (
         <NiceButton className="button" title="Signaler Patient" />
       ) : (
-        <NiceButton title="Modifier" />
+        <NiceButton title="Modifier" onClick={onClick} />
       )}
     </StyledDiv>
   );

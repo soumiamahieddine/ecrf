@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -62,6 +63,24 @@ export default function FacteursDeRisqueCardioVasculaire() {
     sedentarite: Yup.array().required("ce champs est obligatoire"),
   });
   const param = useParams();
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
+
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
@@ -76,95 +95,97 @@ export default function FacteursDeRisqueCardioVasculaire() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={2} />
-        <div className="form">
-          <h1>Facteurs de risque cardio vasculaire</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => {
-              return (
-                <Form>
-                  <FormikControl control="input" name="bmi" label="BMI" />
-                  <div className="field">
+        {feildValues && (
+          <div className="form">
+            <h1>Facteurs de risque cardio vasculaire</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => {
+                return (
+                  <Form>
+                    <FormikControl control="input" name="bmi" label="BMI" />
+                    <div className="field">
+                      <FormikControl
+                        control="checkbox"
+                        name="hta"
+                        label="HTA"
+                        options={htaOptions}
+                      />
+                      {formik.values.hta.length !== 0 ? (
+                        <FormikControl
+                          control="input"
+                          name="htaDate"
+                          placeholder="depuis"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="field">
+                      <FormikControl
+                        control="checkbox"
+                        name="diabete"
+                        label="Diabète"
+                        options={diabeteOptions}
+                      />
+                      {formik.values.diabete.length !== 0 ? (
+                        <FormikControl
+                          control="input"
+                          name="diabeteDate"
+                          placeholder="depuis"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="field">
+                      <FormikControl
+                        control="checkbox"
+                        name="dyslipidemie"
+                        label="Dyslipidémie"
+                        options={dyslipidemieOptions}
+                      />
+                      {formik.values.dyslipidemie.length !== 0 ? (
+                        <FormikControl
+                          control="input"
+                          name="dyslipidemieDate"
+                          placeholder="depuis"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <FormikControl
+                      control="radio"
+                      name="tabagisme"
+                      label="Tabagisme"
+                      options={tabagismeOptions}
+                    />
+                    <FormikControl
+                      control="radio"
+                      name="consommationAlcool"
+                      label="Consommation d'alcool"
+                      options={alcoolOptions}
+                    />
                     <FormikControl
                       control="checkbox"
-                      name="hta"
-                      label="HTA"
-                      options={htaOptions}
+                      name="sedentarite"
+                      label="Sédentarité"
+                      options={sedentariteOptions}
                     />
-                    {formik.values.hta.length !== 0 ? (
-                      <FormikControl
-                        control="input"
-                        name="htaDate"
-                        placeholder="depuis"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div className="field">
-                    <FormikControl
-                      control="checkbox"
-                      name="diabete"
-                      label="Diabète"
-                      options={diabeteOptions}
-                    />
-                    {formik.values.diabete.length !== 0 ? (
-                      <FormikControl
-                        control="input"
-                        name="diabeteDate"
-                        placeholder="depuis"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div className="field">
-                    <FormikControl
-                      control="checkbox"
-                      name="dyslipidemie"
-                      label="Dyslipidémie"
-                      options={dyslipidemieOptions}
-                    />
-                    {formik.values.dyslipidemie.length !== 0 ? (
-                      <FormikControl
-                        control="input"
-                        name="dyslipidemieDate"
-                        placeholder="depuis"
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <FormikControl
-                    control="radio"
-                    name="tabagisme"
-                    label="Tabagisme"
-                    options={tabagismeOptions}
-                  />
-                  <FormikControl
-                    control="radio"
-                    name="consommationAlcool"
-                    label="Consommation d'alcool"
-                    options={alcoolOptions}
-                  />
-                  <FormikControl
-                    control="checkbox"
-                    name="sedentarite"
-                    label="Sédentarité"
-                    options={sedentariteOptions}
-                  />
 
-                  <div className="button-container">
-                    <NextButton />
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
-        </div>
+                    <div className="button-container">
+                      <NextButton />
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );
@@ -187,7 +208,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .field {
         display: flex;

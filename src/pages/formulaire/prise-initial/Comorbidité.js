@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -33,6 +34,24 @@ export default function Comorbidité() {
   });
 
   const param = useParams();
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
+
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
@@ -61,43 +80,45 @@ export default function Comorbidité() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={4} />
-        <div className="form">
-          <h1>Comorbidité</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <FormikControl
-                  control="checkbox"
-                  name="antecedent"
-                  options={antecendentOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="evenementHemoragiqueMajeur"
-                  options={evenmentOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="cancer"
-                  options={cancerOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="pathologieVasculaire"
-                  options={pathologieOptions}
-                />
+        {feildValues && (
+          <div className="form">
+            <h1>Comorbidité</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <FormikControl
+                    control="checkbox"
+                    name="antecedent"
+                    options={antecendentOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="evenementHemoragiqueMajeur"
+                    options={evenmentOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="cancer"
+                    options={cancerOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="pathologieVasculaire"
+                    options={pathologieOptions}
+                  />
 
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );
@@ -120,7 +141,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .button-container {
         width: 45vw;

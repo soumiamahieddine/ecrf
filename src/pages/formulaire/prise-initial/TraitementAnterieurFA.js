@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -31,7 +32,24 @@ export default function TraitementAnterieurFA() {
     antecedentAblation: Yup.array().required("ce champs est obligatoire"),
     implantationPaceMaker: Yup.array().required("ce champs est obligatoire"),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -63,55 +81,57 @@ export default function TraitementAnterieurFA() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={5} />
-        <div className="form">
-          <h1>Traitement Antérieur de La FA</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <div className="field">
+        {feildValues && (
+          <div className="form">
+            <h1>Traitement Antérieur de La FA</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="traitementMedical"
+                      options={traitementOptions}
+                    />
+                    {formik.values.traitementMedical.length !== 0 ? (
+                      <FormikControl
+                        control="input"
+                        name="traitementMedicalInput"
+                        width="400px"
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+
                   <FormikControl
                     control="checkbox"
-                    name="traitementMedical"
-                    options={traitementOptions}
+                    name="antecedentCardioversion"
+                    options={antecendentCardioOptions}
                   />
-                  {formik.values.traitementMedical.length !== 0 ? (
-                    <FormikControl
-                      control="input"
-                      name="traitementMedicalInput"
-                      width="400px"
-                    />
-                  ) : (
-                    ""
-                  )}
-                </div>
+                  <FormikControl
+                    control="checkbox"
+                    name="antecedentAblation"
+                    options={antecedentAblationOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="implantationPaceMaker"
+                    options={implantationPaceMakerOptions}
+                  />
 
-                <FormikControl
-                  control="checkbox"
-                  name="antecedentCardioversion"
-                  options={antecendentCardioOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="antecedentAblation"
-                  options={antecedentAblationOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="implantationPaceMaker"
-                  options={implantationPaceMakerOptions}
-                />
-
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );

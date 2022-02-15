@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -31,7 +32,24 @@ export default function SymptomesALinclusion() {
       "ce champs doit être alpahnumiérique"
     ).required("ce champs est obligatoire"),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -76,40 +94,42 @@ export default function SymptomesALinclusion() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={7} />
-        <div className="form">
-          <h1>Symptômes à l'inclusion</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <FormikControl
-                  control="radio"
-                  label="Quels symptômes à l’inclusion du patient ?"
-                  name="symptomeFA"
-                  options={symptomeFAOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="symptomes"
-                  options={symptomesOptions}
-                />
-                <FormikControl
-                  control="radio"
-                  name="severitéSymptome"
-                  label="Sévérité des symptômes (score EHRA)"
-                  options={severitéSymptomeOptions}
-                />
+        {feildValues && (
+          <div className="form">
+            <h1>Symptômes à l'inclusion</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <FormikControl
+                    control="radio"
+                    label="Quels symptômes à l’inclusion du patient ?"
+                    name="symptomeFA"
+                    options={symptomeFAOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="symptomes"
+                    options={symptomesOptions}
+                  />
+                  <FormikControl
+                    control="radio"
+                    name="severitéSymptome"
+                    label="Sévérité des symptômes (score EHRA)"
+                    options={severitéSymptomeOptions}
+                  />
 
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );

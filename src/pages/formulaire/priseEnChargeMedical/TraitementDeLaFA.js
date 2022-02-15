@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -37,7 +38,24 @@ export default function TraitementDeLaFA() {
     strategieFrequence1: Yup.array(),
     strategieFrequence11: Yup.string("ce champs doit être alpahnumiérique"),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -115,96 +133,98 @@ export default function TraitementDeLaFA() {
       <Horibar number={3} />
       <div className="form-container">
         <VertiBar number={2} />
-        <div className="form">
-          <h1>Traitement de la FA</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <div className="field">
-                  <FormikControl
-                    control="checkbox"
-                    name="strategieRythme"
-                    options={strategieRythmeOptions}
-                  />
-                  {formik.values.strategieRythme.length !== 0 ? (
-                    <div className="child">
-                      <FormikControl
-                        control="radio"
-                        name="strategieRythme1"
-                        options={strategieRythmeOptions1}
-                      />
-                      <div>
+        {feildValues && (
+          <div className="form">
+            <h1>Traitement de la FA</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="strategieRythme"
+                      options={strategieRythmeOptions}
+                    />
+                    {formik.values.strategieRythme.length !== 0 ? (
+                      <div className="child">
+                        <FormikControl
+                          control="radio"
+                          name="strategieRythme1"
+                          options={strategieRythmeOptions1}
+                        />
+                        <div>
+                          <FormikControl
+                            control="checkbox"
+                            name="strategieRythme2"
+                            options={strategieRythmeOptions2}
+                          />
+                          {formik.values.strategieRythme2.length !== 0 ? (
+                            <div className="child">
+                              <FormikControl
+                                control="radio"
+                                name="strategieRythme21"
+                                options={strategieRythmeOptions21}
+                              />
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+
                         <FormikControl
                           control="checkbox"
-                          name="strategieRythme2"
-                          options={strategieRythmeOptions2}
+                          name="strategieRythme3"
+                          options={strategieRythmeOptions3}
                         />
-                        {formik.values.strategieRythme2.length !== 0 ? (
-                          <div className="child">
-                            <FormikControl
-                              control="radio"
-                              name="strategieRythme21"
-                              options={strategieRythmeOptions21}
-                            />
-                          </div>
-                        ) : (
-                          ""
-                        )}
                       </div>
-
-                      <FormikControl
-                        control="checkbox"
-                        name="strategieRythme3"
-                        options={strategieRythmeOptions3}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="field">
-                  <FormikControl
-                    control="checkbox"
-                    name="strategieFrequence"
-                    options={strategieFrequenceOptions}
-                  />
-                  {formik.values.strategieFrequence.length !== 0 ? (
-                    <div className="child">
-                      <div>
-                        <FormikControl
-                          control="checkbox"
-                          name="strategieFrequence1"
-                          options={strategieFrequenceOptions1}
-                        />
-                        {formik.values.strategieFrequence1.length !== 0 ? (
-                          <div className="child">
-                            <FormikControl
-                              control="radio"
-                              name="strategieFrequence11"
-                              options={strategieFrequenceOptions11}
-                            />
-                          </div>
-                        ) : (
-                          ""
-                        )}
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="strategieFrequence"
+                      options={strategieFrequenceOptions}
+                    />
+                    {formik.values.strategieFrequence.length !== 0 ? (
+                      <div className="child">
+                        <div>
+                          <FormikControl
+                            control="checkbox"
+                            name="strategieFrequence1"
+                            options={strategieFrequenceOptions1}
+                          />
+                          {formik.values.strategieFrequence1.length !== 0 ? (
+                            <div className="child">
+                              <FormikControl
+                                control="radio"
+                                name="strategieFrequence11"
+                                options={strategieFrequenceOptions11}
+                              />
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
 
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );

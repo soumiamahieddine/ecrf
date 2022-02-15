@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -33,7 +34,24 @@ export default function MotifDAdmission() {
       "ce champs est obligatoire"
     ),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -64,58 +82,60 @@ export default function MotifDAdmission() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={6} />
-        <div className="form">
-          <h1>Motif d’admission/consultation</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <FormikControl
-                  control="checkbox"
-                  label="Dans quelles circonstances la FA a-t-elle été diagnostiquée"
-                  name="circonstance1"
-                  options={circonstanceOptions1}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="circonstance2"
-                  options={circonstanceOptions2}
-                />
-                <h1>Diagnostic de la FA</h1>
-                <div className="field">
+        {feildValues && (
+          <div className="form">
+            <h1>Motif d’admission/consultation</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
                   <FormikControl
                     control="checkbox"
-                    name="episodeFA"
-                    options={episodeFAOptions}
+                    label="Dans quelles circonstances la FA a-t-elle été diagnostiquée"
+                    name="circonstance1"
+                    options={circonstanceOptions1}
                   />
-                  {formik.values.episodeFA.length !== 0 ? (
+                  <FormikControl
+                    control="checkbox"
+                    name="circonstance2"
+                    options={circonstanceOptions2}
+                  />
+                  <h1>Diagnostic de la FA</h1>
+                  <div className="field">
                     <FormikControl
-                      control="input"
-                      name="episodeFADate"
-                      placeholder="détecté le"
+                      control="checkbox"
+                      name="episodeFA"
+                      options={episodeFAOptions}
                     />
-                  ) : (
-                    ""
-                  )}
-                </div>
+                    {formik.values.episodeFA.length !== 0 ? (
+                      <FormikControl
+                        control="input"
+                        name="episodeFADate"
+                        placeholder="détecté le"
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
 
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="typeFA"
-                  label="Type clinique de FA"
-                />
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="typeFA"
+                    label="Type clinique de FA"
+                  />
 
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
+import { features } from "../../../data/wilayas.json";
 
 import FormikControl from "../../../components/FormikControl";
 
@@ -34,25 +36,16 @@ export default function DonnéesDémograghiques() {
     { key: "Homme", value: "homme" },
     { key: "Femme", value: "femme" },
   ];
-  const residenceOptions = [
-    { key: "", value: "" },
-    { key: "Alger", value: "alger" },
-    { key: "Constantine", value: "constantine" },
-    { key: "Oran", value: "oran" },
-    { key: "Annaba", value: "Annaba" },
-    { key: "isser", value: "isser" },
-  ];
+
   const assuranceOptions = [
     { key: "assuré", value: "assuré" },
     { key: "non-assuré", value: "non-assuré" },
   ];
   const niveauOptions = [
     { key: "", value: "" },
-    { key: "1", value: "1" },
-    { key: "2", value: "2" },
-    { key: "3", value: "3" },
-    { key: "4", value: "4" },
-    { key: "5", value: "5" },
+    { key: "-2", value: "-2" },
+    { key: "2-4", value: "2-4" },
+    { key: "4+", value: "4+" },
   ];
 
   const initialValues = {
@@ -92,6 +85,37 @@ export default function DonnéesDémograghiques() {
     ),
   });
 
+  const [wilayas, setWilayas] = useState([]);
+  const [residenceOptions, setResidenceOptions] = useState([]);
+  useEffect(() => {
+    setWilayas(features.map((features) => features.properties.name).sort());
+  }, []);
+  useEffect(() => {
+    wilayas.unshift("");
+    setResidenceOptions(
+      wilayas.map((wilaya) => ({ key: wilaya, value: wilaya }))
+    );
+  }, [wilayas]);
+
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
+
+  useEffect(() => {
+    gettingPatient();
+  }, []);
+
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
@@ -106,77 +130,79 @@ export default function DonnéesDémograghiques() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={1} />
-        <div className="form">
-          <h1>Données démographiques</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="nom"
-                  label="Nom"
-                  placeholder="Nom"
-                  width="400px"
-                />
+        {feildValues && (
+          <div className="form">
+            <h1>Données démographiques</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="nom"
+                    label="Nom et Prénom"
+                    placeholder="Nom et Prénom"
+                    width="400px"
+                  />
 
-                <FormikControl
-                  control="radio"
-                  name="circonstance"
-                  label="circonstance d'inclusion"
-                  options={circonstanceOptions}
-                />
-                <FormikControl
-                  control="radio"
-                  name="sexe"
-                  label="sexe"
-                  options={sexeOptions}
-                />
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="age"
-                  label="Age"
-                  placeholder="age"
-                  width="100px"
-                />
-                <FormikControl
-                  control="select"
-                  name="residence"
-                  label="Résidence"
-                  width="200px"
-                  options={residenceOptions}
-                />
-                <FormikControl
-                  control="radio"
-                  name="situationFamiliale"
-                  label="Situation Familiale"
-                  options={situationOptions}
-                />
-                <FormikControl
-                  control="radio"
-                  name="assurance"
-                  label="assurance"
-                  options={assuranceOptions}
-                />
-                <FormikControl
-                  control="select"
-                  name="niveau"
-                  label="Niveau socio-économique"
-                  width="100px"
-                  options={niveauOptions}
-                />
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <FormikControl
+                    control="radio"
+                    name="circonstance"
+                    label="circonstance d'inclusion"
+                    options={circonstanceOptions}
+                  />
+                  <FormikControl
+                    control="radio"
+                    name="sexe"
+                    label="sexe"
+                    options={sexeOptions}
+                  />
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="age"
+                    label="Age"
+                    placeholder="age"
+                    width="100px"
+                  />
+                  <FormikControl
+                    control="select"
+                    name="residence"
+                    label="Résidence"
+                    width="200px"
+                    options={residenceOptions}
+                  />
+                  <FormikControl
+                    control="radio"
+                    name="situationFamiliale"
+                    label="Situation Familiale"
+                    options={situationOptions}
+                  />
+                  <FormikControl
+                    control="radio"
+                    name="assurance"
+                    label="assurance"
+                    options={assuranceOptions}
+                  />
+                  <FormikControl
+                    control="select"
+                    name="niveau"
+                    label="Niveau socio-économique"
+                    width="100px"
+                    options={niveauOptions}
+                  />
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );
@@ -199,7 +225,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .button-container {
         width: 45vw;

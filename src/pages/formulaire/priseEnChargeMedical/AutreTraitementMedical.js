@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -53,7 +54,24 @@ export default function AutreTraitementMedical() {
     insuline: Yup.array().required("ce champs est obligatoire"),
     hormonesThyroidiennes: Yup.array().required("ce champs est obligatoire"),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -124,112 +142,117 @@ export default function AutreTraitementMedical() {
       <Horibar number={3} />
       <div className="form-container">
         <VertiBar number={3} />
-        <div className="form">
-          <h1>Autre traitement médical</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <div className="field">
-                  <FormikControl
-                    control="checkbox"
-                    name="iec"
-                    options={iecOptions}
-                  />
-                  {formik.values.iec.length !== 0 ? (
-                    <FormikControl control="input" name="iecDate" />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="field">
-                  <FormikControl
-                    control="checkbox"
-                    name="betabloquant"
-                    options={betabloquantOptions}
-                  />
-                  {formik.values.betabloquant.length !== 0 ? (
-                    <FormikControl control="input" name="betabloquantDate" />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="field">
-                  <FormikControl
-                    control="checkbox"
-                    name="diurétiqueAnse"
-                    options={diurétiqueAnseOptions}
-                  />
-                  {formik.values.diurétiqueAnse.length !== 0 ? (
-                    <FormikControl control="input" name="diurétiqueAnseDate" />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="field">
-                  <FormikControl
-                    control="checkbox"
-                    name="diurétiqueThiazidique"
-                    options={diurétiqueThiazidiqueOptions}
-                  />
-                  {formik.values.diurétiqueThiazidique.length !== 0 ? (
+        {feildValues && (
+          <div className="form">
+            <h1>Autre traitement médical</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <div className="field">
                     <FormikControl
-                      control="input"
-                      name="diurétiqueThiazidiqueDate"
+                      control="checkbox"
+                      name="iec"
+                      options={iecOptions}
                     />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="field">
+                    {formik.values.iec.length !== 0 ? (
+                      <FormikControl control="input" name="iecDate" />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="betabloquant"
+                      options={betabloquantOptions}
+                    />
+                    {formik.values.betabloquant.length !== 0 ? (
+                      <FormikControl control="input" name="betabloquantDate" />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="diurétiqueAnse"
+                      options={diurétiqueAnseOptions}
+                    />
+                    {formik.values.diurétiqueAnse.length !== 0 ? (
+                      <FormikControl
+                        control="input"
+                        name="diurétiqueAnseDate"
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="diurétiqueThiazidique"
+                      options={diurétiqueThiazidiqueOptions}
+                    />
+                    {formik.values.diurétiqueThiazidique.length !== 0 ? (
+                      <FormikControl
+                        control="input"
+                        name="diurétiqueThiazidiqueDate"
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="aldosterone"
+                      options={aldosteroneOptions}
+                    />
+                    {formik.values.aldosterone.length !== 0 ? (
+                      <FormikControl control="input" name="aldosteroneDate" />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="checkbox"
+                      name="statine"
+                      options={statineOptions}
+                    />
+                    {formik.values.statine.length !== 0 ? (
+                      <FormikControl control="input" name="statineDate" />
+                    ) : (
+                      ""
+                    )}
+                  </div>
                   <FormikControl
                     control="checkbox"
-                    name="aldosterone"
-                    options={aldosteroneOptions}
+                    name="antiDiabetiqueOraux"
+                    options={antiDiabetiqueOrauxOptions}
                   />
-                  {formik.values.aldosterone.length !== 0 ? (
-                    <FormikControl control="input" name="aldosteroneDate" />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="field">
                   <FormikControl
                     control="checkbox"
-                    name="statine"
-                    options={statineOptions}
+                    name="insuline"
+                    options={insulineOptions}
                   />
-                  {formik.values.statine.length !== 0 ? (
-                    <FormikControl control="input" name="statineDate" />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <FormikControl
-                  control="checkbox"
-                  name="antiDiabetiqueOraux"
-                  options={antiDiabetiqueOrauxOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="insuline"
-                  options={insulineOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="hormonesThyroidiennes"
-                  options={hormonesThyroidiennesOptions}
-                />
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <FormikControl
+                    control="checkbox"
+                    name="hormonesThyroidiennes"
+                    options={hormonesThyroidiennesOptions}
+                  />
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );

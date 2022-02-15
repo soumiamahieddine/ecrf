@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -44,7 +45,24 @@ export default function PathologiesAssociées() {
       "ce champs est obligatoire"
     ),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -54,7 +72,9 @@ export default function PathologiesAssociées() {
     return unsubscribe;
   };
 
-  const valvupathiesOptions = [{ key: "Valvupathies", value: "valvupathies" }];
+  const valvupathiesOptions = [
+    { key: "Valvulopathies", value: "valvulopathies" },
+  ];
   const cardioHyperOptions = [
     {
       key: "Cardiomyoathie Hypertrophique",
@@ -89,74 +109,72 @@ export default function PathologiesAssociées() {
       <Horibar number={1} />
       <div className="form-container">
         <VertiBar number={3} />
-        <div className="form">
-          <h1>Pathologies Associées</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <FormikControl
-                  control="checkbox"
-                  name="coronaropathie"
-                  options={coronaOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="valvupathies"
-                  options={valvupathiesOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="cardiomyopathieHypertrophique"
-                  options={cardioHyperOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="cardiomyoathieDilatee"
-                  options={cardioDilateeOptions}
-                />
-                <div className="field">
+        {feildValues && (
+          <div className="form">
+            <h1>Pathologies Associées</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
                   <FormikControl
                     control="checkbox"
-                    name="autreMaladie"
-                    options={autreOptions}
+                    name="coronaropathie"
+                    options={coronaOptions}
                   />
-                  {formik.values.autreMaladie.length !== 0 ? (
+                  <FormikControl
+                    control="checkbox"
+                    name="valvupathies"
+                    options={valvupathiesOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="cardiomyopathieHypertrophique"
+                    options={cardioHyperOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="cardiomyoathieDilatee"
+                    options={cardioDilateeOptions}
+                  />
+                  <div className="field">
                     <FormikControl
-                      control="input"
-                      name="autreMaladieDate"
-                      placeholder="depuis"
+                      control="checkbox"
+                      name="autreMaladie"
+                      options={autreOptions}
                     />
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <FormikControl
-                  control="checkbox"
-                  name="sas"
-                  options={sasOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="dysthyroidie"
-                  options={dysthyroidieOptions}
-                />
-                <FormikControl
-                  control="checkbox"
-                  name="insuffisanceRenaleChronique"
-                  options={insuffisanceOptions}
-                />
+                    {formik.values.autreMaladie.length !== 0 ? (
+                      <FormikControl control="input" name="autreMaladieDate" />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <FormikControl
+                    control="checkbox"
+                    name="sas"
+                    options={sasOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="dysthyroidie"
+                    options={dysthyroidieOptions}
+                  />
+                  <FormikControl
+                    control="checkbox"
+                    name="insuffisanceRenaleChronique"
+                    options={insuffisanceOptions}
+                  />
 
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );
@@ -179,7 +197,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .field {
         display: flex;

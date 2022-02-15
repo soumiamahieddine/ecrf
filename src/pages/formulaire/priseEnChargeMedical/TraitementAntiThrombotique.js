@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   auth,
   addingInformationsPatient,
+  firestore,
 } from "../../../firebase/firebase.utils";
 
 import NavTop from "../../../components/NavTop";
@@ -31,7 +32,24 @@ export default function TraitementAntiThrombotique() {
     anticoagulantOral: Yup.string("ce champs doit être alpahnumiérique"),
     antiagrégantPlaquettaire: Yup.string("ce champs doit être alpahnumiérique"),
   });
+  const [feildValues, setFeildValues] = useState(null);
+  const gettingPatient = async () => {
+    const patientref = firestore
+      .collection("medecins")
+      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
+      .collection("patients")
+      .doc(param.idpatient);
+    const patientsnap = await patientref.get();
+    setFeildValues({
+      id: patientsnap.id,
+      ...patientsnap.data(),
+    });
+    return patientref;
+  };
 
+  useEffect(() => {
+    gettingPatient();
+  }, []);
   const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -102,68 +120,70 @@ export default function TraitementAntiThrombotique() {
       <Horibar number={3} />
       <div className="form-container">
         <VertiBar number={1} />
-        <div className="form">
-          <h1>Traitement Antithrombotique</h1>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <div>
-                  <FormikControl
-                    control="checkbox"
-                    name="traitement"
-                    options={traitementOptions}
-                  />
-                  {formik.values.traitement.length !== 0 ? (
-                    <div className="child">
-                      <div className="field">
-                        <FormikControl
-                          control="checkbox"
-                          name="traitementOption1"
-                          options={traitementOptionOptions1}
-                        />
-                        {formik.values.traitementOption1.length !== 0 ? (
+        {feildValues && (
+          <div className="form">
+            <h1>Traitement Antithrombotique</h1>
+            <Formik
+              initialValues={feildValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => (
+                <Form>
+                  <div>
+                    <FormikControl
+                      control="checkbox"
+                      name="traitement"
+                      options={traitementOptions}
+                    />
+                    {formik.values.traitement.length !== 0 ? (
+                      <div className="child">
+                        <div className="field">
                           <FormikControl
-                            control="radio"
-                            name="anticoagulantOral"
-                            options={traitementRadioOptions1}
+                            control="checkbox"
+                            name="traitementOption1"
+                            options={traitementOptionOptions1}
                           />
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className="field">
-                        <FormikControl
-                          control="checkbox"
-                          name="traitementOption2"
-                          options={traitementOptionOptions2}
-                        />
-                        {formik.values.traitementOption2.length !== 0 ? (
+                          {formik.values.traitementOption1.length !== 0 ? (
+                            <FormikControl
+                              control="radio"
+                              name="anticoagulantOral"
+                              options={traitementRadioOptions1}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <div className="field">
                           <FormikControl
-                            control="radio"
-                            name="antiagrégantPlaquettaire"
-                            options={traitementRadioOptions2}
+                            control="checkbox"
+                            name="traitementOption2"
+                            options={traitementOptionOptions2}
                           />
-                        ) : (
-                          ""
-                        )}
+                          {formik.values.traitementOption2.length !== 0 ? (
+                            <FormikControl
+                              control="radio"
+                              name="antiagrégantPlaquettaire"
+                              options={traitementRadioOptions2}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
 
-                <div className="button-container">
-                  <NextButton />
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+                  <div className="button-container">
+                    <NextButton />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        )}
       </div>
     </StyledDiv>
   );
