@@ -8,7 +8,6 @@ export default function NavTop({ name }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => setUser(user));
-    console.log(user);
     return unsubscribe;
   }, []);
   return (

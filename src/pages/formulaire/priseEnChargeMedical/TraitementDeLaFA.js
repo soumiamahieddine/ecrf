@@ -40,17 +40,22 @@ export default function TraitementDeLaFA() {
   });
   const [feildValues, setFeildValues] = useState(null);
   const gettingPatient = async () => {
-    const patientref = firestore
-      .collection("medecins")
-      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
-      .collection("patients")
-      .doc(param.idpatient);
-    const patientsnap = await patientref.get();
-    setFeildValues({
-      id: patientsnap.id,
-      ...patientsnap.data(),
+    const unsubscibe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const patientref = firestore
+          .collection("medecins")
+          .doc(user.uid)
+          .collection("patients")
+          .doc(param.idpatient);
+        const patientsnap = await patientref.get();
+        setFeildValues({
+          id: patientsnap.id,
+          ...patientsnap.data(),
+        });
+        return patientref;
+      }
     });
-    return patientref;
+    return unsubscibe;
   };
 
   useEffect(() => {

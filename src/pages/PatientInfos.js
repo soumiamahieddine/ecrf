@@ -3,7 +3,7 @@ import NavTop from "../components/NavTop";
 import Title from "../components/PageTitle";
 import ProfilePatient from "../components/ProfilePatient";
 import styled from "styled-components";
-import { firestore } from "../firebase/firebase.utils";
+import { auth, firestore } from "../firebase/firebase.utils";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function PatientInfos() {
@@ -11,19 +11,23 @@ export default function PatientInfos() {
   const param = useParams();
   const navigate = useNavigate();
   const gettingPatient = async () => {
-    const patientref = firestore
-      .collection("medecins")
-      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
-      .collection("patients")
-      .doc(param.idpatient);
-    const patientsnap = await patientref.get();
-    setPatient({
-      id: patientsnap.id,
-      data: patientsnap.data(),
+    const unsubscibe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const patientref = firestore
+          .collection("medecins")
+          .doc(user.uid)
+          .collection("patients")
+          .doc(param.idpatient);
+        const patientsnap = await patientref.get();
+        setPatient({
+          id: patientsnap.id,
+          data: patientsnap.data(),
+        });
+        return patientref;
+      }
     });
-    return patientref;
+    return unsubscibe;
   };
-
   useEffect(() => {
     gettingPatient();
   }, []);

@@ -10,22 +10,25 @@ export default function ListPatients() {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
   useLayoutEffect(() => {
-    const unsubscribe = firestore
-      .collection("medecins")
-      .doc("mYC3a2aXzqcWbzILxg6HlEM346N2")
-      .collection("patients")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) =>
-        setList(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
-    return unsubscribe;
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const unsubscribe2 = firestore
+          .collection("medecins")
+          .doc(user.uid)
+          .collection("patients")
+          .orderBy("timestamp", "desc")
+          .onSnapshot((snapshot) =>
+            setList(
+              snapshot.docs.map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+              }))
+            )
+          );
+        return unsubscribe2;
+      }
+    });
   }, []);
-
   return (
     <StyledDiv>
       <NavTop />
