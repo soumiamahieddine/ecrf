@@ -182,7 +182,7 @@ export default function TraitementAntiThrombotique() {
                   </div>
 
                   <div className="button-container">
-                    <NextButton />
+                    <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>
               )}

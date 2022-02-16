@@ -223,7 +223,7 @@ export default function TraitementDeLaFA() {
                   </div>
 
                   <div className="button-container">
-                    <NextButton />
+                    <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>
               )}

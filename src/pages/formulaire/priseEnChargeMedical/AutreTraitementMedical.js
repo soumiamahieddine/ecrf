@@ -251,7 +251,7 @@ export default function AutreTraitementMedical() {
                     options={hormonesThyroidiennesOptions}
                   />
                   <div className="button-container">
-                    <NextButton />
+                    <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>
               )}

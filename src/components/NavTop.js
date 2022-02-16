@@ -12,7 +12,7 @@ export default function NavTop({ name }) {
   }, []);
   return (
     <NavBar className="nav-bar">
-      <div className="text">{user && <h1>{user.email}</h1>}</div>
+      <div className="text">{user && <h1>{user.displayName}</h1>}</div>
       <div className="sep"></div>
       <div className="profil-pic">
         <div className="avatar">

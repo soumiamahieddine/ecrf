@@ -134,7 +134,7 @@ export default function MotifDAdmission() {
                   />
 
                   <div className="button-container">
-                    <NextButton />
+                    <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>
               )}

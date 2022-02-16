@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function NextButton() {
-  return <StyledButton type="submit">Continuer</StyledButton>;
+export default function NextButton({ ...rest }) {
+  return (
+    <StyledButton type="submit" {...rest}>
+      Continuer
+    </StyledButton>
+  );
 }
 
 const StyledButton = styled.button`

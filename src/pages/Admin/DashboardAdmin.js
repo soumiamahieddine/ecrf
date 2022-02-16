@@ -40,7 +40,13 @@ export default function DashboardAdmin() {
                 navigate("/addDoctor");
               }}
             />
-            <DashboardButton imgName={plus} name="Liste des medecins" />
+            <DashboardButton
+              imgName={plus}
+              name="Liste des medecins"
+              onClick={() => {
+                navigate("/listmedecins");
+              }}
+            />
           </div>
           <div className="infos-datePicker">
             <p>

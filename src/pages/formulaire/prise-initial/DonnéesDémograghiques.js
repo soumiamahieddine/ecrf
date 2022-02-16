@@ -201,7 +201,7 @@ export default function DonnéesDémograghiques() {
                     options={niveauOptions}
                   />
                   <div className="button-container">
-                    <NextButton />
+                    <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>
               )}
