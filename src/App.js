@@ -66,6 +66,7 @@ function App() {
             element={<AutreTraitementMedical />}
           />
           <Route path="patientinfo/:idpatient" element={<PatientInfos />} />
+          <Route path="addDoctor" element={<AddDoctor />} />
         </Route>
       </Routes>
     </StyledApp>

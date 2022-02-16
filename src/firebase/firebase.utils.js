@@ -18,7 +18,7 @@ const config = {
 export const createUserProfilDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const userRef = firestore.doc(`medecins/${userAuth.uid}`);
 
   const snapshot = await userRef.get();
 
@@ -28,7 +28,6 @@ export const createUserProfilDocument = async (userAuth, additionalData) => {
 
     try {
       await userRef.set({
-        displayName,
         email,
         createdAt,
         ...additionalData,
@@ -65,6 +64,8 @@ firebase.initializeApp(config);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+
+export const app2 = firebase.initializeApp(config, "secondary");
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({

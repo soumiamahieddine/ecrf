@@ -6,6 +6,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../../components/FormikControl";
 import NiceButton from "../../components/NiceButton";
+import { app2, createUserProfilDocument } from "../../firebase/firebase.utils";
 
 export default function AddDoctor() {
   const sexeOptions = [
@@ -22,23 +23,35 @@ export default function AddDoctor() {
   ];
   const initialValues = {
     nom: "",
-    prenom: "",
     sexe: "",
-    wilaya: "",
+    residence: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
   const validationSchema = Yup.object({
     nom: Yup.string().required(),
-    prenom: Yup.string().required(),
     sexe: Yup.string().required(),
-    wilaya: Yup.string().required(),
+    residence: Yup.string().required(),
     email: Yup.string().required(),
     password: Yup.string().required(),
+    confirmPassword: Yup.string().required(),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = ({ email, password, sexe, residence, nom }) => {
+    app2
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async (user) => {
+        user.user.updateProfile({
+          displayName: nom,
+        });
+        await createUserProfilDocument(user.user, { nom, sexe, residence });
+        app2.auth().signOut();
+        window.location.reload(false);
+      });
+  };
 
   return (
     <StyledDiv>
@@ -53,7 +66,6 @@ export default function AddDoctor() {
             onSubmit={onSubmit}
           >
             {(formik) => {
-              console.log(formik);
               return (
                 <Form>
                   <div className="field">
@@ -61,15 +73,7 @@ export default function AddDoctor() {
                       width="300px"
                       control="input"
                       name="nom"
-                      placeholder="Nom"
-                    />
-                  </div>
-                  <div className="field">
-                    <FormikControl
-                      width="300px"
-                      control="input"
-                      name="prenom"
-                      placeholder="Prénom"
+                      placeholder="Nom et prénom"
                     />
                   </div>
 
@@ -113,7 +117,10 @@ export default function AddDoctor() {
                     />
                   </div>
                   <div className="button-container">
-                    <NiceButton title="Créer médecin" />
+                    <NiceButton
+                      title="Créer médecin"
+                      disabled={formik.isSubmitting}
+                    />
                   </div>
                 </Form>
               );
