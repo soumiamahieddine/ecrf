@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../img/logo.svg";
 import home from "../img/home.svg";
@@ -6,10 +6,24 @@ import listPatients from "../img/listPatients.svg";
 import location from "../img/location.svg";
 import logout from "../img/logout.svg";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase.utils";
+import { auth, firestore } from "../firebase/firebase.utils";
 
-export default function Nav({ currentUser }) {
+export default function Nav() {
+  const [admin, setAdmin] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userRef = firestore.doc(`admins/${user.uid}`);
+        const snapshot = await userRef.get();
+        if (snapshot.exists) {
+          setAdmin(true);
+        }
+      }
+    });
+    return unsubscribe;
+  }, []);
   return (
     <StyledNav>
       <div className="logo">
@@ -28,13 +42,23 @@ export default function Nav({ currentUser }) {
           </button>
         </li>
         <li>
-          <button
-            onClick={() => {
-              navigate("/listPatients");
-            }}
-          >
-            <img src={listPatients} alt="" /> <span>Liste des patients</span>
-          </button>
+          {admin ? (
+            <button
+              onClick={() => {
+                navigate("/listPatients");
+              }}
+            >
+              <img src={listPatients} alt="" /> <span>Liste des medecins</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate("/listPatients");
+              }}
+            >
+              <img src={listPatients} alt="" /> <span>Liste des patients</span>
+            </button>
+          )}
         </li>
         <li>
           <button>

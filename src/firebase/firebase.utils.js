@@ -15,20 +15,31 @@ const config = {
   appId: "1:420933792764:web:6c227cdf559f9ac34f7879",
 };
 
-export const createUserProfilDocument = async (userAuth, additionalData) => {
+export const createUserProfilDocument = async (
+  userAuth,
+  type,
+  additionalData
+) => {
   if (!userAuth) return;
 
-  const userRef = firestore.doc(`medecins/${userAuth.uid}`);
+  let userRef;
+
+  if (type === "medecin") {
+    userRef = firestore.doc(`medecins/${userAuth.uid}`);
+  } else {
+    userRef = firestore.doc(`admins/${userAuth.uid}`);
+  }
 
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
 
     try {
       await userRef.set({
         email,
+        type,
         createdAt,
         ...additionalData,
       });

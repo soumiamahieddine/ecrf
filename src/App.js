@@ -18,6 +18,7 @@ import Dashboard from "./pages/Dashboard";
 import SubApp from "./SubApp";
 import AddDoctor from "./pages/Admin/AddDoctor";
 import PatientInfos from "./pages/PatientInfos";
+import DashboardAdmin from "./pages/Admin/DashboardAdmin";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
             element={<AutreTraitementMedical />}
           />
           <Route path="patientinfo/:idpatient" element={<PatientInfos />} />
+          <Route path="admindashboard" element={<DashboardAdmin />} />
           <Route path="addDoctor" element={<AddDoctor />} />
         </Route>
       </Routes>

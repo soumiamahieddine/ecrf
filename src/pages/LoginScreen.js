@@ -5,15 +5,21 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../components/FormikControl";
 import logo from "../img/logo.svg";
-import { auth } from "../firebase/firebase.utils";
+import { auth, firestore } from "../firebase/firebase.utils";
 import { useEffect } from "react";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
   const checkUser = async () => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        navigate("/dashboard");
+        const userRef = firestore.doc(`admins/${user.uid}`);
+        const snapshot = await userRef.get();
+        if (snapshot.exists) {
+          navigate("/admindashboard");
+        } else {
+          navigate("/dashboard");
+        }
       }
     });
     return unsubscribe;
@@ -34,7 +40,6 @@ export default function LoginScreen() {
   const onSubmit = async ({ email, password }) => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(navigate("/dashboard"))
       .catch((e) => alert(e.message));
   };
   return (

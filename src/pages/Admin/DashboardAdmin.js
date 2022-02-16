@@ -14,8 +14,10 @@ import Covid19 from "../../components/WilayasData";
 import PageTitle from "../../components/PageTitle";
 import HistListPatients from "../HistListPatients";
 import dates from "../../data/dates";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardAdmin() {
+  const navigate = useNavigate();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
@@ -31,8 +33,14 @@ export default function DashboardAdmin() {
       <div className="widgets">
         <div id="firstWidget" className=" widget">
           <div className="buttons">
-            <DashboardButton imgName={modify} name="Ajouter Medecin" />
-            <DashboardButton imgName={plus} name="Liste des patients" />
+            <DashboardButton
+              imgName={modify}
+              name="Ajouter Medecin"
+              onClick={() => {
+                navigate("/addDoctor");
+              }}
+            />
+            <DashboardButton imgName={plus} name="Liste des medecins" />
           </div>
           <div className="infos-datePicker">
             <p>

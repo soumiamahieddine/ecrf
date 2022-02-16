@@ -13,6 +13,10 @@ export default function AddDoctor() {
     { key: "Homme", value: "homme" },
     { key: "Femme", value: "femme" },
   ];
+  const typeOptions = [
+    { key: "admin", value: "admin" },
+    { key: "medecin", value: "medecin" },
+  ];
   const residenceOptions = [
     { key: "", value: "" },
     { key: "Alger", value: "alger" },
@@ -28,6 +32,7 @@ export default function AddDoctor() {
     email: "",
     password: "",
     confirmPassword: "",
+    type: "",
   };
 
   const validationSchema = Yup.object({
@@ -37,9 +42,10 @@ export default function AddDoctor() {
     email: Yup.string().required(),
     password: Yup.string().required(),
     confirmPassword: Yup.string().required(),
+    type: Yup.string().required(),
   });
 
-  const onSubmit = ({ email, password, sexe, residence, nom }) => {
+  const onSubmit = ({ email, password, sexe, residence, nom, type }) => {
     app2
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -47,7 +53,11 @@ export default function AddDoctor() {
         user.user.updateProfile({
           displayName: nom,
         });
-        await createUserProfilDocument(user.user, { nom, sexe, residence });
+        await createUserProfilDocument(user.user, type, {
+          nom,
+          sexe,
+          residence,
+        });
         app2.auth().signOut();
         window.location.reload(false);
       });
@@ -77,6 +87,12 @@ export default function AddDoctor() {
                     />
                   </div>
 
+                  <FormikControl
+                    control="radio"
+                    name="type"
+                    label="type"
+                    options={typeOptions}
+                  />
                   <FormikControl
                     control="radio"
                     name="sexe"
@@ -116,6 +132,7 @@ export default function AddDoctor() {
                       type="password"
                     />
                   </div>
+
                   <div className="button-container">
                     <NiceButton
                       title="Créer médecin"

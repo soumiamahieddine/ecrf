@@ -18,7 +18,7 @@ export default function SubApp() {
   }, []);
   return (
     <StyledSubApp>
-      <Nav currentUser={currentUser} />
+      <Nav />
       <Outlet />
     </StyledSubApp>
   );
