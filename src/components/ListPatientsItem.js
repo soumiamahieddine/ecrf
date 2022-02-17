@@ -12,11 +12,12 @@ export default function ListPatientsItem({
   age,
   dateInclusion,
   onClick,
+  width = "70vw",
 }) {
   const StyledItem = styled.div`
     display: flex;
     flex-direction: row;
-    width: 70vw;
+    width: ${width};
     height: 5vh;
     background: ${background};
     color: ${color};
@@ -36,24 +37,36 @@ export default function ListPatientsItem({
   `;
   return (
     <StyledItem onClick={onClick}>
-      <div className="nom">
-        <h3>{nom}</h3>
-      </div>
-      <div className="pathologie">
-        <h3>{pathologie} </h3>
-      </div>
-      <div className="sf">
-        <h3>{sf}</h3>
-      </div>
-      <div className="traitement">
-        <h3>{traitement}</h3>
-      </div>
-      <div className="age">
-        <h3>{age}</h3>
-      </div>
-      <div className="date-inclusion">
-        <h3>{dateInclusion}</h3>
-      </div>
+      {nom && (
+        <div className="nom">
+          <h3>{nom}</h3>
+        </div>
+      )}
+      {pathologie && (
+        <div className="pathologie">
+          <h3>{pathologie} </h3>
+        </div>
+      )}
+      {sf && (
+        <div className="sf">
+          <h3>{sf}</h3>
+        </div>
+      )}
+      {traitement && (
+        <div className="traitement">
+          <h3>{traitement}</h3>
+        </div>
+      )}
+      {age && (
+        <div className="age">
+          <h3>{age}</h3>
+        </div>
+      )}
+      {dateInclusion && (
+        <div className="date-inclusion">
+          <h3>{dateInclusion}</h3>
+        </div>
+      )}
     </StyledItem>
   );
 }
