@@ -16,24 +16,17 @@ import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 
-export default function Comorbidité() {
+export default function Evaluation() {
   const navigate = useNavigate();
   const initialValues = {
-    antecedent: [],
-    evenementHemoragiqueMajeur: [],
-    cancer: [],
-    pathologieVasculaire: [],
+    scoreCHAD: "",
+    scoreHasBled: "",
   };
   const validationSchema = Yup.object({
-    antecedent: Yup.array().required("ce champs est obligatoire"),
-    evenementHemoragiqueMajeur: Yup.array().required(
-      "ce champs est obligatoire"
-    ),
-    cancer: Yup.array().required("ce champs est obligatoire"),
-    pathologieVasculaire: Yup.array().required("ce champs est obligatoire"),
+    scoreCHAD: Yup.string().required("ce champs est obligatoire"),
+    scoreHasBled: Yup.string("ce champs doit être alpahnumiérique"),
   });
 
-  const param = useParams();
   const [feildValues, setFeildValues] = useState(null);
   const gettingPatient = async () => {
     const unsubscibe = auth.onAuthStateChanged(async (user) => {
@@ -57,40 +50,40 @@ export default function Comorbidité() {
   useEffect(() => {
     gettingPatient();
   }, []);
+  const param = useParams();
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/evaluation/${param.idpatient}`);
+      navigate(`/traitementAnterieurFA/${param.idpatient}`);
     });
     return unsubscribe;
   };
 
-  const antecendentOptions = [
+  const scoreCHADOptions = [
     {
-      key: "Antécédent d'AVC/AIT/Hombolie systémique",
-      value: "Antécédent d'AVC/AIT/Hombolie systémique",
+      key: "0",
+      value: "0",
+    },
+    {
+      key: "1",
+      value: "1",
+    },
+    {
+      key: "+2",
+      value: "+2",
     },
   ];
-  const evenmentOptions = [
-    {
-      key: "Evènement Hémoragique Majeur",
-      value: "Evènement Hémoragique Majeur",
-    },
-  ];
-  const cancerOptions = [{ key: "Cancer", value: "cancer" }];
-  const pathologieOptions = [
-    { key: "Pathologie Vasculaire", value: "Pathologie Vasculaire" },
-  ];
+
   return (
     <StyledDiv>
       <NavTop />
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={6} />
+        <VertiBar number={7} />
         {feildValues && (
           <div className="form">
-            <h1>Comorbidité</h1>
+            <h1>Evaluation</h1>
             <Formik
               initialValues={feildValues}
               validationSchema={validationSchema}
@@ -98,29 +91,26 @@ export default function Comorbidité() {
             >
               {(formik) => (
                 <Form>
+                  <h2>Risque thrombo embolique </h2>
+                  <div className="field">
+                    <FormikControl
+                      control="radio"
+                      name="scoreCHAD"
+                      label="score CHADS2SVAC"
+                      options={scoreCHADOptions}
+                    />
+                  </div>
+                  <h2>Risque hémorragique </h2>
                   <FormikControl
-                    control="checkbox"
-                    name="antecedent"
-                    options={antecendentOptions}
+                    control="input"
+                    type="text"
+                    name="scoreHasBled"
+                    label="Score HAS BLED"
+                    placeholder="Score"
+                    width="300px"
                   />
-                  <FormikControl
-                    control="checkbox"
-                    name="evenementHemoragiqueMajeur"
-                    options={evenmentOptions}
-                  />
-                  <FormikControl
-                    control="checkbox"
-                    name="cancer"
-                    options={cancerOptions}
-                  />
-                  <FormikControl
-                    control="checkbox"
-                    name="pathologieVasculaire"
-                    options={pathologieOptions}
-                  />
-
                   <div className="button-container">
-                    <NextButton disabled={formik.isSubmitting} />
+                    <NextButton type="submit" disabled={formik.isSubmitting} />
                   </div>
                 </Form>
               )}
@@ -139,7 +129,10 @@ const StyledDiv = styled.div`
   /* .formControl {
     margin-bottom: 20px;
   } */
-
+  h2 {
+    margin: 20px 0 15px 0;
+    color: #243153;
+  }
   .form-container {
     display: flex;
     flex-direction: row;
@@ -150,6 +143,11 @@ const StyledDiv = styled.div`
       h1 {
         color: #243153;
         margin: 1rem 0rem;
+      }
+      .field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       }
       .button-container {
         width: 45vw;

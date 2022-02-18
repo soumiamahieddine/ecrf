@@ -58,7 +58,7 @@ export default function SymptomesALinclusion() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/traitementAntiThrombotique/${param.idpatient}`);
+      navigate(`/pathologiesAssociees/${param.idpatient}`);
     });
     return unsubscribe;
   };
@@ -69,19 +69,19 @@ export default function SymptomesALinclusion() {
     },
     {
       key: "Symptômes non liés à la FA",
-      value: "symptômesNonLiésALaFA  ",
+      value: "Symptômes non liés à la FA",
     },
     {
       key: "Symptômes liés à la FA",
-      value: "symptômesLiésALaFA  ",
+      value: "Symptômes liés à la FA",
     },
   ];
   const symptomesOptions = [
     { key: "Dyspnée", value: "dyspnée" },
     { key: "Asthénie", value: "asthénie" },
-    { key: "douleurs thoraciques", value: "douleursChoraciques" },
+    { key: "douleurs thoraciques", value: "douleurs thoraciques" },
     { key: "Palpitations", value: "palpitations" },
-    { key: "syncope ou lipothymie", value: "syncopeOuLipothymie" },
+    { key: "syncope ou lipothymie", value: "syncope ou lipothymie" },
   ];
   const severitéSymptomeOptions = [
     { key: "1", value: "1" },
@@ -97,7 +97,7 @@ export default function SymptomesALinclusion() {
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={7} />
+        <VertiBar number={3} />
         {feildValues && (
           <div className="form">
             <h1>Symptômes à l'inclusion</h1>
@@ -118,6 +118,7 @@ export default function SymptomesALinclusion() {
                     control="checkbox"
                     name="symptomes"
                     options={symptomesOptions}
+                    label="Symptomes liés à la FA"
                   />
                   <FormikControl
                     control="radio"

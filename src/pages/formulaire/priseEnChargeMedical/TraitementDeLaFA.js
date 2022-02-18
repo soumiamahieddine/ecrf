@@ -26,7 +26,6 @@ export default function TraitementDeLaFA() {
     strategieRythme21: "",
     strategieFrequence: [],
     strategieFrequence1: [],
-    strategieFrequence11: "",
   };
   const validationSchema = Yup.object({
     strategieRythme: Yup.array(),
@@ -36,7 +35,6 @@ export default function TraitementDeLaFA() {
     strategieRythme3: Yup.array(),
     strategieFrequence: Yup.array(),
     strategieFrequence1: Yup.array(),
-    strategieFrequence11: Yup.string("ce champs doit être alpahnumiérique"),
   });
   const [feildValues, setFeildValues] = useState(null);
   const gettingPatient = async () => {
@@ -73,41 +71,41 @@ export default function TraitementDeLaFA() {
   const strategieRythmeOptions = [
     {
       key: "Stratégie de controle du rythme",
-      value: "strategieDeControleDuRythme",
+      value: "Stratégie de controle du rythme",
     },
   ];
   const strategieRythmeOptions1 = [
     {
       key: "Cardioversion éléctrique",
-      value: "cardioversionEléctrique",
+      value: "Cardioversion éléctrique",
     },
     {
       key: "Cardioversion pharmacologique",
-      value: "cardioversionPharmacologique",
+      value: "Cardioversion pharmacologique",
     },
   ];
   const strategieRythmeOptions2 = [
     {
       key: "Traitement anti arythmique",
-      value: "TraitementAntiArythmique",
+      value: "Traitement anti arythmique",
     },
   ];
   const strategieRythmeOptions21 = [
     {
       key: "Amiodarone",
-      value: "amiodarone2",
+      value: "amiodarone",
     },
   ];
   const strategieRythmeOptions3 = [
     {
       key: "Ablation de la Fa",
-      value: "ablationDeLaFa",
+      value: "Ablation de la Fa",
     },
   ];
   const strategieFrequenceOptions = [
     {
       key: "Stratégie de contrôle de la fréquence",
-      value: "strategieDeControleDeLaFrequence",
+      value: "Stratégie de contrôle de la fréquence",
     },
   ];
   const strategieFrequenceOptions1 = [
@@ -115,8 +113,6 @@ export default function TraitementDeLaFA() {
       key: "Bétabloquant",
       value: "bétabloquant",
     },
-  ];
-  const strategieFrequenceOptions11 = [
     {
       key: "Digoxine",
       value: "digoxine",
@@ -127,7 +123,7 @@ export default function TraitementDeLaFA() {
     },
     {
       key: "Inhibiteur calcique bradycardisant",
-      value: "inhibiteurCalciqueBradycardisant",
+      value: "Inhibiteur calcique bradycardisantt",
     },
   ];
 
@@ -204,17 +200,6 @@ export default function TraitementDeLaFA() {
                             name="strategieFrequence1"
                             options={strategieFrequenceOptions1}
                           />
-                          {formik.values.strategieFrequence1.length !== 0 ? (
-                            <div className="child">
-                              <FormikControl
-                                control="radio"
-                                name="strategieFrequence11"
-                                options={strategieFrequenceOptions11}
-                              />
-                            </div>
-                          ) : (
-                            ""
-                          )}
                         </div>
                       </div>
                     ) : (

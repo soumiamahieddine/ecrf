@@ -19,6 +19,10 @@ import SubApp from "./SubApp";
 import AddDoctor from "./pages/Admin/AddDoctor";
 import PatientInfos from "./pages/PatientInfos";
 import DashboardAdmin from "./pages/Admin/DashboardAdmin";
+import Evaluation from "./pages/formulaire/prise-initial/Evaluation";
+import ETT from "./pages/formulaire/exploration/ETT";
+import ECG from "./pages/formulaire/exploration/ECG";
+import Biologie from "./pages/formulaire/exploration/Biologie";
 
 function App() {
   return (
@@ -34,19 +38,6 @@ function App() {
             element={<DonnéesDémograghiques />}
           />
           <Route
-            path="facteursDeRisqueCardioVasculaire/:idpatient"
-            element={<FacteursDeRisqueCardioVasculaire />}
-          />
-          <Route
-            path="pathologiesAssociees/:idpatient"
-            element={<PathologiesAssociées />}
-          />
-          <Route path="comorbidite/:idpatient" element={<Comorbidité />} />
-          <Route
-            path="traitementAnterieurFA/:idpatient"
-            element={<TraitementAnterieurFA />}
-          />
-          <Route
             path="motifDAdmission/:idpatient"
             element={<MotifDAdmission />}
           />
@@ -54,6 +45,23 @@ function App() {
             path="symptomesALinclusion/:idpatient"
             element={<SymptomesALinclusion />}
           />
+          <Route
+            path="pathologiesAssociees/:idpatient"
+            element={<PathologiesAssociées />}
+          />
+          <Route
+            path="facteursDeRisqueCardioVasculaire/:idpatient"
+            element={<FacteursDeRisqueCardioVasculaire />}
+          />
+          <Route path="comorbidite/:idpatient" element={<Comorbidité />} />
+          <Route path="evaluation/:idpatient" element={<Evaluation />} />
+          <Route
+            path="traitementAnterieurFA/:idpatient"
+            element={<TraitementAnterieurFA />}
+          />
+          <Route path="ecg/:idpatient" element={<ECG />} />
+          <Route path="ett/:idpatient" element={<ETT />} />
+          <Route path="biologie/:idpatient" element={<Biologie />} />
           <Route
             path="traitementAntiThrombotique/:idpatient"
             element={<TraitementAntiThrombotique />}
@@ -66,6 +74,7 @@ function App() {
             path="autreTraitementMedical/:idpatient"
             element={<AutreTraitementMedical />}
           />
+          //admin routes
           <Route path="patientinfo/:idpatient" element={<PatientInfos />} />
           <Route path="admindashboard" element={<DashboardAdmin />} />
           <Route path="addDoctor" element={<AddDoctor />} />

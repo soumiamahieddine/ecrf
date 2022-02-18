@@ -21,14 +21,14 @@ export default function MotifDAdmission() {
   const initialValues = {
     circonstance1: [],
     circonstance2: [],
-    episodeFA: [],
+    episodeFA: "",
     episodeFADate: "",
     typeFA: "",
   };
   const validationSchema = Yup.object({
     circonstance1: Yup.array().required("ce champs est obligatoire"),
     circonstance2: Yup.array().required("ce champs est obligatoire"),
-    episodeFA: Yup.array().required("ce champs est obligatoire"),
+    episodeFA: Yup.string().required("ce champs est obligatoire"),
     episodeFADate: Yup.string("ce champs doit être alpahnumiérique"),
     typeFA: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
@@ -70,14 +70,21 @@ export default function MotifDAdmission() {
     { key: "Symptomatologie", value: "symptomatologie" },
     { key: "Complication", value: "complication" },
     { key: "Découverte fortuite", value: "decouverteFortuite" },
-    { key: "Dépistage de FA", value: "depistageDeFA" },
+    { key: "Dépistage de FA", value: "Dépistage de FA" },
   ];
   const circonstanceOptions2 = [
-    { key: "Insuffisance cardiaque", value: "InsuffisanceCardiaque" },
-    { key: "Accident thrombo embolique", value: "accidentThromboEmbolique" },
+    { key: "Insuffisance cardiaque", value: "Insuffisance cardiaque" },
+    { key: "Accident thrombo embolique", value: "Accident thrombo embolique" },
   ];
   const episodeFAOptions = [
-    { key: "Premier épisode détecté ?", value: "premierEpisodeDétecté" },
+    { key: "oui", value: "oui" },
+    { key: "non", value: "non" },
+  ];
+  const typeFAOptions = [
+    { key: "Paroxystique", value: "Paroxystique" },
+    { key: "Persistante", value: "Persistante" },
+    { key: "Persistante longue durée", value: "Persistante longue durée" },
+    { key: "Permanante", value: "Permanante" },
   ];
 
   return (
@@ -86,7 +93,7 @@ export default function MotifDAdmission() {
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={6} />
+        <VertiBar number={2} />
         {feildValues && (
           <div className="form">
             <h1>Motif d’admission/consultation</h1>
@@ -99,27 +106,30 @@ export default function MotifDAdmission() {
                 <Form>
                   <FormikControl
                     control="checkbox"
-                    label="Dans quelles circonstances la FA a-t-elle été diagnostiquée"
+                    label="Dans quelles circonstances la FA a-t-elle été diagnostiquée :"
                     name="circonstance1"
                     options={circonstanceOptions1}
                   />
                   <FormikControl
                     control="checkbox"
+                    label="si le diagnostic a été posé suite à une complication, préciser laquelle :"
                     name="circonstance2"
                     options={circonstanceOptions2}
                   />
                   <h1>Diagnostic de la FA</h1>
-                  <div className="field">
+
+                  <div className="feild">
                     <FormikControl
-                      control="checkbox"
+                      control="radio"
                       name="episodeFA"
                       options={episodeFAOptions}
+                      label="Premier épisode détecté ?"
                     />
-                    {formik.values.episodeFA.length !== 0 ? (
+                    {formik.values.episodeFA === "non" ? (
                       <FormikControl
                         control="input"
                         name="episodeFADate"
-                        placeholder="détecté le"
+                        placeholder="Détecté le"
                       />
                     ) : (
                       ""
@@ -127,10 +137,10 @@ export default function MotifDAdmission() {
                   </div>
 
                   <FormikControl
-                    control="input"
-                    type="text"
+                    control="radio"
                     name="typeFA"
                     label="Type clinique de FA"
+                    options={typeFAOptions}
                   />
 
                   <div className="button-container">
@@ -163,7 +173,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .field {
         display: flex;

@@ -89,7 +89,7 @@ export default function AutreTraitementMedical() {
   const iecOptions = [
     {
       key: "IEC / ARA2",
-      value: "IECARA2",
+      value: "IEC / ARA2",
     },
   ];
   const betabloquantOptions = [
@@ -101,13 +101,13 @@ export default function AutreTraitementMedical() {
   const diurétiqueAnseOptions = [
     {
       key: "Diurétique de l’anse",
-      value: "diurétiqueAnse",
+      value: "Diurétique de l’anse",
     },
   ];
   const diurétiqueThiazidiqueOptions = [
     {
       key: "Diurétique thiazidique",
-      value: "diurétiqueThiazidique",
+      value: "Diurétique thiazidique",
     },
   ];
   const aldosteroneOptions = [
@@ -125,7 +125,7 @@ export default function AutreTraitementMedical() {
   const antiDiabetiqueOrauxOptions = [
     {
       key: "Anti diabétique oraux",
-      value: "antiDiabetiqueOraux",
+      value: "Anti diabétique oraux",
     },
   ];
   const insulineOptions = [
@@ -137,7 +137,7 @@ export default function AutreTraitementMedical() {
   const hormonesThyroidiennesOptions = [
     {
       key: "Hormones Thyroidiennes",
-      value: "hormonesThyroidiennes",
+      value: "Hormones Thyroidiennes",
     },
   ];
   return (

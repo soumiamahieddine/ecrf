@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import VertiBarItem from "./VertiBarItem";
 
-export default function VertiBar({ number }) {
+export default function VertiBar2({ number }) {
   const Bar = styled.div`
     height: 70vh;
     width: 25vw;
@@ -45,38 +45,15 @@ export default function VertiBar({ number }) {
       <div className="list">
         <ul id="liste">
           <li>
-            <VertiBarItem number="1" label="Données démographiques" />
+            <VertiBarItem number="1" label="ECG" />
             <div className="sep"></div>
           </li>
           <li>
-            <VertiBarItem number="2" label="Motif d’admission/consultation" />
+            <VertiBarItem number="2" label="ETT" />
             <div className="sep"></div>
           </li>
           <li>
-            <VertiBarItem number="3" label="Symptômes à l'inclusion" />
-            <div className="sep"></div>
-          </li>
-          <li>
-            <VertiBarItem number="4" label="Pathologies associées" />
-            <div className="sep"></div>
-          </li>
-          <li>
-            <VertiBarItem
-              number="5"
-              label="Facteurs de risque cardio vasculaire"
-            />
-            <div className="sep"></div>
-          </li>
-          <li>
-            <VertiBarItem number="6" label="Comorbidité" />
-            <div className="sep"></div>
-          </li>
-          <li>
-            <VertiBarItem number="7" label="Evaluation" />
-            <div className="sep"></div>
-          </li>
-          <li>
-            <VertiBarItem number="8" label="Traitement antérieur de la FA" />
+            <VertiBarItem number="3" label="Biologie" />
           </li>
         </ul>
       </div>

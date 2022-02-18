@@ -10,6 +10,7 @@ export default function Horibar({ number }) {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 1rem 0rem;
     .list {
       height: 12vh;
       width: 80vw;

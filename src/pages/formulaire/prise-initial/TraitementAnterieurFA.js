@@ -20,14 +20,12 @@ export default function TraitementAnterieurFA() {
   const navigate = useNavigate();
   const initialValues = {
     traitementMedical: [],
-    traitementMedicalInput: "",
     antecedentCardioversion: [],
     antecedentAblation: [],
     implantationPaceMaker: [],
   };
   const validationSchema = Yup.object({
     traitementMedical: Yup.array().required("ce champs est obligatoire"),
-    traitementMedicalInput: Yup.string("ce champs doit être alpahnumiérique"),
     antecedentCardioversion: Yup.array().required("ce champs est obligatoire"),
     antecedentAblation: Yup.array().required("ce champs est obligatoire"),
     implantationPaceMaker: Yup.array().required("ce champs est obligatoire"),
@@ -59,7 +57,7 @@ export default function TraitementAnterieurFA() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/motifDAdmission/${param.idpatient}`);
+      navigate(`/ecg/${param.idpatient}`);
     });
     return unsubscribe;
   };
@@ -67,17 +65,20 @@ export default function TraitementAnterieurFA() {
   const traitementOptions = [
     {
       key: "Traitement Medical",
-      value: "traitementMedical",
+      value: "Traitement Medical",
     },
   ];
   const antecendentCardioOptions = [
-    { key: "Antécédent de cardioversion", value: "antecedentCardioversion" },
+    {
+      key: "Antécédent de cardioversion",
+      value: "Antécédent de cardioversion",
+    },
   ];
   const antecedentAblationOptions = [
-    { key: "Antécédent d'Ablation", value: "antecedentAblation" },
+    { key: "Antécédent d'Ablation", value: "Antécédent d'Ablation" },
   ];
   const implantationPaceMakerOptions = [
-    { key: "Implantation de PaceMaker", value: "implantationPaceMaker" },
+    { key: "Implantation de PaceMaker", value: "Implantation de PaceMaker" },
   ];
   return (
     <StyledDiv>
@@ -85,7 +86,7 @@ export default function TraitementAnterieurFA() {
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={5} />
+        <VertiBar number={8} />
         {feildValues && (
           <div className="form">
             <h1>Traitement Antérieur de La FA</h1>
@@ -102,15 +103,6 @@ export default function TraitementAnterieurFA() {
                       name="traitementMedical"
                       options={traitementOptions}
                     />
-                    {formik.values.traitementMedical.length !== 0 ? (
-                      <FormikControl
-                        control="input"
-                        name="traitementMedicalInput"
-                        width="400px"
-                      />
-                    ) : (
-                      ""
-                    )}
                   </div>
 
                   <FormikControl

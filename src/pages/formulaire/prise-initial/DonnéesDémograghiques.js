@@ -124,7 +124,7 @@ export default function DonnéesDémograghiques() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/facteursDeRisqueCardioVasculaire/${param.idpatient}`);
+      navigate(`/motifDAdmission/${param.idpatient}`);
     });
     return unsubscribe;
   };

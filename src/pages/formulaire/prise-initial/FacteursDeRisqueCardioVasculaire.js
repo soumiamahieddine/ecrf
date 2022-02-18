@@ -89,7 +89,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/pathologiesAssociees/${param.idpatient}`);
+      navigate(`/comorbidite/${param.idpatient}`);
     });
     return unsubscribe;
   };
@@ -99,7 +99,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={2} />
+        <VertiBar number={5} />
         {feildValues && (
           <div className="form">
             <h1>Facteurs de risque cardio vasculaire</h1>

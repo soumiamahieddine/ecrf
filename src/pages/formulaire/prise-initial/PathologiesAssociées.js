@@ -71,7 +71,7 @@ export default function PathologiesAssociées() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/comorbidite/${param.idpatient}`);
+      navigate(`/facteursDeRisqueCardioVasculaire/${param.idpatient}`);
     });
     return unsubscribe;
   };
@@ -82,21 +82,21 @@ export default function PathologiesAssociées() {
   const cardioHyperOptions = [
     {
       key: "Cardiomyoathie Hypertrophique",
-      value: "cardiomyoathieHypertrophique",
+      value: "Cardiomyoathie Hypertrophique",
     },
   ];
   const cardioDilateeOptions = [
-    { key: "Cardiomyoathie Dilatée", value: "cardiomyoathieDilatée" },
+    { key: "Cardiomyoathie Dilatée", value: "Cardiomyoathie Dilatée" },
   ];
   const autreOptions = [
-    { key: "Autre maladie cardiaque", value: "autreMaladie" },
+    { key: "Autre maladie cardiaque", value: "Autre maladie cardiaque" },
   ];
   const sasOptions = [{ key: "SAS", value: "sas" }];
   const dysthyroidieOptions = [{ key: "Dysthyroidie", value: "dysthyroidie" }];
   const insuffisanceOptions = [
     {
       key: "Insuffisance Renale Chronique",
-      value: "insuffisanceRenaleChronique",
+      value: "Insuffisance Renale Chronique",
     },
   ];
   const coronaOptions = [
@@ -112,7 +112,7 @@ export default function PathologiesAssociées() {
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={3} />
+        <VertiBar number={4} />
         {feildValues && (
           <div className="form">
             <h1>Pathologies Associées</h1>

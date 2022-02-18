@@ -66,7 +66,7 @@ export default function TraitementAntiThrombotique() {
   const traitementOptions = [
     {
       key: "Le patient suit un traitement antithrombotique",
-      value: "traitement",
+      value: "Le patient suit un traitement antithrombotique",
     },
   ];
   const traitementOptionOptions1 = [
@@ -104,7 +104,7 @@ export default function TraitementAntiThrombotique() {
   const traitementOptionOptions2 = [
     {
       key: "Antiagrégant plaquettaire",
-      value: "antiagrégantPlaquettaire",
+      value: "Antiagrégant plaquettaire",
     },
   ];
   const traitementRadioOptions2 = [
@@ -211,7 +211,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .child {
         margin-left: 2rem;
