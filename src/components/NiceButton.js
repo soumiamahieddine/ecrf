@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default function NiceButton({ title, ...rest }) {
-  return (
-    <StyledButton type="submit" {...rest}>
-      {title}
-    </StyledButton>
-  );
+  return <StyledButton {...rest}>{title}</StyledButton>;
 }
 
 const StyledButton = styled.button`

@@ -77,11 +77,11 @@ export default function SymptomesALinclusion() {
     },
   ];
   const symptomesOptions = [
-    { key: "Dyspnée", value: "dyspnée" },
-    { key: "Asthénie", value: "asthénie" },
-    { key: "douleurs thoraciques", value: "douleurs thoraciques" },
-    { key: "Palpitations", value: "palpitations" },
-    { key: "syncope ou lipothymie", value: "syncope ou lipothymie" },
+    { key: "Dyspnée", value: "Dyspnée" },
+    { key: "Asthénie", value: "Asthénie" },
+    { key: "Douleurs thoraciques", value: "Douleurs thoraciques" },
+    { key: "Palpitations", value: "Palpitations" },
+    { key: "Syncope ou lipothymie", value: "Syncope ou lipothymie" },
   ];
   const severitéSymptomeOptions = [
     { key: "1", value: "1" },
@@ -157,7 +157,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .button-container {
         width: 45vw;

@@ -100,10 +100,10 @@ export default function PathologiesAssociées() {
     },
   ];
   const coronaOptions = [
-    { key: "coronaropthie", value: "coronaropthie" },
+    { key: "Coronaropthie", value: "Coronaropthie" },
     {
-      key: "insuffisance cardiaque cronique",
-      value: "insuffisance cardiaque cronique",
+      key: "Insuffisance cardiaque cronique",
+      value: "Insuffisance cardiaque cronique",
     },
   ];
   return (

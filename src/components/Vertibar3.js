@@ -45,15 +45,15 @@ export default function VertiBar3({ number }) {
       <div className="list">
         <ul id="liste">
           <li>
-            <VertiBarItem number="1" label="Traitement AntiThrombotique" />
+            <VertiBarItem number="1" label="Traitement anti thrombotique" />
             <div className="sep"></div>
           </li>
           <li>
-            <VertiBarItem number="2" label="Traitement De La FA" />
+            <VertiBarItem number="2" label="Traitement de la FA" />
             <div className="sep"></div>
           </li>
           <li>
-            <VertiBarItem number="3" label="Autre Traitement Medical" />
+            <VertiBarItem number="3" label="Autre traitement medical" />
           </li>
         </ul>
       </div>

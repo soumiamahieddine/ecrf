@@ -5,10 +5,9 @@ export default function ListPatientsItem({
   color,
   background,
   nom,
-  prenom,
-  pathologie,
-  sf,
-  traitement,
+  sexe,
+  residence,
+  niveau,
   age,
   dateInclusion,
   onClick,
@@ -42,19 +41,19 @@ export default function ListPatientsItem({
           <h3>{nom}</h3>
         </div>
       )}
-      {pathologie && (
-        <div className="pathologie">
-          <h3>{pathologie} </h3>
+      {sexe && (
+        <div className="sexe">
+          <h3>{sexe} </h3>
         </div>
       )}
-      {sf && (
-        <div className="sf">
-          <h3>{sf}</h3>
+      {residence && (
+        <div className="residence">
+          <h3>{residence}</h3>
         </div>
       )}
-      {traitement && (
-        <div className="traitement">
-          <h3>{traitement}</h3>
+      {niveau && (
+        <div className="niveau">
+          <h3>{niveau}</h3>
         </div>
       )}
       {age && (

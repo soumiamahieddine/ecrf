@@ -138,7 +138,7 @@ export default function ECG() {
                       type="text"
                       name="dureeOndeP"
                       placeholder=""
-                      width="300px"
+                      width="150px"
                       label="Durée onde P"
                     />
                   </div>
@@ -149,7 +149,7 @@ export default function ECG() {
                       type="text"
                       name="dureeQRS"
                       placeholder=""
-                      width="300px"
+                      width="150px"
                       label="Durée du QRS"
                     />
                   </div>
@@ -160,7 +160,7 @@ export default function ECG() {
                       type="text"
                       name="morphologie"
                       placeholder=""
-                      width="300px"
+                      width="150px"
                       label="Morphologie"
                     />
                   </div>

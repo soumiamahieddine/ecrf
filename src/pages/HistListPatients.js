@@ -5,7 +5,7 @@ import ListPatientsHistItem from "../components/ListPatientsHistItem";
 import { auth, firestore } from "../firebase/firebase.utils";
 
 export default function HistListPatients() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(null);
   useLayoutEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -37,29 +37,33 @@ export default function HistListPatients() {
             color="white"
             background="#243153"
           />
-          {list.map((patient, index) => {
-            return (
-              <div key={patient.id}>
-                {index % 2 === 0 ? (
-                  <ListPatientsHistItem
-                    key={patient.id}
-                    nom={patient.data.nom}
-                    dateInclusion={patient.data.createdAt}
-                    color="#243153"
-                    background="white"
-                  />
-                ) : (
-                  <ListPatientsHistItem
-                    key={patient.id}
-                    nom={patient.data.nom}
-                    dateInclusion={patient.data.createdAt}
-                    color="#243153"
-                    background="#cdd7f3"
-                  />
-                )}
-              </div>
-            );
-          })}
+          {list && (
+            <div>
+              {list.map((patient, index) => {
+                return (
+                  <div key={patient.id}>
+                    {index % 2 === 0 ? (
+                      <ListPatientsHistItem
+                        key={patient.id}
+                        nom={patient.data.nom}
+                        dateInclusion={patient.data.createdAt}
+                        color="#243153"
+                        background="white"
+                      />
+                    ) : (
+                      <ListPatientsHistItem
+                        key={patient.id}
+                        nom={patient.data.nom}
+                        dateInclusion={patient.data.createdAt}
+                        color="#243153"
+                        background="#cdd7f3"
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </StyledDiv>

@@ -137,6 +137,7 @@ export default function AddDoctor() {
                     <NiceButton
                       title="Créer médecin"
                       disabled={formik.isSubmitting}
+                      type="submit"
                     />
                   </div>
                 </Form>

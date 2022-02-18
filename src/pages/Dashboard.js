@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavTop from "../components/NavTop";
 import styled from "styled-components";
 import DashboardButton from "../components/DashboardButton";
@@ -19,156 +19,168 @@ export default function Dashboard() {
   const startDate = new Date("2022-01-01");
   const endDate = new Date("2022-01-25");
   const [focus, setFocus] = useState(START_DATE);
+  const [ref, setRef] = useState(null);
+
   const handleFocusChange = (newFocus) => {
     setFocus(newFocus || START_DATE);
   };
   const navigate = useNavigate();
-  const addPatient = () => {
+  const addPatient = async () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      const createdAt = new Date();
-      const created = JSON.stringify(
-        createdAt.getDate() +
-          "/" +
-          (createdAt.getMonth() + 1) +
-          "/" +
-          createdAt.getFullYear()
-      );
-      const patientsRef = firestore.collection(
-        `medecins/${user.uid}/patients/`
-      );
+      if (user) {
+        const createdAt = new Date();
+        const created = JSON.stringify(
+          createdAt.getDate() +
+            "/" +
+            (createdAt.getMonth() + 1) +
+            "/" +
+            createdAt.getFullYear()
+        );
+        const patientsRef = firestore.collection(
+          `medecins/${user.uid}/patients/`
+        );
 
-      try {
-        const patientRef = await patientsRef.add({
-          createdAt: created,
-          timestamp: serverTimestamp(),
-          circonstance: "",
-          sexe: "",
-          age: "",
-          nom: "",
-          residence: "",
-          situationFamiliale: "",
-          assurance: "",
-          niveau: "",
-          antecedent: [],
-          evenementHemoragiqueMajeur: [],
-          cancer: [],
-          pathologieVasculaire: [],
-          bmi: "",
-          htaDate: "",
-          hta: [],
-          diabete: [],
-          diabeteDate: "",
-          dyslipidemie: [],
-          dyslipidemieDate: "",
-          tabagisme: "",
-          consommationAlcool: "",
-          sedentarite: [],
-          circonstance1: [],
-          circonstance2: [],
-          episodeFA: "",
-          episodeFADate: "",
-          typeFA: "",
-          coronaropathie: [],
-          valvupathies: [],
-          cardiomyopathieHypertrophique: [],
-          cardiomyoathieDilatee: [],
-          autreMaladie: [],
-          autreMaladieDate: "",
-          sas: [],
-          dysthyroidie: [],
-          insuffisanceRenaleChronique: [],
-          symptomeFA: "",
-          symptomes: [],
-          severitéSymptome: "",
-          traitementMedical: [],
-          traitementMedicalInput: "",
-          antecedentCardioversion: [],
-          antecedentAblation: [],
-          implantationPaceMaker: [],
-          iec: [],
-          iecDate: "",
-          betabloquant: [],
-          betabloquantDate: "",
-          diurétiqueAnse: [],
-          diurétiqueAnseDate: "",
-          diurétiqueThiazidique: [],
-          diurétiqueThiazidiqueDate: "",
-          aldosterone: [],
-          aldosteroneDate: "",
-          statine: [],
-          statineDate: "",
-          antiDiabetiqueOraux: [],
-          insuline: [],
-          hormonesThyroidiennes: [],
-          traitement: [],
-          traitementOption1: [],
-          traitementOption2: [],
-          anticoagulantOral: "",
-          antiagrégantPlaquettaire: "",
-          strategieRythme: [],
-          strategieRythme1: "",
-          strategieRythme2: [],
-          strategieRythme3: [],
-          strategieRythme21: "",
-          strategieFrequence: [],
-          strategieFrequence1: [],
-          strategieFrequence11: "",
-          dureeOndeP: "",
-          dureeQRS: "",
-          morphologie: "",
-          sokolov: "",
-          lewis: "",
-          rythme: "",
-          territoireInfractus: "",
-          bbg: [],
-          bbd: [],
-          hvg: [],
-          infractus: [],
-          FNS: "",
-          GB: "",
-          plaquettes: "",
-          uree: "",
-          creatininemie: "",
-          NAplus: "",
-          Kplus: "",
-          TP: "",
-          glycemie: "",
-          triglycerides: "",
-          cholesterolTotal: "",
-          ASAT: "",
-          ALAT: "",
-          bilirubineTotal: "",
-          TSH: "",
-          BNP: "",
-          troponines: "",
-          masseVG: "",
-          FEVG: "",
-          fonctionDiastolique: "",
-          volumeOG: "",
-          TDE: "",
-          IMFonctionnelle: [],
-          gradeIM: "",
-          SOR: "",
-          VR: "",
-          thrombusIntraAuriculaire: [],
-          SVD: "",
-          TAPSE: "",
-          ITFonctionnelle: [],
-          gradeIT: "",
-          surfaceOD: "",
-          PAPS: "",
-          VCI: "",
-          scoreCHAD: "",
-          scoreHasBled: "",
-        });
-        navigate(`/donneesDemograghiques/${patientRef.id}`);
-      } catch (error) {
-        console.log("error creating user", error.message);
+        try {
+          const patientRef = await patientsRef.add({
+            createdAt: created,
+            timestamp: serverTimestamp(),
+            circonstance: "",
+            sexe: "",
+            age: "",
+            nom: "",
+            residence: "",
+            situationFamiliale: "",
+            assurance: "",
+            niveau: "",
+            num: "",
+            antecedent: [],
+            evenementHemoragiqueMajeur: [],
+            cancer: [],
+            pathologieVasculaire: [],
+            bmi: "",
+            htaDate: "",
+            hta: [],
+            diabete: [],
+            diabeteDate: "",
+            dyslipidemie: [],
+            dyslipidemieDate: "",
+            tabagisme: "",
+            consommationAlcool: "",
+            sedentarite: [],
+            circonstance1: [],
+            circonstance2: [],
+            episodeFA: "",
+            episodeFADate: "",
+            typeFA: "",
+            coronaropathie: [],
+            valvupathies: [],
+            cardiomyopathieHypertrophique: [],
+            cardiomyoathieDilatee: [],
+            autreMaladie: [],
+            autreMaladieDate: "",
+            sas: [],
+            dysthyroidie: [],
+            insuffisanceRenaleChronique: [],
+            symptomeFA: "",
+            symptomes: [],
+            severitéSymptome: "",
+            traitementMedical: [],
+            traitementMedicalInput: "",
+            antecedentCardioversion: [],
+            antecedentAblation: [],
+            implantationPaceMaker: [],
+            iec: [],
+            iecDate: "",
+            betabloquant: [],
+            betabloquantDate: "",
+            diurétiqueAnse: [],
+            diurétiqueAnseDate: "",
+            diurétiqueThiazidique: [],
+            diurétiqueThiazidiqueDate: "",
+            aldosterone: [],
+            aldosteroneDate: "",
+            statine: [],
+            statineDate: "",
+            antiDiabetiqueOraux: [],
+            insuline: [],
+            hormonesThyroidiennes: [],
+            traitement: "",
+            traitementOption1: [],
+            traitementOption2: [],
+            traitementOption3: "",
+            anticoagulantOral: "",
+            antiagrégantPlaquettaire: "",
+            strategieRythme: [],
+            strategieRythme1: "",
+            strategieRythme2: [],
+            strategieRythme3: [],
+            strategieRythme21: "",
+            strategieFrequence: [],
+            strategieFrequence1: [],
+            strategieFrequence11: "",
+            dureeOndeP: "",
+            dureeQRS: "",
+            morphologie: "",
+            sokolov: "",
+            lewis: "",
+            rythme: "",
+            territoireInfractus: "",
+            bbg: [],
+            bbd: [],
+            hvg: [],
+            infractus: [],
+            FNS: "",
+            GB: "",
+            plaquettes: "",
+            uree: "",
+            creatininemie: "",
+            NAplus: "",
+            Kplus: "",
+            TP: "",
+            glycemie: "",
+            triglycerides: "",
+            cholesterolTotal: "",
+            ASAT: "",
+            ALAT: "",
+            bilirubineTotal: "",
+            TSH: "",
+            BNP: "",
+            troponines: "",
+            masseVG: "",
+            FEVG: "",
+            fonctionDiastolique: "",
+            volumeOG: "",
+            TDE: "",
+            IMFonctionnelle: [],
+            gradeIM: "",
+            SOR: "",
+            VR: "",
+            thrombusIntraAuriculaire: [],
+            SVD: "",
+            TAPSE: "",
+            ITFonctionnelle: [],
+            gradeIT: "",
+            surfaceOD: "",
+            PAPS: "",
+            VCI: "",
+            scoreCHAD: "",
+            scoreHasBled: "",
+          });
+          setRef(patientRef);
+        } catch (error) {
+          console.log("error creating user", error.message);
+        }
       }
     });
 
     return unsubscribe;
   };
+
+  useEffect(() => {
+    if (ref) {
+      navigate(`/donneesDemograghiques/${ref.id}`);
+    }
+  }, [ref]);
 
   return (
     <StyledDiv>
@@ -178,7 +190,9 @@ export default function Dashboard() {
         <div id="firstWidget" className=" widget">
           <div className="buttons">
             <DashboardButton
-              onClick={addPatient}
+              onClick={async () => {
+                await addPatient();
+              }}
               imgName={plus}
               name="Ajouter un Patient"
             />

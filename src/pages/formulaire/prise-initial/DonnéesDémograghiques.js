@@ -28,9 +28,9 @@ export default function DonnéesDémograghiques() {
   ];
   const situationOptions = [
     { key: "Célibataire", value: "celibataire" },
-    { key: "Marié", value: "marié" },
-    { key: "Divorcé", value: "divorcé" },
-    { key: "Veuf", value: "veuf" },
+    { key: "Marié(e)", value: "marié(e)" },
+    { key: "Divorcé(e)", value: "divorcé(e)" },
+    { key: "Veuf(ve)", value: "veuf(ve)" },
   ];
   const sexeOptions = [
     { key: "Homme", value: "homme" },
@@ -38,8 +38,8 @@ export default function DonnéesDémograghiques() {
   ];
 
   const assuranceOptions = [
-    { key: "assuré", value: "assuré" },
-    { key: "non-assuré", value: "non-assuré" },
+    { key: "Assuré(e)", value: "assuré(e)" },
+    { key: "Non-assuré(e)", value: "non-assuré(e)" },
   ];
   const niveauOptions = [
     { key: "", value: "" },
@@ -57,6 +57,7 @@ export default function DonnéesDémograghiques() {
     situationFamiliale: "",
     assurance: "",
     niveau: "",
+    num: "",
   };
   const validationSchema = Yup.object({
     circonstance: Yup.string("ce champs doit être alpahnumiérique").required(
@@ -83,6 +84,7 @@ export default function DonnéesDémograghiques() {
     niveau: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
+    num: Yup.string("ce champs doit être alpahnumiérique"),
   });
 
   const [wilayas, setWilayas] = useState([]);
@@ -157,7 +159,7 @@ export default function DonnéesDémograghiques() {
                   <FormikControl
                     control="radio"
                     name="circonstance"
-                    label="circonstance d'inclusion"
+                    label="Circonstance d'inclusion"
                     options={circonstanceOptions}
                   />
                   <FormikControl
@@ -190,7 +192,7 @@ export default function DonnéesDémograghiques() {
                   <FormikControl
                     control="radio"
                     name="assurance"
-                    label="assurance"
+                    label="Assurance"
                     options={assuranceOptions}
                   />
                   <FormikControl
@@ -199,6 +201,14 @@ export default function DonnéesDémograghiques() {
                     label="Niveau socio-économique"
                     width="100px"
                     options={niveauOptions}
+                  />
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="num"
+                    label="Numéro de téléphonee"
+                    placeholder="+213 xx xx xx xx xx "
+                    width="180px"
                   />
                   <div className="button-container">
                     <NextButton disabled={formik.isSubmitting} />

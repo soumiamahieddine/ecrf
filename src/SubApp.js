@@ -6,16 +6,6 @@ import styled from "styled-components";
 import Nav from "./components/Nav";
 
 export default function SubApp() {
-  const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setCurrentUser(user);
-      }
-    });
-    return unsubscribe;
-  }, []);
   return (
     <StyledSubApp>
       <Nav />

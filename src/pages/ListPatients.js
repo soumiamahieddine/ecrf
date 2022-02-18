@@ -38,9 +38,9 @@ export default function ListPatients() {
           <ListPatientsItem
             age="Age"
             nom="Nom"
-            pathologie="Pathologie"
-            sf="SF"
-            traitement="Traitement"
+            sexe="Sexe"
+            residence="Residence"
+            niveau="Niveau socio-économique"
             dateInclusion="Date d'inclusions"
             color="white"
             background="#243153"
@@ -53,9 +53,9 @@ export default function ListPatients() {
                     key={patient.id}
                     age={patient.data.age}
                     nom={patient.data.nom}
-                    pathologie={patient.data.pathologieVasculaire}
-                    sf={patient.data.strategieFrequence1}
-                    traitement={patient.data.traitementOption1}
+                    sexe={patient.data.sexe}
+                    residence={patient.data.residence}
+                    niveau={patient.data.niveau}
                     dateInclusion={patient.data.createdAt}
                     onClick={() => navigate(`/patientinfo/${patient.id}`)}
                     color="#243153"

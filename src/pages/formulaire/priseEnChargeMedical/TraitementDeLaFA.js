@@ -93,7 +93,15 @@ export default function TraitementDeLaFA() {
   const strategieRythmeOptions21 = [
     {
       key: "Amiodarone",
-      value: "amiodarone",
+      value: "Amiodarone",
+    },
+    {
+      key: "Flecaine",
+      value: "Flecaine",
+    },
+    {
+      key: "Sotalol",
+      value: "Sotalol",
     },
   ];
   const strategieRythmeOptions3 = [
@@ -111,15 +119,15 @@ export default function TraitementDeLaFA() {
   const strategieFrequenceOptions1 = [
     {
       key: "Bétabloquant",
-      value: "bétabloquant",
+      value: "Bétabloquant",
     },
     {
       key: "Digoxine",
-      value: "digoxine",
+      value: "Digoxine",
     },
     {
       key: "Amiodarone",
-      value: "amiodarone",
+      value: "Amiodarone",
     },
     {
       key: "Inhibiteur calcique bradycardisant",
@@ -237,7 +245,7 @@ const StyledDiv = styled.div`
       position: relative;
       h1 {
         color: #243153;
-        margin: 1rem 2rem;
+        margin: 1rem 0rem;
       }
       .child {
         margin-left: 2rem;

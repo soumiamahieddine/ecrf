@@ -19,16 +19,18 @@ import NextButton from "../../../components/NextButton";
 export default function TraitementAntiThrombotique() {
   const navigate = useNavigate();
   const initialValues = {
-    traitement: [],
+    traitement: "",
     traitementOption1: [],
     traitementOption2: [],
+    traitementOption3: "",
     anticoagulantOral: "",
     antiagrégantPlaquettaire: "",
   };
   const validationSchema = Yup.object({
-    traitement: Yup.array(),
+    traitement: Yup.string(),
     traitementOption1: Yup.array(),
     traitementOption2: Yup.array(),
+    traitementOption3: Yup.string(),
     anticoagulantOral: Yup.string("ce champs doit être alpahnumiérique"),
     antiagrégantPlaquettaire: Yup.string("ce champs doit être alpahnumiérique"),
   });
@@ -65,40 +67,44 @@ export default function TraitementAntiThrombotique() {
   };
   const traitementOptions = [
     {
-      key: "Le patient suit un traitement antithrombotique",
-      value: "Le patient suit un traitement antithrombotique",
+      key: "oui",
+      value: "oui",
+    },
+    {
+      key: "non",
+      value: "non",
     },
   ];
   const traitementOptionOptions1 = [
     {
       key: "Anticoagulant oral",
-      value: "anticoagulantOral",
+      value: "AnticoagulantOral",
     },
   ];
   const traitementRadioOptions1 = [
     {
       key: "Acenocoumarol",
-      value: "acenocoumarol",
+      value: "Acenocoumarol",
     },
     {
       key: "Fluindione",
-      value: "fluindione",
+      value: "Fluindione",
     },
     {
       key: "Rivaroxaban",
-      value: "rivaroxaban",
+      value: "Rivaroxaban",
     },
     {
       key: "Dabigatran",
-      value: "dabigatran",
+      value: "Dabigatran",
     },
     {
       key: "Apixaban",
-      value: "apixaban",
+      value: "Apixaban",
     },
     {
       key: "Edoxaban",
-      value: "edoxaban",
+      value: "Edoxaban",
     },
   ];
   const traitementOptionOptions2 = [
@@ -110,11 +116,29 @@ export default function TraitementAntiThrombotique() {
   const traitementRadioOptions2 = [
     {
       key: "Aspirine",
-      value: "aspirine",
+      value: "Aspirine",
     },
     {
       key: "Clopidogrel",
-      value: "clopidogrel",
+      value: "Clopidogrel",
+    },
+  ];
+  const traitementRadioOptions3 = [
+    {
+      key: "Contre-indicaton",
+      value: "Contre-indicaton",
+    },
+    {
+      key: "Evenement hémoragique majeur",
+      value: "Evenement hémoragique majeur",
+    },
+    {
+      key: "Refus du patient",
+      value: "Refus du patient",
+    },
+    {
+      key: "Conditions socio-économiques",
+      value: "Conditions socio-économiques",
     },
   ];
 
@@ -137,11 +161,12 @@ export default function TraitementAntiThrombotique() {
                 <Form>
                   <div>
                     <FormikControl
-                      control="checkbox"
+                      control="radio"
                       name="traitement"
                       options={traitementOptions}
+                      label="Le patient suit un traitemnt anti thrombotique"
                     />
-                    {formik.values.traitement.length !== 0 ? (
+                    {formik.values.traitement === "oui" ? (
                       <div className="child">
                         <div className="field">
                           <FormikControl
@@ -174,6 +199,20 @@ export default function TraitementAntiThrombotique() {
                           ) : (
                             ""
                           )}
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    {formik.values.traitement === "non" ? (
+                      <div className="child">
+                        <div className="field">
+                          <FormikControl
+                            control="radio"
+                            name="traitementOption3"
+                            options={traitementRadioOptions3}
+                            label="Pour quelle raison ?"
+                          />
                         </div>
                       </div>
                     ) : (

@@ -68,8 +68,11 @@ export default function Nav() {
         </li>
         <li>
           <button
-            onClick={() => {
-              auth.signOut().then(navigate("/"));
+            onClick={async () => {
+              await auth.signOut();
+
+              navigate("/", { replace: true });
+              window.location.reload(false);
             }}
           >
             <img src={logout} alt="" />

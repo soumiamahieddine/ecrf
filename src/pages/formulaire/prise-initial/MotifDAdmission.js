@@ -112,7 +112,7 @@ export default function MotifDAdmission() {
                   />
                   <FormikControl
                     control="checkbox"
-                    label="si le diagnostic a été posé suite à une complication, préciser laquelle :"
+                    label="Si le diagnostic a été posé suite à une complication, préciser laquelle :"
                     name="circonstance2"
                     options={circonstanceOptions2}
                   />
@@ -144,6 +144,7 @@ export default function MotifDAdmission() {
                   />
 
                   <div className="button-container">
+                    {/* <button onClick={() => navigate(-1)}>click</button> */}
                     <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>
