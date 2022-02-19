@@ -27,7 +27,6 @@ export default function LoginScreen() {
   useEffect(() => {
     checkUser();
   }, []);
-
   const initialValues = {
     email: "",
     password: "",
