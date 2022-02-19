@@ -119,9 +119,9 @@ const StyledDiv = styled.div`
     justify-content: flex-end;
     overflow: hidden;
   }
-  #historique {
+  /* #historique {
     overflow-y: scroll;
-  }
+  } */
   .buttons {
     margin-bottom: 1rem;
   }

@@ -94,7 +94,7 @@ export default function ProfilePatient({ isAdminPage, data, onClick }) {
 
                   {data.data.episodeFA === "oui" ? (
                     <p>
-                      <span className="gras">Premiere épisode</span> : oui
+                      <span className="gras">Premier épisode</span> : oui
                     </p>
                   ) : (
                     <p>
@@ -563,7 +563,7 @@ export default function ProfilePatient({ isAdminPage, data, onClick }) {
                       <p>
                         {" "}
                         <span className="gras">
-                          Le patient suit un traitemnt anti thrombotique
+                          Le patient suit un traitement anti thrombotique
                         </span>{" "}
                         : {data.data.traitement}
                       </p>

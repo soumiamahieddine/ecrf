@@ -5,10 +5,146 @@ import NavTop from "../components/NavTop";
 import Title from "../components/Inscreptiontitle";
 import ListPatientsItem from "../components/ListPatientsItem";
 import { auth, firestore } from "../firebase/firebase.utils";
+import { CSVLink, CSVDownload } from "react-csv";
+import NiceButton from "../components/NiceButton";
 
 export default function ListPatients() {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
+  const headers = [
+    { label: "Nom et Prénom", key: "nom" },
+    { label: "Créé le", key: "createdAt" },
+    { label: "Circonstance d'inclusion", key: "circonstance" },
+    { label: "Sexe", key: "sexe" },
+    { label: "Age", key: "age" },
+    { label: "Residence", key: "residence" },
+    { label: "Situation familiale", key: "situationFamiliale" },
+    { label: "Assurance", key: "assurance" },
+    { label: "Niveau", key: "niveau" },
+    { label: "Numero de téléphone", key: "num" },
+    { label: "Circonstance de la FA", key: "circonstance1" },
+    { label: "Complication", key: "circonstance2" },
+    { label: "Premier épisode", key: "episodeFA" },
+    { label: "Date de l'épisode", key: "episodeFADate" },
+    { label: "Type FA", key: "typeFA" },
+    { label: "symptome FA", key: "symptomeFA" },
+    { label: "Severité symptome", key: "severitéSymptome" },
+    { label: "Coronaropathie", key: "coronaropathie" },
+    {
+      label: "Insuffisance cardiaque cronique",
+      key: "Insuffisancecardiaquecronique",
+    },
+    { label: "Valvupathies", key: "valvupathies" },
+    {
+      label: "Cardiomyopathie hypertrophique",
+      key: "cardiomyopathieHypertrophique",
+    },
+    { label: "Cardiomyoathie dilatee", key: "cardiomyoathieDilatee" },
+    { label: "Autre maladie cardiaque", key: "autreMaladieValue" },
+    { label: "Dysthyroidie", key: "dysthyroidie" },
+    {
+      label: "Insuffisance renale chronique",
+      key: "insuffisanceRenaleChronique",
+    },
+    { label: "BMI", key: "bmi" },
+    { label: "HTA", key: "hta" },
+    { label: "HTA depuis", key: "htaDate" },
+    { label: "Diabete", key: "diabete" },
+    { label: "Diabete depuis", key: "diabeteDate" },
+    { label: "Dyslipidemie", key: "dyslipidemie" },
+    { label: "Dyslipidemie depuis", key: "dyslipidemieDate" },
+    { label: "Tabagisme", key: "tabagisme" },
+    { label: "Consommation alcool", key: "consommationAlcool" },
+    { label: "Sedentarite", key: "sedentarite" },
+    { label: "Antécédent d’AVC/AIT/Embolie systémique", key: "antecedent" },
+    {
+      label: "Évènement hémorragique majeur",
+      key: "evenementHemoragiqueMajeur",
+    },
+    { label: "Cancer", key: "cancer" },
+    { label: "Pathologie vasculaire", key: "pathologieVasculaire" },
+    { label: "Score CHAD", key: "scoreCHAD" },
+    { label: "Score Has Bled", key: "scoreHasBled" },
+    { label: "Traitement médical", key: "traitementMedical" },
+    { label: "Antécédent de cardioversion", key: "antecedentCardioversion" },
+    { label: "Antécédent d’ablation", key: "antecedentAblation" },
+    { label: "Implantation de pacemaker", key: "implantationPaceMaker" },
+    { label: "Rythme ", key: "rythme" },
+    { label: "Durée onde P", key: "dureeOndeP" },
+    { label: "Durée du QRS", key: "dureeQRS" },
+    { label: "Morphologie", key: "morphologie" },
+    { label: "BBG", key: "BBG" },
+    { label: "BDD", key: "BDD" },
+    { label: "HVG", key: "HVG" },
+    { label: "Sokolov", key: "sokolov" },
+    { label: "Lewis", key: "lewis" },
+    { label: "Infractus", key: "infractus" },
+    { label: "Territoire Infractus", key: "infractusTerritoire" },
+    { label: "Masse VG", key: "masseeVG" },
+    { label: "FEVG", key: "FEVG" },
+    { label: "fonction diastolique", key: "fonctionDiastolique" },
+    { label: "Volume de l'OG", key: "volumeOG" },
+    { label: "TDE", key: "TDE" },
+    { label: "IM Fonctionnelle", key: "IMFonctionnelle" },
+    { label: "Thrombus intra auriculaire", key: "thrombusIntraAuriculaire" },
+    { label: "grade IM", key: "gradeIM" },
+    { label: "TAPSE", key: "TAPSE" },
+    { label: "SVD", key: "SVD" },
+    { label: "IT Fonctionnelle", key: "ITFonctionnelle" },
+    { label: "grade IT", key: "gradeIT" },
+    { label: "Surface OD", key: "surfaceOD" },
+    { label: "PAPS", key: "PAPS" },
+    { label: "VCI", key: "VCI" },
+    { label: "FNS", key: "FNS" },
+    { label: "GB", key: "GB" },
+    { label: "Plaquettes", key: "plaquettes" },
+    { label: "Urée", key: "uree" },
+    { label: "Creatininemie", key: "creatininemie" },
+    { label: "NA+", key: "NAplus" },
+    { label: "K+", key: "Kplus" },
+    { label: "TP", key: "TP" },
+    { label: "Glycemie", key: "glycemie" },
+    { label: "Triglycerides", key: "triglycerides" },
+    { label: "Cholesterol total", key: "cholesterolTotal" },
+    { label: "ASAT", key: "ASAT" },
+    { label: "ALAT", key: "ALAT" },
+    { label: "Bilirubine total", key: "bilirubineTotal" },
+    { label: "TSH", key: "TSH" },
+    { label: "BNP", key: "BNP" },
+    { label: "Troponines", key: "troponines" },
+    { label: "Traitement anti thrombotique", key: "traitement" },
+    { label: "Anticoagulant oral", key: "AnticoagulantOral" },
+    { label: "Antiagrégant plaquettaire", key: "antiagrégantPlaquettaire" },
+    { label: "Raison refus traitement", key: "raisonRefus" },
+    { label: "Strategie controle rythme", key: "strategieRythme" },
+    { label: "Traitement anti arythmique", key: "traitementAntiArythmique" },
+    { label: "Ablation FA", key: "ablationFA" },
+    { label: "Strategie cotrole frequence", key: "strategieFrequence" },
+    { label: "Betabloquant", key: "betabloquant" },
+    { label: "Digoxine", key: "digoxine" },
+    {
+      label: "Inhibiteur calcique bradycardisant",
+      key: "InhibiteurCalciqueBradycardisant",
+    },
+    { label: "Amiodarone", key: "amiodarone" },
+    { label: "IEC / ARA2", key: "iec" },
+    { label: "IEC / ARA2 valeur", key: "iecDate" },
+    { label: "Betabloquant valeur", key: "betabloquantDate" },
+    { label: "Diurétique de l’anse", key: "diurétiqueAnse" },
+    { label: "Diurétique de l’anse valeur", key: "diurétiqueAnseDate" },
+    { label: "Diurétique thiazidique", key: "diurétiqueThiazidique" },
+    {
+      label: "Diurétique thiazidique valeur",
+      key: "diurétiqueThiazidiqueDate",
+    },
+    { label: "Aldostérone", key: "aldosterone" },
+    { label: "Aldostérone valeur", key: "aldosteroneDate" },
+    { label: "Statine ", key: "statine" },
+    { label: "Statine valeur", key: "statineDate" },
+    { label: "Anti diabétique oraux", key: "antiDiabetiqueOraux" },
+    { label: "Insuline ", key: "insuline" },
+    { label: "Hormones Thyroidiennes  ", key: "hormonesThyroidiennes" },
+  ];
   useLayoutEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -21,7 +157,219 @@ export default function ListPatients() {
             setList(
               snapshot.docs.map((doc) => ({
                 id: doc.id,
-                data: doc.data(),
+                nom: doc.data().nom,
+                createdAt: doc.data().createdAt,
+                circonstance: doc.data().circonstance,
+                sexe: doc.data().sexe,
+                age: doc.data().age,
+                residence: doc.data().residence,
+                situationFamiliale: doc.data().situationFamiliale,
+                assurance: doc.data().assurance,
+                niveau: doc.data().niveau,
+                num: doc.data().num,
+                circonstance1: doc.data().circonstance1,
+                circonstance2: doc.data().circonstance2,
+                episodeFA: `${
+                  doc.data().episodeFA.length !== 0 ? "oui" : "non"
+                }`,
+                episodeFADate: doc.data().episodeFADate,
+                typeFA: doc.data().typeFA,
+                symptomeFA: doc.data().symptomeFA,
+                severitéSymptome: doc.data().severitéSymptome,
+                coronaropathie: `${
+                  doc.data().coronaropathie.includes("Coronaropthie")
+                    ? "oui"
+                    : "non"
+                }`,
+                Insuffisancecardiaquecronique: `${
+                  doc
+                    .data()
+                    .coronaropathie.includes("Insuffisance cardiaque cronique")
+                    ? "oui"
+                    : "non"
+                }`,
+                valvupathies: `${
+                  doc.data().valvupathies.length !== 0 ? "oui" : "non"
+                }`,
+                cardiomyopathieHypertrophique: `${
+                  doc.data().cardiomyopathieHypertrophique.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
+                cardiomyoathieDilatee: `${
+                  doc.data().cardiomyoathieDilatee.length !== 0 ? "oui" : "non"
+                }`,
+                autreMaladieValue: doc.data().autreMaladieDate,
+                sas: `${doc.data().sas.length !== 0 ? "oui" : "non"}`,
+                dysthyroidie: `${
+                  doc.data().dysthyroidie.length !== 0 ? "oui" : "non"
+                }`,
+                insuffisanceRenaleChronique: `${
+                  doc.data().insuffisanceRenaleChronique.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
+                bmi: doc.data().bmi,
+                hta: `${doc.data().hta.length !== 0 ? "oui" : "non"}`,
+                htaDate: doc.data().htaDate,
+                diabete: `${doc.data().diabete.length !== 0 ? "oui" : "non"}`,
+                diabeteDate: doc.data().diabeteDate,
+                dyslipidemie: `${
+                  doc.data().dyslipidemie.length !== 0 ? "oui" : "non"
+                }`,
+                dyslipidemieDate: doc.data().dyslipidemieDate,
+                tabagisme: doc.data().tabagisme,
+                consommationAlcool: doc.data().consommationAlcool,
+                sedentarite: `${
+                  doc.data().sedentarite.length !== 0 ? "oui" : "non"
+                }`,
+                antecedent: `${
+                  doc.data().antecedent.length !== 0 ? "oui" : "non"
+                }`,
+                evenementHemoragiqueMajeur: `${
+                  doc.data().evenementHemoragiqueMajeur.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
+
+                cancer: `${doc.data().cancer.length !== 0 ? "oui" : "non"}`,
+
+                pathologieVasculaire: `${
+                  doc.data().pathologieVasculaire.length !== 0 ? "oui" : "non"
+                }`,
+                scoreCHAD: doc.data().scoreCHAD,
+                scoreHasBled: doc.data().scoreHasBled,
+                traitementMedical: `${
+                  doc.data().traitementMedical.length !== 0 ? "oui" : "non"
+                }`,
+                antecedentCardioversion: `${
+                  doc.data().antecedentCardioversion.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
+                antecedentAblation: `${
+                  doc.data().antecedentAblation.length !== 0 ? "oui" : "non"
+                }`,
+                implantationPaceMaker: `${
+                  doc.data().implantationPaceMaker.length !== 0 ? "oui" : "non"
+                }`,
+                rythme: doc.data().rythme,
+
+                dureeOndeP: doc.data().dureeOndeP,
+                dureeQRS: doc.data().dureeQRS,
+                morphologie: doc.data().morphologie,
+                bbg: `${doc.data().bbg.includes("bbg") ? "oui" : "non"}`,
+                bbd: `${doc.data().bbd.length !== 0 ? "oui" : "non"}`,
+                hvg: `${doc.data().hvg.length !== 0 ? "oui" : "non"}`,
+
+                sokolov: doc.data().sokolov,
+                lewis: doc.data().lewis,
+                infractus: `${
+                  doc.data().infractus.length !== 0 ? "oui" : "non"
+                }`,
+                infractusTerritoire: doc.data().infractusTerritoire,
+                masseeVG: doc.data().masseeVG,
+
+                FEVG: doc.data().FEVG,
+                fonctionDiastolique: doc.data().fonctionDiastolique,
+                volumeOG: doc.data().volumeOG,
+                TDE: doc.data().TDE,
+
+                IMFonctionnelle: `${
+                  doc.data().IMFonctionnelle.length !== 0 ? "oui" : "non"
+                }`,
+                thrombusIntraAuriculaire: `${
+                  doc.data().thrombusIntraAuriculaire.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
+                gradeIM: doc.data().gradeIM,
+                TAPSE: doc.data().TAPSE,
+                SVD: doc.data().SVD,
+                ITFonctionnelle: `${
+                  doc.data().ITFonctionnelle.length !== 0 ? "oui" : "non"
+                }`,
+                gradeIT: doc.data().gradeIT,
+                surfaceOD: doc.data().surfaceOD,
+                PAPS: doc.data().PAPS,
+                VCI: doc.data().VCI,
+                FNS: doc.data().FNS,
+                GB: doc.data().GB,
+                plaquettes: doc.data().plaquettes,
+                uree: doc.data().uree,
+                creatininemie: doc.data().creatininemie,
+                NAplus: doc.data().NAplus,
+                Kplus: doc.data().Kplus,
+                TP: doc.data().TP,
+                glycemie: doc.data().glycemie,
+                triglycerides: doc.data().triglycerides,
+                cholesterolTotal: doc.data().cholesterolTotal,
+                ASAT: doc.data().ASAT,
+                ALAT: doc.data().ALAT,
+                bilirubineTotal: doc.data().bilirubineTotal,
+                TSH: doc.data().TSH,
+                BNP: doc.data().BNP,
+                troponines: doc.data().troponines,
+                traitement: doc.data().traitement,
+                AnticoagulantOral: doc.data().AnticoagulantOral,
+                antiagrégantPlaquettaire: doc.data().antiagrégantPlaquettaire,
+                raisonRefus: doc.data().traitementOption3,
+                strategieRythme: doc.data().strategieRythme1,
+                traitementAntiArythmique: doc.data().strategieRythme21,
+                ablationFA: `${
+                  doc.data().strategieRythme3.length !== 0 ? "oui" : "non"
+                }`,
+                strategieFrequence: `${
+                  doc.data().strategieFrequence.length !== 0 ? "oui" : "non"
+                }`,
+                betabloquant: `${
+                  doc.data().strategieFrequence1.includes("Bétabloquant")
+                    ? "oui"
+                    : "non"
+                }`,
+                digoxine: `${
+                  doc.data().strategieFrequence1.includes("Digoxine")
+                    ? "oui"
+                    : "non"
+                }`,
+                InhibiteurCalciqueBradycardisant: `${
+                  doc
+                    .data()
+                    .strategieFrequence1.includes(
+                      "Inhibiteur calcique bradycardisantt"
+                    )
+                    ? "oui"
+                    : "non"
+                }`,
+                amiodarone: `${
+                  doc.data().strategieFrequence1.includes("Amiodarone")
+                    ? "oui"
+                    : "non"
+                }`,
+                iec: `${doc.data().iec.length !== 0 ? "oui" : "non"}`,
+                iecDate: doc.data().iecDate,
+                betabloquantDate: doc.data().betabloquantDate,
+                diurétiqueAnse: `${
+                  doc.data().diurétiqueAnse.length !== 0 ? "oui" : "non"
+                }`,
+                diurétiqueAnseDate: doc.data().diurétiqueAnseDate,
+                diurétiqueThiazidique: `${
+                  doc.data().diurétiqueThiazidique.length !== 0 ? "oui" : "non"
+                }`,
+                diurétiqueThiazidiqueDate: doc.data().diurétiqueThiazidiqueDate,
+                aldosterone: `${
+                  doc.data().aldosterone.length !== 0 ? "oui" : "non"
+                }`,
+                aldosteroneDate: doc.data().aldosteroneDate,
+                statine: `${doc.data().statine.length !== 0 ? "oui" : "non"}`,
+                statineDate: doc.data().statineDate,
+                antiDiabetiqueOraux: `${
+                  doc.data().antiDiabetiqueOraux.length !== 0 ? "oui" : "non"
+                }`,
+                insuline: `${doc.data().insuline.length !== 0 ? "oui" : "non"}`,
+                hormonesThyroidiennes: `${
+                  doc.data().hormonesThyroidiennes.length !== 0 ? "oui" : "non"
+                }`,
               }))
             )
           );
@@ -51,12 +399,12 @@ export default function ListPatients() {
                 {index % 2 === 0 ? (
                   <ListPatientsItem
                     key={patient.id}
-                    age={patient.data.age}
-                    nom={patient.data.nom}
-                    sexe={patient.data.sexe}
-                    residence={patient.data.residence}
-                    niveau={patient.data.niveau}
-                    dateInclusion={patient.data.createdAt}
+                    age={patient.age}
+                    nom={patient.nom}
+                    sexe={patient.sexe}
+                    residence={patient.residence}
+                    niveau={patient.niveau}
+                    dateInclusion={patient.createdAt}
                     onClick={() => navigate(`/patientinfo/${patient.id}`)}
                     color="#243153"
                     background="white"
@@ -64,12 +412,12 @@ export default function ListPatients() {
                 ) : (
                   <ListPatientsItem
                     key={patient.id}
-                    age={patient.data.age}
-                    nom={patient.data.nom}
-                    pathologie={patient.data.pathologieVasculaire}
-                    sf={patient.data.strategieFrequence1}
-                    traitement={patient.data.traitementOption1}
-                    dateInclusion={patient.data.createdAt}
+                    age={patient.age}
+                    nom={patient.nom}
+                    sexe={patient.sexe}
+                    residence={patient.residence}
+                    niveau={patient.niveau}
+                    dateInclusion={patient.createdAt}
                     onClick={() => navigate(`/patientinfo/${patient.id}`)}
                     color="#243153"
                     background="#cdd7f3"
@@ -79,6 +427,13 @@ export default function ListPatients() {
             );
           })}
         </div>
+      </div>
+      <div className="lien">
+        pour exporter les données des patients, veuillez cliquer sur
+        <CSVLink classNamee="csvButton" data={list} headers={headers}>
+          {" "}
+          ce lien
+        </CSVLink>
       </div>
     </StyledDiv>
   );
@@ -94,5 +449,11 @@ const StyledDiv = styled.div`
       border-radius: 10px;
       overflow: hidden;
     }
+  }
+  .lien {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
   }
 `;

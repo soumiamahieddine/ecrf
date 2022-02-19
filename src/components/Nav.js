@@ -84,9 +84,9 @@ export default function Nav() {
   );
 }
 
-const StyledNav = styled.nav`
+const StyledNav = styled.div`
   width: 20vw;
-  height: 125vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   // margin: auto;
@@ -94,6 +94,9 @@ const StyledNav = styled.nav`
   align-items: center;
   padding: 1rem 0rem;
   background: #243153;
+  /* position: sticky;
+  top: 20;
+  z-index: 10; */
   h1 {
     color: #7481a4;
     font-weight: 500;
