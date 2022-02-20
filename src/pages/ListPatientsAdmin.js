@@ -1,13 +1,14 @@
 import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NavTop from "../components/NavTop";
 import Title from "../components/Inscreptiontitle";
 import ListPatientsItem from "../components/ListPatientsItem";
 import { auth, firestore } from "../firebase/firebase.utils";
 import { CSVLink, CSVDownload } from "react-csv";
-export default function ListPatients() {
+export default function ListPatientsAdmin() {
   const navigate = useNavigate();
+  const param = useParams();
   const [list, setList] = useState([]);
   const headers = [
     { label: "Nom et Prénom", key: "nom" },
@@ -148,7 +149,7 @@ export default function ListPatients() {
       if (user) {
         const unsubscribe2 = firestore
           .collection("medecins")
-          .doc(user.uid)
+          .doc(param.idmedecin)
           .collection("patients")
           .orderBy("timestamp", "desc")
           .onSnapshot((snapshot) =>
@@ -403,7 +404,11 @@ export default function ListPatients() {
                     residence={patient.residence}
                     niveau={patient.niveau}
                     dateInclusion={patient.createdAt}
-                    onClick={() => navigate(`/patientinfo/${patient.id}`)}
+                    onClick={() =>
+                      navigate(
+                        `/patientinfoAdmin/${param.idmedecin}/${patient.id}`
+                      )
+                    }
                     color="#243153"
                     background="white"
                   />
@@ -416,7 +421,11 @@ export default function ListPatients() {
                     residence={patient.residence}
                     niveau={patient.niveau}
                     dateInclusion={patient.createdAt}
-                    onClick={() => navigate(`/patientinfo/${patient.id}`)}
+                    onClick={() =>
+                      navigate(
+                        `/patientinfoAdmin/${param.idmedecin}/${patient.id}`
+                      )
+                    }
                     color="#243153"
                     background="#cdd7f3"
                   />

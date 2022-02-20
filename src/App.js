@@ -14,6 +14,9 @@ import TraitementAntiThrombotique from "./pages/formulaire/priseEnChargeMedical/
 import TraitementDeLaFA from "./pages/formulaire/priseEnChargeMedical/TraitementDeLaFA";
 import AutreTraitementMedical from "./pages/formulaire/priseEnChargeMedical/AutreTraitementMedical";
 import ListPatients from "./pages/ListPatients";
+import ListPatientsAdmin from "./pages/ListPatientsAdmin";
+import PatientInfosAdmin from "./pages/PatientInfosAdmin";
+import ListMedecins from "./pages/ListMedecins";
 import Dashboard from "./pages/Dashboard";
 import SubApp from "./SubApp";
 import AddDoctor from "./pages/Admin/AddDoctor";
@@ -78,6 +81,15 @@ function App() {
           <Route path="patientinfo/:idpatient" element={<PatientInfos />} />
           <Route path="admindashboard" element={<DashboardAdmin />} />
           <Route path="addDoctor" element={<AddDoctor />} />
+          <Route path="listmedecins" element={<ListMedecins />} />
+          <Route
+            path="listPatientsAdmin/:idmedecin"
+            element={<ListPatientsAdmin />}
+          />
+          <Route
+            path="patientinfoAdmin/:idmedecin/:idpatient"
+            element={<PatientInfosAdmin />}
+          />
         </Route>
       </Routes>
     </StyledApp>

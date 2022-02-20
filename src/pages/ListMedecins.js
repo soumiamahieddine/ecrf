@@ -1,37 +1,31 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
-
-import NavTop from "../../components/NavTop";
-import Title from "../../components/Inscreptiontitle";
-import ListMedecinItem from "../../components/ListPatientsItem";
+import { useNavigate } from "react-router-dom";
+import NavTop from "../components/NavTop";
+import Title from "../components/Inscreptiontitle";
+import ListMedecinItem from "../components/ListMedecinItem";
+import { auth, firestore } from "../firebase/firebase.utils";
 
 export default function ListMedecins() {
-  const patients = [
-    {
-      nom: "dris",
-      prenom: "massi",
-      email: "Fa",
-      wilaya: "1",
-    },
-    {
-      nom: "khoudi",
-      prenom: "anis",
-      email: "Fa",
-      wilaya: "1",
-    },
-    {
-      nom: "mehieddine",
-      prenom: "nassim",
-      email: "Fa",
-      wilaya: "1",
-    },
-    {
-      nom: "alloun",
-      prenom: "soumia",
-      email: "Fa",
-      wilaya: "1",
-    },
-  ];
+  const navigate = useNavigate();
+  const [list, setList] = useState([]);
+  useLayoutEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const unsubscribe2 = firestore
+          .collection("medecins")
+          .onSnapshot((snapshot) =>
+            setList(
+              snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+            )
+          );
+        return unsubscribe2;
+      }
+    });
+  }, []);
   return (
     <StyledDiv>
       <NavTop />
@@ -40,37 +34,39 @@ export default function ListMedecins() {
         <div className="list">
           <ListMedecinItem
             nom="Nom"
-            prenom="Prenom"
             email="email"
-            wilaya="wilaya"
+            sexe="sexe"
+            residence="résidence"
             color="white"
             background="#243153"
-            width="40vw"
+            width="50vw"
           />
-          {patients.map((patient, index) => {
+          {list.map((patient, index) => {
             return (
               <div key={index}>
                 {index % 2 === 0 ? (
                   <ListMedecinItem
                     key={index}
                     nom={patient.nom}
-                    prenom={patient.prenom}
                     email={patient.email}
-                    wilaya={patient.wilaya}
+                    residence={patient.residence}
+                    sexe={patient.sexe}
+                    onClick={() => navigate(`/listPatientsAdmin/${patient.id}`)}
                     color="#243153"
                     background="white"
-                    width="40vw"
+                    width="50vw"
                   />
                 ) : (
                   <ListMedecinItem
                     key={index}
                     nom={patient.nom}
-                    prenom={patient.prenom}
                     email={patient.email}
-                    wilaya={patient.wilaya}
+                    residence={patient.residence}
+                    sexe={patient.sexe}
+                    onClick={() => navigate(`/listPatientsAdmin/${patient.id}`)}
                     color="#243153"
                     background="#cdd7f3"
-                    width="40vw"
+                    width="50vw"
                   />
                 )}
               </div>
