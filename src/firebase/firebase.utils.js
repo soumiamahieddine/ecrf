@@ -4,7 +4,6 @@ import firebase from "firebase/compat/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const config = {
@@ -73,7 +72,6 @@ export const addingInformationsPatient = async (userAuth, patient, Data) => {
 
 // Initialize Firebase
 const app = firebase.initializeApp(config);
-const analytics = getAnalytics(app);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

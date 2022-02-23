@@ -32,20 +32,31 @@ export default function Nav() {
       </div>
       <ul>
         <li>
-          <button
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            <img src={home} alt="" />
-            <span>Acceuil</span>
-          </button>
+          {admin ? (
+            <button
+              onClick={() => {
+                navigate("/admindashboard");
+              }}
+            >
+              <img src={home} alt="" />
+              <span>Acceuil</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate("/dashboard");
+              }}
+            >
+              <img src={home} alt="" />
+              <span>Acceuil</span>
+            </button>
+          )}
         </li>
         <li>
           {admin ? (
             <button
               onClick={() => {
-                navigate("/listPatients");
+                navigate("/listmedecins");
               }}
             >
               <img src={listPatients} alt="" /> <span>Liste des medecins</span>
@@ -86,7 +97,7 @@ export default function Nav() {
 
 const StyledNav = styled.div`
   width: 20vw;
-  height: 100vh;
+  height: 200vh;
   display: flex;
   flex-direction: column;
   // margin: auto;

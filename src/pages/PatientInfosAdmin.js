@@ -10,6 +10,15 @@ export default function PatientInfos() {
   const [patient, setPatient] = useState(null);
   const param = useParams();
   const navigate = useNavigate();
+
+  const addNotification = async () => {
+    const medecinref = firestore.collection("medecins").doc(param.idmedecin);
+
+    const medecinsnap = medecinref.collection("notifications").add({
+      msg: `un admin vous a signalé de revoir le patient "${patient.data.nom}" `,
+    });
+  };
+
   const gettingPatient = async () => {
     const unsubscibe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -39,6 +48,7 @@ export default function PatientInfos() {
         <ProfilePatient
           isAdminPage={true}
           data={patient}
+          onClickAdmin={addNotification}
           className="patientInfos"
         />
       )}

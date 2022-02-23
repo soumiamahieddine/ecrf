@@ -10,7 +10,12 @@ import "../styles/AccordionStyle.scss";
 import styled from "styled-components";
 import NiceButton from "../components/NiceButton";
 
-export default function ProfilePatient({ isAdminPage, data, onClick }) {
+export default function ProfilePatient({
+  isAdminPage,
+  data,
+  onClick,
+  onClickAdmin,
+}) {
   console.log(data);
   return (
     <StyledDiv>
@@ -253,7 +258,7 @@ export default function ProfilePatient({ isAdminPage, data, onClick }) {
                   </p>
                   <p>
                     <span className="gras">Sédentarité</span> :{" "}
-                    {data.data.sedentarite}{" "}
+                    {data.data.sedentarite.length !== 0 ? "oui" : "non"}{" "}
                   </p>
                 </AccordionItemPanel>
               </AccordionItem>
@@ -732,7 +737,11 @@ export default function ProfilePatient({ isAdminPage, data, onClick }) {
         </Accordion>
       </div>
       {isAdminPage === true ? (
-        <NiceButton className="button" title="Signaler Patient" />
+        <NiceButton
+          className="button"
+          title="Signaler Patient"
+          onClick={onClickAdmin}
+        />
       ) : (
         <NiceButton title="Modifier" onClick={onClick} />
       )}
