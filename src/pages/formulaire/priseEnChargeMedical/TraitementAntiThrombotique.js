@@ -83,6 +83,10 @@ export default function TraitementAntiThrombotique() {
   ];
   const traitementRadioOptions1 = [
     {
+      key: "",
+      value: "",
+    },
+    {
       key: "Acenocoumarol",
       value: "Acenocoumarol",
     },
@@ -91,20 +95,28 @@ export default function TraitementAntiThrombotique() {
       value: "Fluindione",
     },
     {
-      key: "Rivaroxaban",
-      value: "Rivaroxaban",
+      key: "Rivaroxaban 20 mg",
+      value: "Rivaroxaban 20 mg",
     },
     {
-      key: "Dabigatran",
-      value: "Dabigatran",
+      key: "Rivaroxaban 15 mg",
+      value: "Rivaroxaban 15 mg",
     },
     {
-      key: "Apixaban",
-      value: "Apixaban",
+      key: "Dabigatran 110 mg",
+      value: "Dabigatran 110 mg",
     },
     {
-      key: "Edoxaban",
-      value: "Edoxaban",
+      key: "Dabigatran 150 mg",
+      value: "Dabigatran 150 mg",
+    },
+    {
+      key: "Apixaban 5 mg",
+      value: "Apixaban 5 mg",
+    },
+    {
+      key: "Apixaban 2.5 mg",
+      value: "Apixaban 2.5 mg",
     },
   ];
   const traitementOptionOptions2 = [
@@ -139,6 +151,10 @@ export default function TraitementAntiThrombotique() {
     {
       key: "Conditions socio-économiques",
       value: "Conditions socio-économiques",
+    },
+    {
+      key: "pas d'indication",
+      value: "pas d'indication",
     },
   ];
 
@@ -176,7 +192,7 @@ export default function TraitementAntiThrombotique() {
                           />
                           {formik.values.traitementOption1.length !== 0 ? (
                             <FormikControl
-                              control="radio"
+                              control="select"
                               name="anticoagulantOral"
                               options={traitementRadioOptions1}
                             />

@@ -21,21 +21,10 @@ export default function ETT() {
   const initialValues = {
     masseVG: "",
     FEVG: "",
-    fonctionDiastolique: "",
     volumeOG: "",
-    TDE: "",
-    IMFonctionnelle: [],
-    gradeIM: "",
-    SOR: "",
-    VR: "",
     thrombusIntraAuriculaire: [],
-    SVD: "",
-    TAPSE: "",
-    ITFonctionnelle: [],
-    gradeIT: "",
     surfaceOD: "",
     PAPS: "",
-    VCI: "",
   };
 
   const validationSchema = Yup.object({
@@ -43,43 +32,24 @@ export default function ETT() {
     FEVG: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    fonctionDiastolique: Yup.string(
-      "ce champs doit être alpahnumiérique"
-    ).required("ce champs est obligatoire"),
     volumeOG: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    TDE: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
-    IMFonctionnelle: Yup.array(),
     thrombusIntraAuriculaire: Yup.array(),
-    gradeIM: Yup.string("ce champs doit être alpahnumiérique"),
-    SOR: Yup.string("ce champs doit être alpahnumiérique"),
-    VR: Yup.string("ce champs doit être alpahnumiérique"),
-    trombusIntraAuriculaire: Yup.array(),
-    SVD: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
-    TAPSE: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
-    ITFonctionnelle: Yup.array(),
-    gradeIT: Yup.string("ce champs doit être alpahnumiérique"),
+
     surfaceOD: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
     PAPS: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    VCI: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
   });
 
-  const IMFonctionnelleOptions = [{ key: "Oui", value: "oui" }];
-  const ITFonctionnelleOptions = [{ key: "Oui", value: "oui" }];
   const trombusIntraAuriculaireOptions = [{ key: "Oui", value: "oui" }];
+  const masseFGOptionOptions = [
+    { key: "Oui", value: "oui" },
+    { key: "non", value: "non" },
+  ];
 
   const [feildValues, setFeildValues] = useState(null);
   const gettingPatient = async () => {
@@ -131,15 +101,15 @@ export default function ETT() {
             >
               {(formik) => (
                 <Form>
-                  <div className="field gap">
+                  <div className="field">
                     <FormikControl
-                      control="input"
-                      type="text"
+                      control="radio"
                       name="masseVG"
-                      placeholder="g/m²"
-                      width="100px"
+                      options={masseFGOptionOptions}
                       label="Masse VG"
                     />
+                  </div>
+                  <div className="field gap">
                     <FormikControl
                       control="input"
                       type="text"
@@ -154,64 +124,12 @@ export default function ETT() {
                     <FormikControl
                       control="input"
                       type="text"
-                      name="fonctionDiastolique"
-                      placeholder="E/é"
-                      width="150px"
-                      label="Fonction diastolique"
-                    />
-                    <FormikControl
-                      control="input"
-                      type="text"
                       name="volumeOG"
                       placeholder=""
                       width="150px"
                       label="Volume de l'OG"
                     />
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="TDE"
-                      placeholder="ms"
-                      width="150px"
-                      label="TDE"
-                    />
                   </div>
-
-                  <div className="field">
-                    <FormikControl
-                      control="checkbox"
-                      name="IMFonctionnelle"
-                      options={IMFonctionnelleOptions}
-                      label="IM Fonctionnelle"
-                    />
-                  </div>
-
-                  {formik.values.IMFonctionnelle.length !== 0 ? (
-                    <div className="field gap">
-                      <FormikControl
-                        control="input"
-                        name="gradeIM"
-                        width="150px"
-                        label="Grade"
-                      />
-                      <FormikControl
-                        control="input"
-                        name="SOR"
-                        width="150px"
-                        label="SOR"
-                        placeholder="cm²"
-                      />
-                      <FormikControl
-                        control="input"
-                        name="VR"
-                        width="150px"
-                        label="VR"
-                        placeholder="mL"
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
 
                   <div className="field">
                     <FormikControl
@@ -223,45 +141,6 @@ export default function ETT() {
                   </div>
 
                   <h2>Analyse coeur droite</h2>
-                  <div className="field gap">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="SVD"
-                      placeholder="m/s"
-                      width="150px"
-                      label="SVD"
-                    />
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="TAPSE"
-                      placeholder="mm"
-                      width="150px"
-                      label="TAPSE"
-                    />
-                  </div>
-
-                  <div className="field">
-                    <FormikControl
-                      control="checkbox"
-                      name="ITFonctionnelle"
-                      options={ITFonctionnelleOptions}
-                      label="IT Fonctionnelle"
-                    />
-                  </div>
-                  {formik.values.ITFonctionnelle.length !== 0 ? (
-                    <div className="field">
-                      <FormikControl
-                        control="input"
-                        name="gradeIT"
-                        width="150px"
-                        label="Grade"
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
 
                   <div className="field gap">
                     <FormikControl
@@ -279,14 +158,6 @@ export default function ETT() {
                       placeholder="mmHG"
                       width="100px"
                       label="PAPS"
-                    />
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="VCI"
-                      placeholder="mm"
-                      width="100px"
-                      label="VCI"
                     />
                   </div>
 

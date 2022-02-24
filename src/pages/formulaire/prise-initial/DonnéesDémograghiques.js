@@ -51,7 +51,7 @@ export default function DonnéesDémograghiques() {
   const initialValues = {
     circonstance: "",
     sexe: "",
-    age: "",
+    birthDate: "",
     nom: "",
     residence: "",
     situationFamiliale: "",
@@ -66,7 +66,7 @@ export default function DonnéesDémograghiques() {
     sexe: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    age: Yup.string("ce champs doit être alpahnumiérique").required(
+    birthDate: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
     nom: Yup.string("ce champs doit être alpahnumiérique").required(
@@ -171,9 +171,9 @@ export default function DonnéesDémograghiques() {
                   <FormikControl
                     control="input"
                     type="text"
-                    name="age"
-                    label="Age"
-                    placeholder="age"
+                    name="birthDate"
+                    label="Année de naissance"
+                    placeholder="année"
                     width="100px"
                   />
                   <FormikControl

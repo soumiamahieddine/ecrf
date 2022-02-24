@@ -19,7 +19,6 @@ import NextButton from "../../../components/NextButton";
 export default function ECG() {
   const navigate = useNavigate();
   const initialValues = {
-    FNS: "",
     GB: "",
     plaquettes: "",
     uree: "",
@@ -30,16 +29,10 @@ export default function ECG() {
     glycemie: "",
     triglycerides: "",
     cholesterolTotal: "",
-    ASAT: "",
-    ALAT: "",
-    bilirubineTotal: "",
     TSH: "",
-    BNP: "",
-    troponines: "",
   };
 
   const validationSchema = Yup.object({
-    FNS: Yup.string(),
     GB: Yup.string(),
     plaquettes: Yup.string(),
     uree: Yup.string(),
@@ -50,12 +43,7 @@ export default function ECG() {
     glycemie: Yup.string(),
     triglycerides: Yup.string(),
     cholesterolTotal: Yup.string(),
-    ASAT: Yup.string(),
-    ALAT: Yup.string(),
-    bilirubineTotal: Yup.string(),
     TSH: Yup.string(),
-    BNP: Yup.string(),
-    troponines: Yup.string(),
   });
 
   const [feildValues, setFeildValues] = useState(null);
@@ -108,14 +96,6 @@ export default function ECG() {
               {(formik) => (
                 <Form>
                   <div className="field gap">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="FNS"
-                      placeholder="g/dL"
-                      width="100px"
-                      label="FNS"
-                    />
                     <FormikControl
                       control="input"
                       type="text"
@@ -175,12 +155,11 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="TP"
-                      placeholder="%"
+                      placeholder=""
                       width="100px"
-                      label="TP"
+                      label="INR"
                     />
                   </div>
-                  <h2>INR</h2>
                   <div className="field gap">
                     <FormikControl
                       control="input"
@@ -190,6 +169,13 @@ export default function ECG() {
                       width="100px"
                       label="glycemie"
                     />
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      name="triglycerides"
+                      width="100px"
+                      label="HB A1C"
+                    />
                   </div>
 
                   <div className="field gap">
@@ -197,44 +183,9 @@ export default function ECG() {
                     <FormikControl
                       control="input"
                       type="text"
-                      name="triglycerides"
-                      placeholder="g/L"
-                      width="100px"
-                      label="triglycerides"
-                    />
-                    <FormikControl
-                      control="input"
-                      type="text"
                       name="cholesterolTotal"
-                      placeholder="g/L"
                       width="100px"
-                      label="cholesterolTotal"
-                    />
-                  </div>
-
-                  <div className="field gap">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="ASAT"
-                      width="100px"
-                      label="ASAT "
-                    />
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="ALAT"
-                      width="100px"
-                      label="ALAT"
-                    />
-
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="bilirubineTotal"
-                      placeholder="mg/L"
-                      width="100px"
-                      label="bilirubineTotal "
+                      label="LDLC"
                     />
                   </div>
 
@@ -247,24 +198,6 @@ export default function ECG() {
                       placeholder="mUI/L"
                       width="100px"
                       label="TSH"
-                    />
-                  </div>
-                  <div className="field gap">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="BNP"
-                      placeholder="pg/mL"
-                      width="100px"
-                      label="BNP"
-                    />
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="troponines"
-                      placeholder="ng/L"
-                      width="100px"
-                      label="troponines"
                     />
                   </div>
                   <div className="button-container">

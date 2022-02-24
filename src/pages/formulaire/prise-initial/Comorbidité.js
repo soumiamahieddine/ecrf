@@ -60,7 +60,7 @@ export default function Comorbidité() {
   const onSubmit = (values) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       await addingInformationsPatient(user, param, values);
-      navigate(`/evaluation/${param.idpatient}`);
+      navigate(`/traitementAnterieurFA/${param.idpatient}`);
     });
     return unsubscribe;
   };

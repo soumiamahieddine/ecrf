@@ -32,8 +32,24 @@ export default function FacteursDeRisqueCardioVasculaire() {
     { key: "Non", value: "non" },
     { key: "Servé", value: "serve" },
   ];
+  const scoreCHADOptions = [
+    {
+      key: "0",
+      value: "0",
+    },
+    {
+      key: "1",
+      value: "1",
+    },
+    {
+      key: "+2",
+      value: "+2",
+    },
+  ];
+
   const initialValues = {
-    bmi: "",
+    taille: "",
+    poids: "",
     htaDate: "",
     hta: [],
     diabete: [],
@@ -43,9 +59,14 @@ export default function FacteursDeRisqueCardioVasculaire() {
     tabagisme: "",
     consommationAlcool: "",
     sedentarite: [],
+    scoreCHAD: "",
+    scoreHasBled: "",
   };
   const validationSchema = Yup.object({
-    bmi: Yup.string("ce champs doit être alpahnumiérique").required(
+    taille: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    poids: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
     hta: Yup.array().required("ce champs est obligatoire"),
@@ -61,6 +82,8 @@ export default function FacteursDeRisqueCardioVasculaire() {
       "ce champs doit être alpahnumiérique"
     ).required("ce champs est obligatoire"),
     sedentarite: Yup.array().required("ce champs est obligatoire"),
+    scoreCHAD: Yup.string().required("ce champs est obligatoire"),
+    scoreHasBled: Yup.string("ce champs doit être alpahnumiérique"),
   });
   const param = useParams();
   const [feildValues, setFeildValues] = useState(null);
@@ -111,7 +134,24 @@ export default function FacteursDeRisqueCardioVasculaire() {
               {(formik) => {
                 return (
                   <Form>
-                    <FormikControl control="input" name="bmi" label="BMI" />
+                    <div className="field gap">
+                      <FormikControl
+                        control="input"
+                        type="text"
+                        name="taille"
+                        placeholder="m"
+                        width="100px"
+                        label="Taille"
+                      />
+                      <FormikControl
+                        control="input"
+                        type="text"
+                        name="poids"
+                        placeholder="kg"
+                        width="100px"
+                        label="Poids"
+                      />
+                    </div>
                     <div className="field">
                       <FormikControl
                         control="checkbox"
@@ -181,6 +221,24 @@ export default function FacteursDeRisqueCardioVasculaire() {
                       label="Sédentarité"
                       options={sedentariteOptions}
                     />
+                    <h2>Risque thrombo embolique </h2>
+                    <div className="field">
+                      <FormikControl
+                        control="radio"
+                        name="scoreCHAD"
+                        label="score CHADS2SVAC"
+                        options={scoreCHADOptions}
+                      />
+                    </div>
+                    <h2>Risque hémorragique </h2>
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      name="scoreHasBled"
+                      label="Score HAS BLED"
+                      placeholder="Score"
+                      width="300px"
+                    />
 
                     <div className="button-container">
                       <NextButton disabled={formik.isSubmitting} />
@@ -203,7 +261,10 @@ const StyledDiv = styled.div`
   /* .formControl {
     margin-bottom: 20px;
   } */
-
+  h2 {
+    margin: 20px 0 15px 0;
+    color: #243153;
+  }
   .form-container {
     display: flex;
     flex-direction: row;
@@ -219,6 +280,9 @@ const StyledDiv = styled.div`
         display: flex;
         flex-direction: row;
         align-items: flex-end;
+        &.gap {
+          gap: 1rem;
+        }
       }
       .button-container {
         width: 45vw;

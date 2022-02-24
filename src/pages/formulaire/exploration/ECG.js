@@ -19,10 +19,12 @@ import NextButton from "../../../components/NextButton";
 export default function ECG() {
   const navigate = useNavigate();
   const initialValues = {
+    frequenceCardiaque: "",
     rythme: "",
     dureeOndeP: "",
     dureeQRS: "",
     morphologie: "",
+    intervalQT: "",
     sokolov: "",
     lewis: "",
     territoireInfractus: "",
@@ -33,6 +35,9 @@ export default function ECG() {
   };
 
   const validationSchema = Yup.object({
+    frequenceCardiaque: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
     rythme: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
@@ -43,6 +48,9 @@ export default function ECG() {
       "ce champs est obligatoire"
     ),
     morphologie: Yup.string("ce champs doit être alpahnumiérique").required(
+      "ce champs est obligatoire"
+    ),
+    intervalQT: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
     sokolov: Yup.string("ce champs doit être alpahnumiérique"),
@@ -71,7 +79,7 @@ export default function ECG() {
   const BBGOptions = [{ key: "BBG", value: "bbg" }];
   const BBDOptions = [{ key: "BBD", value: "bbd" }];
   const HVGOptions = [{ key: "HVG", value: "hvg" }];
-  const InfractusOptions = [{ key: "Infractus", value: "infractus" }];
+  const InfractusOptions = [{ key: "Infarctus", value: "infarctus" }];
 
   const [feildValues, setFeildValues] = useState(null);
   const gettingPatient = async () => {
@@ -122,6 +130,15 @@ export default function ECG() {
             >
               {(formik) => (
                 <Form>
+                  <div className="field">
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      name="frequenceCardiaque"
+                      width="150px"
+                      label="fréquence Cardiaque"
+                    />
+                  </div>
                   <div className="myLabel">Rythme</div>
                   <div className="field first">
                     <FormikControl
@@ -141,6 +158,7 @@ export default function ECG() {
                       width="150px"
                       label="Durée onde P"
                     />
+                    <span>ms</span>
                   </div>
 
                   <div className="field">
@@ -152,6 +170,7 @@ export default function ECG() {
                       width="150px"
                       label="Durée du QRS"
                     />
+                    <span>ms</span>
                   </div>
 
                   <div className="field">
@@ -159,10 +178,22 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="morphologie"
-                      placeholder=""
+                      placeholder="ms"
                       width="150px"
-                      label="Morphologie"
+                      label="Interval PR"
                     />
+                    <span>ms</span>
+                  </div>
+                  <div className="field">
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      name="intervalQT"
+                      placeholder="ms"
+                      width="150px"
+                      label="Interval QT"
+                    />
+                    <span>ms</span>
                   </div>
 
                   <div className="field">
@@ -271,6 +302,12 @@ const StyledDiv = styled.div`
         margin-bottom: 10px;
         &.first {
           gap: 1rem;
+        }
+        span {
+          justify-self: center;
+          align-self: center;
+          margin-top: 1rem;
+          margin-left: 1rem;
         }
       }
       .button-container {

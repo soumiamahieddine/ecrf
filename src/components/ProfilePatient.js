@@ -16,7 +16,7 @@ export default function ProfilePatient({
   onClick,
   onClickAdmin,
 }) {
-  console.log(data);
+  const date = new Date().getFullYear();
   return (
     <StyledDiv>
       <div className="myAcc">
@@ -47,7 +47,8 @@ export default function ProfilePatient({
                     <span className="gras">Sexe</span> : {data.data.sexe}
                   </p>
                   <p>
-                    <span className="gras">Age</span> : {data.data.age}
+                    <span className="gras">Age</span> :{" "}
+                    {date - data.data.birthDate}
                   </p>
                   <p>
                     <span className="gras">Résidence</span> :{" "}
@@ -209,7 +210,14 @@ export default function ProfilePatient({
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <p>
-                    <span className="gras">BMI</span> : {data.data.bmi}
+                    <span className="gras">Taille</span> : {data.data.taille}
+                  </p>
+                  <p>
+                    <span className="gras">Poids</span> : {data.data.poids}
+                  </p>
+                  <p>
+                    <span className="gras">BMI</span> :{" "}
+                    {data.data.poids / Math.pow(data.data.taille, 2)}
                   </p>
                   <p>
                     <span className="gras">HTA</span> :{" "}
@@ -260,6 +268,14 @@ export default function ProfilePatient({
                     <span className="gras">Sédentarité</span> :{" "}
                     {data.data.sedentarite.length !== 0 ? "oui" : "non"}{" "}
                   </p>
+                  <p>
+                    <span className="gras">score CHADS2SVAC</span> :{" "}
+                    {data.data.scoreCHAD}
+                  </p>
+                  <p>
+                    <span className="gras">Score HAS BLED </span>:{" "}
+                    {data.data.scoreHasBled}
+                  </p>
                 </AccordionItemPanel>
               </AccordionItem>
               <AccordionItem className="inside__acc">
@@ -294,23 +310,8 @@ export default function ProfilePatient({
               </AccordionItem>
               <AccordionItem className="inside__acc">
                 <AccordionItemHeading>
-                  <AccordionItemButton>7. Evaluation</AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <p>
-                    <span className="gras">score CHADS2SVAC</span> :{" "}
-                    {data.data.scoreCHAD}
-                  </p>
-                  <p>
-                    <span className="gras">Score HAS BLED </span>:{" "}
-                    {data.data.scoreHasBled}
-                  </p>
-                </AccordionItemPanel>
-              </AccordionItem>
-              <AccordionItem className="inside__acc">
-                <AccordionItemHeading>
                   <AccordionItemButton>
-                    8. Traitement antérieur de la FA
+                    7. Traitement antérieur de la FA
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
@@ -352,6 +353,10 @@ export default function ProfilePatient({
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <p>
+                    <span className="gras">Fréquence Cardiaque </span> :{" "}
+                    {data.data.frequenceCardiaque}
+                  </p>
+                  <p>
                     <span className="gras">Rythme</span> : {data.data.rythme}
                   </p>
                   <p>
@@ -363,8 +368,12 @@ export default function ProfilePatient({
                     {data.data.dureeQRS}
                   </p>
                   <p>
-                    <span className="gras">Morphologie</span> :{" "}
+                    <span className="gras">Interval PR</span> :{" "}
                     {data.data.morphologie}
+                  </p>
+                  <p>
+                    <span className="gras">Interval QT</span> :{" "}
+                    {data.data.intervalQT}
                   </p>
                   <p>
                     <span className="gras">BBG</span> :{" "}
@@ -389,7 +398,7 @@ export default function ProfilePatient({
                     )}
                   </p>
                   <p>
-                    <span className="gras">Infractus </span> :
+                    <span className="gras">Infarctus </span> :
                     {data.data.infractus.length !== 0 ? "oui" : "non"}{" "}
                     {data.data.infractus.includes("infractus") ? (
                       <span className="left">
@@ -414,32 +423,9 @@ export default function ProfilePatient({
                     <span className="gras">FEVG</span> : {data.data.FEVG}
                   </p>
                   <p>
-                    <span className="gras">Fonction diastolique</span> :{" "}
-                    {data.data.fonctionDiastolique}
-                  </p>
-                  <p>
                     <span className="gras">Volume de l'OG </span>:{" "}
                     {data.data.volumeOG}
                   </p>
-                  <p>
-                    <span className="gras">TDE</span> : {data.data.TDE}
-                  </p>
-                  <p>
-                    <span className="gras">IM Fonctionnelle</span> :{" "}
-                    {data.data.IMFonctionnelle.length !== 0 ? "oui" : "non"}{" "}
-                    {data.data.IMFonctionnelle.includes("oui") ? (
-                      <>
-                        <span className="left">
-                          Grade : {data.data.gradeIM}
-                        </span>{" "}
-                        <span className="left">SOR: {data.data.SOR}</span>
-                        <span className="left">VR: {data.data.VR}</span>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </p>
-
                   <p>
                     <span className="gras">Thrombus intra auriculaire </span>:{" "}
                     {data.data.thrombusIntraAuriculaire.length !== 0
@@ -447,26 +433,6 @@ export default function ProfilePatient({
                       : "non"}
                   </p>
                   <h3>Analyse coeur droite</h3>
-                  <p>
-                    <span className="gras">TAPSE</span> : {data.data.TAPSE}
-                  </p>
-                  <p>
-                    <span className="gras">SVD</span> : {data.data.SVD}
-                  </p>
-
-                  <p>
-                    <span className="gras">IT Fonctionnelle</span> :{" "}
-                    {data.data.ITFonctionnelle.length !== 0 ? "oui" : "non"}{" "}
-                    {data.data.ITFonctionnelle.includes("oui") ? (
-                      <>
-                        <span className="left">
-                          Grade : {data.data.gradeIT}
-                        </span>{" "}
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </p>
 
                   <p>
                     <span className="gras">Surface OD</span> :{" "}
@@ -475,9 +441,6 @@ export default function ProfilePatient({
                   <p>
                     <span className="gras">PAPS</span> : {data.data.PAPS}
                   </p>
-                  <p>
-                    <span className="gras">VCI</span> : {data.data.VCI}
-                  </p>
                 </AccordionItemPanel>
               </AccordionItem>{" "}
               <AccordionItem className="inside__acc">
@@ -485,9 +448,6 @@ export default function ProfilePatient({
                   <AccordionItemButton>3. Biologie</AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                  <p>
-                    <span className="gras">FNS</span> : {data.data.FNS}
-                  </p>
                   <p>
                     <span className="gras">GB</span> : {data.data.GB}
                   </p>
@@ -509,40 +469,22 @@ export default function ProfilePatient({
                     <span className="gras">K+</span> : {data.data.Kplus}
                   </p>
                   <p>
-                    <span className="gras">TP</span> : {data.data.TP}
+                    <span className="gras">INR</span> : {data.data.TP}
                   </p>
-                  <h3>INR</h3>
                   <p>
                     <span className="gras">Glycemie</span> :{" "}
                     {data.data.glycemie}
                   </p>
                   <p>
-                    <span className="gras">Triglycerides</span> :{" "}
+                    <span className="gras">HB A1C</span> :{" "}
                     {data.data.triglycerides}
                   </p>
                   <p>
-                    <span className="gras">Cholesterol total</span> :{" "}
+                    <span className="gras">LDLC</span> :{" "}
                     {data.data.cholesterolTotal}
                   </p>
                   <p>
-                    <span className="gras">ASAT</span> : {data.data.ASAT}
-                  </p>
-                  <p>
-                    <span className="gras">ALAT</span> : {data.data.ALAT}
-                  </p>
-                  <p>
-                    <span className="gras">Bilirubine total</span> :{" "}
-                    {data.data.bilirubineTotal}
-                  </p>
-                  <p>
                     <span className="gras">TSH</span> : {data.data.TSH}
-                  </p>
-                  <p>
-                    <span className="gras">BNP</span> : {data.data.BNP}
-                  </p>
-                  <p>
-                    <span className="gras">Troponines</span> :{" "}
-                    {data.data.troponines}
                   </p>
                 </AccordionItemPanel>
               </AccordionItem>

@@ -72,11 +72,7 @@ export default function VertiBar({ number }) {
             <div className="sep"></div>
           </li>
           <li>
-            <VertiBarItem number="7" label="Evaluation" />
-            <div className="sep"></div>
-          </li>
-          <li>
-            <VertiBarItem number="8" label="Traitement antérieur de la FA" />
+            <VertiBarItem number="7" label="Traitement antérieur de la FA" />
           </li>
         </ul>
       </div>

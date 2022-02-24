@@ -86,7 +86,7 @@ export default function TraitementAnterieurFA() {
       <Title title="inscription d'un patient" />
       <Horibar number={1} />
       <div className="form-container">
-        <VertiBar number={8} />
+        <VertiBar number={7} />
         {feildValues && (
           <div className="form">
             <h1>Traitement Antérieur de La FA</h1>

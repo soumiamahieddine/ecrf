@@ -72,7 +72,7 @@ export default function NavTop({ name }) {
             </>
           ))}
           <button className="nButton" onClick={handleRead}>
-            marquer comme lu
+            Supprimer les notifications
           </button>
         </div>
       )}
