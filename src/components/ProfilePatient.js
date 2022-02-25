@@ -8,14 +8,8 @@ import {
 } from "react-accessible-accordion";
 import "../styles/AccordionStyle.scss";
 import styled from "styled-components";
-import NiceButton from "../components/NiceButton";
 
-export default function ProfilePatient({
-  isAdminPage,
-  data,
-  onClick,
-  onClickAdmin,
-}) {
+export default function ProfilePatient({ data }) {
   const date = new Date().getFullYear();
   return (
     <StyledDiv>
@@ -676,17 +670,38 @@ export default function ProfilePatient({
               </AccordionItem>
             </AccordionItemPanel>
           </AccordionItem>
+          {data.data.suivi3 && (
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>suivi des 3 mois</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>suivi des 3 mois</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+          )}
+          {data.data.suivi6 && (
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>suivi des 6 mois</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>suivi des 6 mois</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+          )}
+          {data.data.suivi12 && (
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>suivi des 12 mois</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>suivi des 13 mois</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+          )}
         </Accordion>
       </div>
-      {isAdminPage === true ? (
-        <NiceButton
-          className="button"
-          title="Signaler Patient"
-          onClick={onClickAdmin}
-        />
-      ) : (
-        <NiceButton title="Modifier" onClick={onClick} />
-      )}
     </StyledDiv>
   );
 }
@@ -695,6 +710,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   .myAcc {
     margin: 20px;
     h3 {

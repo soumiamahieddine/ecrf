@@ -5,6 +5,7 @@ import ProfilePatient from "../components/ProfilePatient";
 import styled from "styled-components";
 import { auth, firestore } from "../firebase/firebase.utils";
 import { useParams, useNavigate } from "react-router-dom";
+import NiceButton from "../components/NiceButton";
 
 export default function PatientInfos() {
   const [patient, setPatient] = useState(null);
@@ -45,12 +46,20 @@ export default function PatientInfos() {
       <NavTop />
       <Title title="Profile patient" isStat="false" />
       {patient && (
-        <ProfilePatient
-          isAdminPage={true}
-          data={patient}
-          onClickAdmin={addNotification}
-          className="patientInfos"
-        />
+        <>
+          <ProfilePatient data={patient} className="patientInfos" />
+          <div className="buttons">
+            <NiceButton
+              className="button"
+              title="Signaler Patient"
+              onClick={addNotification}
+            />
+            {/* <NiceButton
+              title="Modifier"
+              onClick={() => navigate(`/donneesDemograghiques/${patient.id}`)}
+            /> */}
+          </div>
+        </>
       )}
     </StyledDiv>
   );
@@ -59,4 +68,7 @@ export default function PatientInfos() {
 const StyledDiv = styled.div`
   width: 80vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

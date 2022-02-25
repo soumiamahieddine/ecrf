@@ -151,6 +151,9 @@ export default function Dashboard() {
             PAPS: "",
             scoreCHAD: "",
             scoreHasBled: "",
+            suivi3: false,
+            suivi6: false,
+            suivi12: false,
           });
           setRef(patientRef);
         } catch (error) {
