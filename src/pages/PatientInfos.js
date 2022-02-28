@@ -31,6 +31,10 @@ export default function PatientInfos() {
     return unsubscibe;
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     gettingPatient();
   }, []);
   return (

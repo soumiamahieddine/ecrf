@@ -15,6 +15,7 @@ import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
+import PrevButton from "../../../components/PrevButton";
 
 export default function PathologiesAssociées() {
   const navigate = useNavigate();
@@ -64,6 +65,11 @@ export default function PathologiesAssociées() {
     });
     return unsubscibe;
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     gettingPatient();
   }, []);
@@ -172,6 +178,13 @@ export default function PathologiesAssociées() {
                   />
 
                   <div className="button-container">
+                    <PrevButton
+                      type="button"
+                      onClick={() => {
+                        navigate(-1);
+                      }}
+                      title="Précedent"
+                    />
                     <NextButton disabled={formik.isSubmitting} />
                   </div>
                 </Form>

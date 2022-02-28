@@ -120,6 +120,10 @@ export default function DonnéesDémograghiques() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     gettingPatient();
   }, []);
 

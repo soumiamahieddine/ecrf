@@ -15,6 +15,7 @@ import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
+import PrevButton from "../../../components/PrevButton";
 
 export default function Evaluation() {
   const navigate = useNavigate();
@@ -110,6 +111,13 @@ export default function Evaluation() {
                     width="300px"
                   />
                   <div className="button-container">
+                    <PrevButton
+                      type="button"
+                      onClick={() => {
+                        navigate(-1);
+                      }}
+                      title="Précedent"
+                    />
                     <NextButton type="submit" disabled={formik.isSubmitting} />
                   </div>
                 </Form>

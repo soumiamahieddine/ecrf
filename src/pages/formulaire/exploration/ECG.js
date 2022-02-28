@@ -15,6 +15,7 @@ import Title from "../../../components/Inscreptiontitle";
 import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/vertiBar2";
 import NextButton from "../../../components/NextButton";
+import PrevButton from "../../../components/PrevButton";
 
 export default function ECG() {
   const navigate = useNavigate();
@@ -100,7 +101,9 @@ export default function ECG() {
     });
     return unsubscibe;
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     gettingPatient();
   }, []);
@@ -258,6 +261,13 @@ export default function ECG() {
                   )}
 
                   <div className="button-container">
+                    <PrevButton
+                      type="button"
+                      onClick={() => {
+                        navigate(-1);
+                      }}
+                      title="Précedent"
+                    />
                     <NextButton type="submit" disabled={formik.isSubmitting} />
                   </div>
                 </Form>
