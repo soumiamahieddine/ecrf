@@ -40,6 +40,7 @@ const Label = styled.label`
 `;
 
 const StyledDiv = styled.div`
+  margin: 0.5rem 0rem;
   .group {
     display: flex;
     flex-direction: row;

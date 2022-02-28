@@ -9,15 +9,19 @@ import NiceButton from "../components/NiceButton";
 
 export default function PatientInfos() {
   const [patient, setPatient] = useState(null);
+  const [disabled, setDisabled] = useState(false);
   const param = useParams();
   const navigate = useNavigate();
 
   const addNotification = async () => {
     const medecinref = firestore.collection("medecins").doc(param.idmedecin);
 
-    const medecinsnap = medecinref.collection("notifications").add({
+    const medecinsnap = await medecinref.collection("notifications").add({
       msg: `un admin vous a signalé de revoir le patient "${patient.data.nom}" `,
     });
+    setDisabled(true);
+
+    return medecinref;
   };
 
   const gettingPatient = async () => {
@@ -53,6 +57,7 @@ export default function PatientInfos() {
               className="button"
               title="Signaler Patient"
               onClick={addNotification}
+              disabled={disabled}
             />
             {/* <NiceButton
               title="Modifier"

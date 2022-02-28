@@ -26,6 +26,9 @@ import Evaluation from "./pages/formulaire/prise-initial/Evaluation";
 import ETT from "./pages/formulaire/exploration/ETT";
 import ECG from "./pages/formulaire/exploration/ECG";
 import Biologie from "./pages/formulaire/exploration/Biologie";
+import Suivi3 from "./pages/formulaire/suivis/Suivi3";
+import Suivi6 from "./pages/formulaire/suivis/Suivi6";
+import Suivi12 from "./pages/formulaire/suivis/Suivi12";
 
 function App() {
   return (
@@ -77,6 +80,9 @@ function App() {
             path="autreTraitementMedical/:idpatient"
             element={<AutreTraitementMedical />}
           />
+          <Route path="suivi3/:idpatient" element={<Suivi3 />} />
+          <Route path="suivi6/:idpatient" element={<Suivi6 />} />
+          <Route path="suivi12/:idpatient" element={<Suivi12 />} />
           //admin routes
           <Route path="patientinfo/:idpatient" element={<PatientInfos />} />
           <Route path="admindashboard" element={<DashboardAdmin />} />

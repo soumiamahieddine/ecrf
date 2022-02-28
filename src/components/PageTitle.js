@@ -22,7 +22,6 @@ export default function PageTitle({ title, isStat }) {
           .collection("patients")
           .get()
           .then((snap) => {
-            console.log(snap.size);
             setCountTotal(snap.size);
           });
 
@@ -41,7 +40,6 @@ export default function PageTitle({ title, isStat }) {
           .where("timestamp", ">=", startOfDay)
           .get()
           .then((snap) => {
-            console.log(snap.size);
             setCountToday(snap.size);
           });
 

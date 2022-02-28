@@ -55,13 +55,15 @@ export default function PatientInfos() {
               onClick={() => navigate(`/suivi6/${patient.id}`)}
             />
           )}
-          {patient.data.suivi3 && patient.data.suivi6 && (
-            <NiceButton
-              title="ajouter le suivi des 12 mois"
-              style={{ width: "400px" }}
-              onClick={() => navigate(`/suivi12/${patient.id}`)}
-            />
-          )}
+          {patient.data.suivi3 &&
+            patient.data.suivi6 &&
+            !patient.data.suivi12 && (
+              <NiceButton
+                title="ajouter le suivi des 12 mois"
+                style={{ width: "400px" }}
+                onClick={() => navigate(`/suivi12/${patient.id}`)}
+              />
+            )}
           <NiceButton
             title="Modifier"
             onClick={() => navigate(`/donneesDemograghiques/${patient.id}`)}

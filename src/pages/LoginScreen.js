@@ -16,7 +16,7 @@ export default function LoginScreen() {
         const userRef = firestore.doc(`admins/${user.uid}`);
         const snapshot = await userRef.get();
         if (snapshot.exists) {
-          navigate("/admindashboard");
+          navigate("/admindashboard", { replace: true });
         } else {
           navigate("/dashboard");
         }

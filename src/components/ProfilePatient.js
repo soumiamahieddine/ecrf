@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 export default function ProfilePatient({ data }) {
   const date = new Date().getFullYear();
+  console.log(data.data);
   return (
     <StyledDiv>
       <div className="myAcc">
@@ -676,7 +677,64 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemButton>suivi des 3 mois</AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>
-                <p>suivi des 3 mois</p>
+                <p>
+                  <span className="gras">État du patient au contrôle </span> :{" "}
+                  {data.data.etatPatientControleS3}
+                </p>
+                <p>
+                  <span className="gras">
+                    Persistance des symptômes liés à la FA{" "}
+                  </span>{" "}
+                  : {data.data.persistanceOptionsS3.join(", ")}
+                </p>
+
+                <p>
+                  <span className="gras">Complication</span> :{" "}
+                  {data.data.complicationS3.length !== 0
+                    ? ""
+                    : "pas de complication"}{" "}
+                </p>
+                {data.data.complicationS3.length !== 0 ? (
+                  <>
+                    <div className="margin-left">
+                      {data.data.decesS3.length !== 0 ? (
+                        <p>
+                          <span className="gras">décès</span> :{" "}
+                          {data.data.decesOptionS3.join(", ")}{" "}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="margin-left">
+                      {data.data.avcS3.length !== 0 ? (
+                        <p>
+                          <span className="gras">
+                            AVC ischémique ou embolie systémique
+                          </span>{" "}
+                          : oui{" "}
+                        </p>
+                      ) : (
+                        <p>
+                          <span className="gras">
+                            AVC ischémique ou embolie systémique
+                          </span>{" "}
+                          : non{" "}
+                        </p>
+                      )}
+                    </div>
+                    <div className="margin-left">
+                      <p>
+                        <span className="gras">
+                          Complications hémorragiques
+                        </span>{" "}
+                        :{data.data.complicationHemoragiqueS3}{" "}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
               </AccordionItemPanel>
             </AccordionItem>
           )}
@@ -686,7 +744,63 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemButton>suivi des 6 mois</AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>
-                <p>suivi des 6 mois</p>
+                <p>
+                  <span className="gras">État du patient au contrôle </span> :{" "}
+                  {data.data.etatPatientControleS6}
+                </p>
+                <p>
+                  <span className="gras">
+                    Persistance des symptômes liés à la FA{" "}
+                  </span>{" "}
+                  : {data.data.persistanceOptionsS6.join(", ")}
+                </p>
+                <p>
+                  <span className="gras">Complication</span> :{" "}
+                  {data.data.complicationS6.length !== 0
+                    ? ""
+                    : "pas de complication"}{" "}
+                </p>
+                {data.data.complicationS6.length !== 0 ? (
+                  <>
+                    <div className="margin-left">
+                      {data.data.decesS6.length !== 0 ? (
+                        <p>
+                          <span className="gras">décès</span> :{" "}
+                          {data.data.decesOptionS6.join(", ")}{" "}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="margin-left">
+                      {data.data.avcS6.length !== 0 ? (
+                        <p>
+                          <span className="gras">
+                            AVC ischémique ou embolie systémique
+                          </span>{" "}
+                          : oui{" "}
+                        </p>
+                      ) : (
+                        <p>
+                          <span className="gras">
+                            AVC ischémique ou embolie systémique
+                          </span>{" "}
+                          : non{" "}
+                        </p>
+                      )}
+                    </div>
+                    <div className="margin-left">
+                      <p>
+                        <span className="gras">
+                          Complications hémorragiques
+                        </span>{" "}
+                        :{data.data.complicationHemoragiqueS6}{" "}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
               </AccordionItemPanel>
             </AccordionItem>
           )}
@@ -696,7 +810,63 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemButton>suivi des 12 mois</AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>
-                <p>suivi des 13 mois</p>
+                <p>
+                  <span className="gras">État du patient au contrôle </span> :{" "}
+                  {data.data.etatPatientControleS12}
+                </p>
+                <p>
+                  <span className="gras">
+                    Persistance des symptômes liés à la FA{" "}
+                  </span>{" "}
+                  : {data.data.persistanceOptionsS12.join(", ")}
+                </p>
+                <p>
+                  <span className="gras">Complication</span> :{" "}
+                  {data.data.complicationS12.length !== 0
+                    ? ""
+                    : "pas de complication"}{" "}
+                </p>
+                {data.data.complicationS12.length !== 0 ? (
+                  <>
+                    <div className="margin-left">
+                      {data.data.decesS12.length !== 0 ? (
+                        <p>
+                          <span className="gras">décès</span> :{" "}
+                          {data.data.decesOptionS12.join(", ")}{" "}
+                        </p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="margin-left">
+                      {data.data.avcS12.length !== 0 ? (
+                        <p>
+                          <span className="gras">
+                            AVC ischémique ou embolie systémique
+                          </span>{" "}
+                          : oui{" "}
+                        </p>
+                      ) : (
+                        <p>
+                          <span className="gras">
+                            AVC ischémique ou embolie systémique
+                          </span>{" "}
+                          : non{" "}
+                        </p>
+                      )}
+                    </div>
+                    <div className="margin-left">
+                      <p>
+                        <span className="gras">
+                          Complications hémorragiques
+                        </span>{" "}
+                        :{data.data.complicationHemoragiqueS12}{" "}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
               </AccordionItemPanel>
             </AccordionItem>
           )}
@@ -712,6 +882,9 @@ const StyledDiv = styled.div`
   align-items: center;
   width: 100%;
   .myAcc {
+    .margin-left {
+      margin-left: 2rem;
+    }
     margin: 20px;
     h3 {
       margin: 1rem 0rem;
