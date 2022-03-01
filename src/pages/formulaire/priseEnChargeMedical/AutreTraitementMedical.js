@@ -100,9 +100,40 @@ export default function AutreTraitementMedical() {
   const betabloquantOptions = [
     {
       key: "Bétabloquant",
-      value: "betabloquant",
+      value: "Betabloquant",
     },
   ];
+  const betabloquantOptionsOptions = [
+    {
+      key: "",
+      value: "",
+    },
+    {
+      key: "Bisoprolol",
+      value: "Bisoprolol",
+    },
+    {
+      key: "Carvédilol",
+      value: "Carvédilol",
+    },
+    {
+      key: "NEBIVOLOL",
+      value: "NEBIVOLOL",
+    },
+    {
+      key: "ATÉNOLOL",
+      value: "ATÉNOLOL",
+    },
+    {
+      key: "PROPANOLOL",
+      value: "PROPANOLOL",
+    },
+    {
+      key: "METOPROLOL",
+      value: "METOPROLOL",
+    },
+  ];
+
   const diurétiqueAnseOptions = [
     {
       key: "Diurétique de l’anse",
@@ -181,7 +212,11 @@ export default function AutreTraitementMedical() {
                       options={betabloquantOptions}
                     />
                     {formik.values.betabloquant.length !== 0 ? (
-                      <FormikControl control="input" name="betabloquantDate" />
+                      <FormikControl
+                        control="select"
+                        name="betabloquantDate"
+                        options={betabloquantOptionsOptions}
+                      />
                     ) : (
                       ""
                     )}

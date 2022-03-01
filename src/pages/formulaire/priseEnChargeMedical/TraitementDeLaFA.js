@@ -108,6 +108,10 @@ export default function TraitementDeLaFA() {
       key: "Sotalol",
       value: "Sotalol",
     },
+    {
+      key: "Autre Bétabloquant",
+      value: "Autre Bétabloquant",
+    },
   ];
   const strategieRythmeOptions3 = [
     {

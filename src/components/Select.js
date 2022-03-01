@@ -6,7 +6,7 @@ import styled from "styled-components";
 export default function Select({ label, name, options, width, ...rest }) {
   return (
     <StyledDiv className="formControl">
-      <label htmlFor={name}>{label}</label>
+      {label && <label htmlFor={name}>{label}</label>}
       <Field
         id={name}
         name={name}
@@ -41,7 +41,6 @@ const StyledDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin: 1rem 0rem;
   label {
     color: #a8a7a7;
     margin-bottom: 1rem;

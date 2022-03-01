@@ -467,6 +467,24 @@ export default function ProfilePatient({ data }) {
                     <span className="gras">INR</span> : {data.data.TP}
                   </p>
                   <p>
+                    <span className="gras">Clairance</span> :{" "}
+                    {data.data.sexe === "homme" ? (
+                      <span>
+                        {((140 - (date - data.data.birthDate)) /
+                          data.data.creatininemie) *
+                          data.data.poids *
+                          1.23}
+                      </span>
+                    ) : (
+                      <span>
+                        {((140 - (date - data.data.birthDate)) /
+                          data.data.creatininemie) *
+                          data.data.poids *
+                          1.04}
+                      </span>
+                    )}
+                  </p>
+                  <p>
                     <span className="gras">Glycemie</span> :{" "}
                     {data.data.glycemie}
                   </p>

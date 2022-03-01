@@ -96,6 +96,7 @@ export default function ListPatientsAdmin() {
     { label: "NA+", key: "NAplus" },
     { label: "K+", key: "Kplus" },
     { label: "INR", key: "TP" },
+    { label: "Clairance", key: "clairance" },
     { label: "Glycemie", key: "glycemie" },
     { label: "HB A1C", key: "triglycerides" },
     { label: "LDLC", key: "cholesterolTotal" },
@@ -277,6 +278,17 @@ export default function ListPatientsAdmin() {
                 NAplus: doc.data().NAplus,
                 Kplus: doc.data().Kplus,
                 TP: doc.data().TP,
+                clairance: `${
+                  doc.data().sexe === "homme"
+                    ? ((140 - doc.data().birthDate) /
+                        doc.data().creatininemie) *
+                      doc.data().poids *
+                      1.23
+                    : ((140 - doc.data().birthDate) /
+                        doc.data().creatininemie) *
+                      doc.data().poids *
+                      1.04
+                }`,
                 glycemie: doc.data().glycemie,
                 triglycerides: doc.data().triglycerides,
                 cholesterolTotal: doc.data().cholesterolTotal,
