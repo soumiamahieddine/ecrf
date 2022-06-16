@@ -23,6 +23,7 @@ export default function ListPatientsAdmin() {
     { label: "Assurance", key: "assurance" },
     { label: "Niveau", key: "niveau" },
     { label: "Numero de téléphone", key: "num" },
+    { label: "Numero de téléphone du parent", key: "num2" },
     { label: "Circonstance de la FA", key: "circonstance1" },
     { label: "Complication", key: "circonstance2" },
     { label: "Premier épisode", key: "episodeFA" },
@@ -43,6 +44,7 @@ export default function ListPatientsAdmin() {
     { label: "Cardiomyoathie dilatee", key: "cardiomyoathieDilatee" },
     { label: "Autre maladie cardiaque", key: "autreMaladieValue" },
     { label: "Dysthyroidie", key: "dysthyroidie" },
+    { label: "Type Dysthyroidie", key: "dysthyroidieType" },
     {
       label: "Insuffisance renale chronique",
       key: "insuffisanceRenaleChronique",
@@ -67,6 +69,14 @@ export default function ListPatientsAdmin() {
     { label: "Score CHAD", key: "scoreCHAD" },
     { label: "Score Has Bled", key: "scoreHasBled" },
     { label: "Traitement médical", key: "traitementMedical" },
+    {
+      label: "Traitement médical type 1",
+      key: "traitementMedicalAnterieurFaType1",
+    },
+    {
+      label: "Traitement médical type 2",
+      key: "traitementMedicalAnterieurFaType2",
+    },
     { label: "Antécédent de cardioversion", key: "antecedentCardioversion" },
     { label: "Antécédent d’ablation", key: "antecedentAblation" },
     { label: "Implantation de pacemaker", key: "implantationPaceMaker" },
@@ -77,10 +87,10 @@ export default function ListPatientsAdmin() {
     { label: "Interval PR", key: "morphologie" },
     { label: "Interval QT", key: "intervalQT" },
     { label: "BBG", key: "BBG" },
-    { label: "BDD", key: "BDD" },
+    //{ label: "BDD", key: "BDD" },
     { label: "HVG", key: "HVG" },
-    { label: "Sokolov", key: "sokolov" },
-    { label: "Lewis", key: "lewis" },
+    // { label: "Sokolov", key: "sokolov" },
+    //{ label: "Lewis", key: "lewis" },
     { label: "Infarctus", key: "infractus" },
     { label: "Territoire Infarctus", key: "infractusTerritoire" },
     { label: "Masse VG", key: "masseeVG" },
@@ -157,6 +167,7 @@ export default function ListPatientsAdmin() {
                 assurance: doc.data().assurance,
                 niveau: doc.data().niveau,
                 num: doc.data().num,
+                num2: doc.data().num2,
                 circonstance1: doc.data().circonstance1,
                 circonstance2: doc.data().circonstance2,
                 episodeFA: `${
@@ -194,6 +205,7 @@ export default function ListPatientsAdmin() {
                 dysthyroidie: `${
                   doc.data().dysthyroidie.length !== 0 ? "oui" : "non"
                 }`,
+                dysthyroidieType: doc.data.dysthyroidieType,
                 insuffisanceRenaleChronique: `${
                   doc.data().insuffisanceRenaleChronique.length !== 0
                     ? "oui"
@@ -210,9 +222,7 @@ export default function ListPatientsAdmin() {
                 dyslipidemieDate: doc.data().dyslipidemieDate,
                 tabagisme: doc.data().tabagisme,
                 consommationAlcool: doc.data().consommationAlcool,
-                sedentarite: `${
-                  doc.data().sedentarite.length !== 0 ? "oui" : "non"
-                }`,
+                sedentarite: doc.data().sedentarite,
                 antecedent: `${
                   doc.data().antecedent.length !== 0 ? "oui" : "non"
                 }`,
@@ -232,6 +242,16 @@ export default function ListPatientsAdmin() {
                 traitementMedical: `${
                   doc.data().traitementMedical.length !== 0 ? "oui" : "non"
                 }`,
+                traitementMedicalAnterieurFaType1: `${
+                  doc.data().traitementMedicalAnterieurFaType1.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
+                traitementMedicalAnterieurFaType2: `${
+                  doc.data().traitementMedicalAnterieurFaType2.length !== 0
+                    ? "oui"
+                    : "non"
+                }`,
                 antecedentCardioversion: `${
                   doc.data().antecedentCardioversion.length !== 0
                     ? "oui"
@@ -250,12 +270,12 @@ export default function ListPatientsAdmin() {
                 dureeQRS: doc.data().dureeQRS,
                 morphologie: doc.data().morphologie,
                 intervalQT: doc.data().intervalQT,
-                bbg: `${doc.data().bbg.includes("bbg") ? "oui" : "non"}`,
-                bbd: `${doc.data().bbd.length !== 0 ? "oui" : "non"}`,
+                bbg: doc.data().bbg,
+                //bbd: `${doc.data().bbd.length !== 0 ? "oui" : "non"}`,
                 hvg: `${doc.data().hvg.length !== 0 ? "oui" : "non"}`,
 
-                sokolov: doc.data().sokolov,
-                lewis: doc.data().lewis,
+                // sokolov: doc.data().sokolov,
+                //lewis: doc.data().lewis,
                 infractus: `${
                   doc.data().infractus.length !== 0 ? "oui" : "non"
                 }`,
@@ -264,11 +284,7 @@ export default function ListPatientsAdmin() {
 
                 FEVG: doc.data().FEVG,
                 volumeOG: doc.data().volumeOG,
-                thrombusIntraAuriculaire: `${
-                  doc.data().thrombusIntraAuriculaire.length !== 0
-                    ? "oui"
-                    : "non"
-                }`,
+                thrombusIntraAuriculaire: doc.data().thrombusIntraAuriculaire,
                 surfaceOD: doc.data().surfaceOD,
                 PAPS: doc.data().PAPS,
                 GB: doc.data().GB,

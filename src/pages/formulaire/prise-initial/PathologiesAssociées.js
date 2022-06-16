@@ -16,6 +16,7 @@ import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 import PrevButton from "../../../components/PrevButton";
+import { DivIcon } from "leaflet";
 
 export default function PathologiesAssociées() {
   const navigate = useNavigate();
@@ -26,9 +27,10 @@ export default function PathologiesAssociées() {
     cardiomyopathieHypertrophique: [],
     cardiomyoathieDilatee: [],
     autreMaladie: [],
-    autreMaladieDate: "",
+    autreMaladieDate: "auccune",
     sas: [],
     dysthyroidie: [],
+    dysthyroidieType: "",
     insuffisanceRenaleChronique: [],
   };
   const validationSchema = Yup.object({
@@ -39,9 +41,12 @@ export default function PathologiesAssociées() {
     ),
     cardiomyoathieDilatee: Yup.array().required("ce champs est obligatoire"),
     autreMaladie: Yup.array().required("ce champs est obligatoire"),
-    autreMaladieDate: Yup.string("ce champs doit être alpahnumiérique"),
+    autreMaladieDate: Yup.string(
+      "ce champs doit être alpahnumiérique"
+    ).required("ce champs est obligatoire"),
     sas: Yup.array().required("ce champs est obligatoire"),
     dysthyroidie: Yup.array().required("ce champs est obligatoire"),
+    dysthyroidieType: Yup.string("ce champs doit être alpahnumiérique"),
     insuffisanceRenaleChronique: Yup.array().required(
       "ce champs est obligatoire"
     ),
@@ -99,6 +104,10 @@ export default function PathologiesAssociées() {
   ];
   const sasOptions = [{ key: "SAS", value: "sas" }];
   const dysthyroidieOptions = [{ key: "Dysthyroidie", value: "dysthyroidie" }];
+  const dysthyroidieTypeOptions = [
+    { key: "Hypothyroidie", value: "hypothyroidie" },
+    { key: "Hyperthyroidie", value: "hyperthyroidie" },
+  ];
   const insuffisanceOptions = [
     {
       key: "Insuffisance Renale Chronique",
@@ -108,8 +117,8 @@ export default function PathologiesAssociées() {
   const coronaOptions = [
     { key: "Coronaropthie", value: "Coronaropthie" },
     {
-      key: "Insuffisance cardiaque cronique",
-      value: "Insuffisance cardiaque cronique",
+      key: "Insuffisance cardiaque chronique",
+      value: "Insuffisance cardiaque chronique",
     },
   ];
   return (
@@ -158,7 +167,9 @@ export default function PathologiesAssociées() {
                     {formik.values.autreMaladie.length !== 0 ? (
                       <FormikControl control="input" name="autreMaladieDate" />
                     ) : (
-                      ""
+                      <div hidden="true">
+                        {(formik.values.autreMaladieDate = "auccune")}
+                      </div>
                     )}
                   </div>
                   <FormikControl
@@ -171,6 +182,21 @@ export default function PathologiesAssociées() {
                     name="dysthyroidie"
                     options={dysthyroidieOptions}
                   />
+
+                  {formik.values.dysthyroidie.length !== 0 ? (
+                    <div className="field">
+                      <div className="child">
+                        <FormikControl
+                          control="radio"
+                          name="dysthyroidieType"
+                          options={dysthyroidieTypeOptions}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div>{(formik.values.dysthyroidieType = "")}</div>
+                  )}
+
                   <FormikControl
                     control="checkbox"
                     name="insuffisanceRenaleChronique"
@@ -227,6 +253,9 @@ const StyledDiv = styled.div`
         justify-content: flex-end;
         align-items: center;
         margin: 1.5rem 0rem;
+      }
+      .child {
+        margin-left: 2rem;
       }
     }
   }

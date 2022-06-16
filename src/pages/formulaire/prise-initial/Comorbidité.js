@@ -72,14 +72,14 @@ export default function Comorbidité() {
 
   const antecendentOptions = [
     {
-      key: "Antécédent d'AVC/AIT/Hombolie systémique",
-      value: "Antécédent d'AVC/AIT/Hombolie systémique",
+      key: "Antécédent d'AVC/AIT/embolie systémique",
+      value: "Antécédent d'AVC/AIT/embolie systémique",
     },
   ];
   const evenmentOptions = [
     {
-      key: "Evènement Hémoragique Majeur",
-      value: "Evènement Hémoragique Majeur",
+      key: "Evènement Hémorragique Majeur",
+      value: "Evènement Hémorragique Majeur",
     },
   ];
   const cancerOptions = [{ key: "Cancer", value: "cancer" }];

@@ -36,6 +36,7 @@ export default function ListMedecins() {
             nom="Nom"
             email="email"
             sexe="sexe"
+            secteur="secteur"
             residence="résidence"
             color="white"
             background="#243153"
@@ -51,6 +52,7 @@ export default function ListMedecins() {
                     email={patient.email}
                     residence={patient.residence}
                     sexe={patient.sexe}
+                    secteur={patient.secteur}
                     onClick={() => navigate(`/listPatientsAdmin/${patient.id}`)}
                     color="#243153"
                     background="white"
@@ -63,6 +65,7 @@ export default function ListMedecins() {
                     email={patient.email}
                     residence={patient.residence}
                     sexe={patient.sexe}
+                    secteur={patient.secteur} 
                     onClick={() => navigate(`/listPatientsAdmin/${patient.id}`)}
                     color="#243153"
                     background="#cdd7f3"

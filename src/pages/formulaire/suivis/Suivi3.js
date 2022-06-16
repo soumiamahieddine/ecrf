@@ -19,6 +19,8 @@ import NextButton from "../../../components/NextButton";
 export default function Suivi3() {
   const navigate = useNavigate();
   const initialValues = {
+    reductionDosageS3: [],
+    causeReductionS3: "",
     etatPatientControleS3: "",
     persistanceS3: [],
     persistanceOptionsS3: [],
@@ -43,6 +45,8 @@ export default function Suivi3() {
     strategieFrequence1S3: [],
   };
   const validationSchema = Yup.object({
+    reductionDosageS3: Yup.array(),
+    causeReductionS3: Yup.string(),
     etatPatientControleS3: Yup.string(),
     persistanceS3: Yup.array(),
     complicationS3: Yup.array(),
@@ -100,6 +104,17 @@ export default function Suivi3() {
     });
     return unsubscribe;
   };
+
+  const reductionDosageOptions3 = [
+    { key: "reduction de dosage", value: "reduction de dosage" },
+  ];
+
+  const causeReductionOptionsS3 = [
+    { key: "Insuffisance rénale", value: "Insuffisance rénale" },
+    { key: "Poids", value: "Poids" },
+    { key: "Autre", value: "Autre" },
+  ];
+
   const etatOptions = [
     {
       key: "vivant",
@@ -136,6 +151,10 @@ export default function Suivi3() {
     {
       key: "cérébrale",
       value: "cérébrale",
+    },
+    {
+      key: "Autre hémorragie majeure",
+      value: "Autre hémorragie majeure",
     },
   ];
   const decesOptionsOptions = [
@@ -306,8 +325,8 @@ export default function Suivi3() {
       value: "Amiodarone",
     },
     {
-      key: "flecainid",
-      value: "flecainid",
+      key: "flecainide",
+      value: "flecainide",
     },
     {
       key: "Sotalol",
@@ -363,12 +382,12 @@ export default function Suivi3() {
                 <Form>
                   <div>
                     <h2>Évaluation clinique </h2>
-                    <FormikControl
+                    {/* <FormikControl
                       control="radio"
                       name="etatPatientControleS3"
                       options={etatOptions}
                       label="État du patient au contrôle "
-                    />
+                    /> */}
                     <div className="feild">
                       <FormikControl
                         control="checkbox"
@@ -462,6 +481,24 @@ export default function Suivi3() {
                             ""
                           )}
                         </div>
+
+                        <div className="field">
+                          <FormikControl
+                            control="checkbox"
+                            name="reductionDosageS3"
+                            options={reductionDosageOptions3}
+                          />
+                          {formik.values.reductionDosageS3.length !== 0 ? (
+                            <FormikControl
+                              control="radio"
+                              name="causeReductionS3"
+                              options={causeReductionOptionsS3}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </div>
+
                         <div className="field">
                           <FormikControl
                             control="checkbox"

@@ -196,11 +196,13 @@ export default function TraitementAntiThrombotique() {
                             options={traitementOptionOptions1}
                           />
                           {formik.values.traitementOption1.length !== 0 ? (
-                            <FormikControl
-                              control="select"
-                              name="anticoagulantOral"
-                              options={traitementRadioOptions1}
-                            />
+                            <div className="child">
+                              <FormikControl
+                                control="select"
+                                name="anticoagulantOral"
+                                options={traitementRadioOptions1}
+                              />{" "}
+                            </div>
                           ) : (
                             ""
                           )}
@@ -212,11 +214,13 @@ export default function TraitementAntiThrombotique() {
                             options={traitementOptionOptions2}
                           />
                           {formik.values.traitementOption2.length !== 0 ? (
-                            <FormikControl
-                              control="radio"
-                              name="antiagrégantPlaquettaire"
-                              options={traitementRadioOptions2}
-                            />
+                            <div className="child">
+                              <FormikControl
+                                control="radio"
+                                name="antiagrégantPlaquettaire"
+                                options={traitementRadioOptions2}
+                              />
+                            </div>
                           ) : (
                             ""
                           )}

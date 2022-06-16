@@ -21,12 +21,20 @@ export default function TraitementAnterieurFA() {
   const navigate = useNavigate();
   const initialValues = {
     traitementMedical: [],
+    traitementMedicalAnterieurFaType1: [],
+    traitementMedicalAnterieurFaType2: [],
     antecedentCardioversion: [],
     antecedentAblation: [],
     implantationPaceMaker: [],
   };
   const validationSchema = Yup.object({
     traitementMedical: Yup.array().required("ce champs est obligatoire"),
+    traitementMedicalAnterieurFaType1: Yup.array().required(
+      "ce champs est obligatoire"
+    ),
+    traitementMedicalAnterieurFaType2: Yup.array().required(
+      "ce champs est obligatoire"
+    ),
     antecedentCardioversion: Yup.array().required("ce champs est obligatoire"),
     antecedentAblation: Yup.array().required("ce champs est obligatoire"),
     implantationPaceMaker: Yup.array().required("ce champs est obligatoire"),
@@ -66,6 +74,20 @@ export default function TraitementAnterieurFA() {
     });
     return unsubscribe;
   };
+
+  const traitementMedicalAnterieurFaType1Options = [
+    {
+      key: "Traitement ralentisseur",
+      value: "Traitement ralentisseur",
+    },
+  ];
+
+  const traitementMedicalAnterieurFaType2Options = [
+    {
+      key: "Traitement arythmique",
+      value: "Traitement arythmique",
+    },
+  ];
 
   const traitementOptions = [
     {
@@ -109,6 +131,25 @@ export default function TraitementAnterieurFA() {
                       options={traitementOptions}
                     />
                   </div>
+
+                  {formik.values.traitementMedical.length !== 0 ? (
+                    <div className="child">
+                      <FormikControl
+                        className="child"
+                        control="checkbox"
+                        name="traitementMedicalAnterieurFaType1"
+                        options={traitementMedicalAnterieurFaType1Options}
+                      />
+                      <FormikControl
+                        className="child"
+                        control="checkbox"
+                        name="traitementMedicalAnterieurFaType2"
+                        options={traitementMedicalAnterieurFaType2Options}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
 
                   <FormikControl
                     control="checkbox"
@@ -171,6 +212,9 @@ const StyledDiv = styled.div`
         justify-content: flex-end;
         align-items: center;
         margin: 1.5rem 0rem;
+      }
+      .child {
+        margin-left: 2rem;
       }
     }
   }

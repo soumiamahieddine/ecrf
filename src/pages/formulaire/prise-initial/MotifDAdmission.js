@@ -130,11 +130,16 @@ export default function MotifDAdmission() {
                       label="Premier épisode détecté ?"
                     />
                     {formik.values.episodeFA === "non" ? (
-                      <FormikControl
-                        control="input"
-                        name="episodeFADate"
-                        placeholder="Détecté le"
-                      />
+                      <div className="oneLigne">
+                        <span>
+                          Indiquez mois et année uniquement ex: 05/2022{" "}
+                        </span>
+                        <FormikControl
+                          control="input"
+                          name="episodeFADate"
+                          placeholder="mois/année"
+                        />
+                      </div>
                     ) : (
                       ""
                     )}
@@ -197,6 +202,9 @@ const StyledDiv = styled.div`
         justify-content: flex-end;
         align-items: center;
         margin: 1.5rem 0rem;
+      }
+      span {
+        color: #a8a7a7;
       }
     }
   }

@@ -105,7 +105,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="GB"
-                      placeholder="e/mm3"
+                      unit="e/mm3"
                       width="100px"
                       label="GB"
                     />
@@ -113,7 +113,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="plaquettes"
-                      placeholder="e/mm3"
+                      unit="e/mm3"
                       width="100px"
                       label="plaquettes"
                     />
@@ -124,7 +124,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="uree"
-                      placeholder="g/L"
+                      unit="g/L"
                       width="100px"
                       label="Urée"
                     />
@@ -132,7 +132,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="creatininemie"
-                      placeholder="mg/L"
+                      unit="mg/L"
                       width="100px"
                       label="creatininemie"
                     />
@@ -142,7 +142,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="NAplus"
-                      placeholder="mmol/L"
+                      unit="mmol/L"
                       width="100px"
                       label="NA+ "
                     />{" "}
@@ -150,7 +150,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="Kplus"
-                      placeholder="mmol/L"
+                      unit="mmol/L"
                       width="100px"
                       label="K+ "
                     />
@@ -160,7 +160,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="TP"
-                      placeholder=""
+                      unit=""
                       width="100px"
                       label="INR"
                     />
@@ -170,7 +170,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="glycemie"
-                      placeholder="g/L"
+                      unit="g/L"
                       width="100px"
                       label="glycemie"
                     />
@@ -200,7 +200,7 @@ export default function ECG() {
                       control="input"
                       type="text"
                       name="TSH"
-                      placeholder="mUI/L"
+                      unit="mUI/L"
                       width="100px"
                       label="TSH"
                     />

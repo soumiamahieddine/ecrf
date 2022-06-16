@@ -65,6 +65,10 @@ export default function ProfilePatient({ data }) {
                     <span className="gras">Numéro de téléphone </span>:{" "}
                     {data.data.num}
                   </p>
+                  <p>
+                    <span className="gras">Numéro de téléphone du parent </span>
+                    : {data.data.num2}
+                  </p>
                 </AccordionItemPanel>
               </AccordionItem>
               <AccordionItem className="inside__acc">
@@ -187,6 +191,10 @@ export default function ProfilePatient({ data }) {
                     {data.data.dysthyroidie.length !== 0 ? "oui" : "non"}
                   </p>
                   <p>
+                    <span className="gras">Type Dysthyroïdie</span>:{" "}
+                    {data.data.dysthyroidieType}
+                  </p>
+                  <p>
                     <span className="gras">
                       Insuffisance rénale chronique degrés{" "}
                     </span>
@@ -212,7 +220,9 @@ export default function ProfilePatient({ data }) {
                   </p>
                   <p>
                     <span className="gras">BMI</span> :{" "}
-                    {data.data.poids / Math.pow(data.data.taille, 2)}
+                    {(data.data.poids / Math.pow(data.data.taille, 2)).toFixed(
+                      2
+                    )}
                   </p>
                   <p>
                     <span className="gras">HTA</span> :{" "}
@@ -261,7 +271,7 @@ export default function ProfilePatient({ data }) {
                   </p>
                   <p>
                     <span className="gras">Sédentarité</span> :{" "}
-                    {data.data.sedentarite.length !== 0 ? "oui" : "non"}{" "}
+                    {data.data.sedentarite}{" "}
                   </p>
                   <p>
                     <span className="gras">score CHADS2SVAC</span> :{" "}
@@ -312,10 +322,23 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemPanel>
                   <p>
                     <span className="gras">Traitement médical</span> :{" "}
-                    {data.data.traitementMedicalInput.length !== 0
+                    {data.data.traitementMedical.length !== 0 ? "oui" : "non"}{" "}
+                  </p>
+
+                  <p>
+                    <span className="gras">Traitement ralentisseur</span> :{" "}
+                    {data.data.traitementMedicalAnterieurFaType1.length !== 0
                       ? "oui"
                       : "non"}{" "}
                   </p>
+
+                  <p>
+                    <span className="gras">Traitement arythmique</span> :{" "}
+                    {data.data.traitementMedicalAnterieurFaType2.length !== 0
+                      ? "oui"
+                      : "non"}{" "}
+                  </p>
+
                   <p>
                     <span className="gras">Antécédent de cardioversion </span>:{" "}
                     {data.data.antecedentCardioversion.length !== 0
@@ -372,16 +395,16 @@ export default function ProfilePatient({ data }) {
                   </p>
                   <p>
                     <span className="gras">BBG</span> :{" "}
-                    {data.data.bbg.length !== 0 ? "oui" : "non"}
+                    {data.data.bbg.length === "bbg" ? "BBG" : "BBD"}
                   </p>
-                  <p>
+                  {/* <p>
                     <span className="gras">BBD</span> :{" "}
                     {data.data.bbd.length !== 0 ? "oui" : "non"}
-                  </p>
+                  </p> */}
                   <p>
                     <span className="gras">HVG</span> :{" "}
                     {data.data.hvg.length !== 0 ? "oui" : "non"}{" "}
-                    {data.data.hvg.includes("hvg") ? (
+                    {/* {data.data.hvg.includes("hvg") ? (
                       <>
                         <span className="left">
                           Sokolov : {data.data.sokolov}
@@ -390,7 +413,7 @@ export default function ProfilePatient({ data }) {
                       </>
                     ) : (
                       ""
-                    )}
+                    )} */}
                   </p>
                   <p>
                     <span className="gras">Infarctus </span> :
@@ -423,9 +446,7 @@ export default function ProfilePatient({ data }) {
                   </p>
                   <p>
                     <span className="gras">Thrombus intra auriculaire </span>:{" "}
-                    {data.data.thrombusIntraAuriculaire.length !== 0
-                      ? "oui"
-                      : "non"}
+                    {data.data.thrombusIntraAuriculaire}
                   </p>
                   <h3>Analyse coeur droite</h3>
 
@@ -695,10 +716,10 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemButton>suivi des 3 mois</AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>
-                <p>
+                {/* <p>
                   <span className="gras">État du patient au contrôle </span> :{" "}
                   {data.data.etatPatientControleS3}
-                </p>
+                </p> */}
                 <p>
                   <span className="gras">
                     Persistance des symptômes liés à la FA{" "}
@@ -762,10 +783,10 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemButton>suivi des 6 mois</AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>
-                <p>
+                {/* <p>
                   <span className="gras">État du patient au contrôle </span> :{" "}
                   {data.data.etatPatientControleS6}
-                </p>
+                </p> */}
                 <p>
                   <span className="gras">
                     Persistance des symptômes liés à la FA{" "}
@@ -828,10 +849,10 @@ export default function ProfilePatient({ data }) {
                 <AccordionItemButton>suivi des 12 mois</AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>
-                <p>
+                {/* <p>
                   <span className="gras">État du patient au contrôle </span> :{" "}
                   {data.data.etatPatientControleS12}
-                </p>
+                </p> */}
                 <p>
                   <span className="gras">
                     Persistance des symptômes liés à la FA{" "}

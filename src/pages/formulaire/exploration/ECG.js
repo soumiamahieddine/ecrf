@@ -26,11 +26,11 @@ export default function ECG() {
     dureeQRS: "",
     morphologie: "",
     intervalQT: "",
-    sokolov: "",
-    lewis: "",
+    //sokolov: "",
+    //lewis: "",
     territoireInfractus: "",
-    bbg: [],
-    bbd: [],
+    bbg: "",
+    //bbd: [],
     hvg: [],
     infractus: [],
   };
@@ -42,23 +42,19 @@ export default function ECG() {
     rythme: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    dureeOndeP: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    dureeOndeP: Yup.string("ce champs doit être alpahnumiérique"),
     dureeQRS: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    morphologie: Yup.string("ce champs doit être alpahnumiérique").required(
-      "ce champs est obligatoire"
-    ),
+    morphologie: Yup.string("ce champs doit être alpahnumiérique"),
     intervalQT: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    sokolov: Yup.string("ce champs doit être alpahnumiérique"),
-    lewis: Yup.string("ce champs doit être alpahnumiérique"),
+    //sokolov: Yup.string("ce champs doit être alpahnumiérique"),
+    //lewis: Yup.string("ce champs doit être alpahnumiérique"),
     territoireInfractus: Yup.string("ce champs doit être alpahnumiérique"),
-    bbg: Yup.array().required("ce champs est obligatoire"),
-    bbd: Yup.array().required("ce champs est obligatoire"),
+    bbg: Yup.string().required("ce champs est obligatoire"),
+    //bbd: Yup.array().required("ce champs est obligatoire"),
     hvg: Yup.array().required("ce champs est obligatoire"),
     infractus: Yup.array().required("ce champs est obligatoire"),
   });
@@ -77,7 +73,10 @@ export default function ECG() {
     { key: "Flutter", value: "Flutter" },
     { key: "Electro-stimulé", value: "Electro-stimulé" },
   ];
-  const BBGOptions = [{ key: "BBG", value: "bbg" }];
+  const BBGOptions = [
+    { key: "BBG", value: "bbg" },
+    { key: "BBD", value: "bbd" },
+  ];
   const BBDOptions = [{ key: "BBD", value: "bbd" }];
   const HVGOptions = [{ key: "HVG", value: "hvg" }];
   const InfractusOptions = [{ key: "Infarctus", value: "infarctus" }];
@@ -151,65 +150,95 @@ export default function ECG() {
                       options={rythmeOptions}
                     />
                   </div>
+                  {formik.values.rythme === "FA" ||
+                  formik.values.rythme === "Flutter" ? (
+                    <div className="field">
+                      {(formik.values.dureeOndeP = "")}
+                      {(formik.values.morphologie = "")}
+                      <FormikControl
+                        control="input"
+                        type="text"
+                        name="dureeQRS"
+                        placeholder="ms"
+                        width="150px"
+                        label="Durée du QRS"
+                        unit="ms"
+                      />
+
+                      <div className="field">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="intervalQT"
+                          placeholder="ms"
+                          width="150px"
+                          label="Interval QTc"
+                          unit="ms"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="field">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="dureeOndeP"
+                          placeholder="ms"
+                          width="150px"
+                          label="Durée onde P"
+                        />
+                        <span>ms</span>
+                      </div>
+
+                      <div className="field">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="dureeQRS"
+                          placeholder="ms"
+                          width="150px"
+                          label="Durée du QRS"
+                        />
+                        <span>ms</span>
+                      </div>
+
+                      <div className="field">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="morphologie"
+                          placeholder="ms"
+                          width="150px"
+                          label="Interval PR"
+                        />
+                        <span>ms</span>
+                      </div>
+                      <div className="field">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="intervalQT"
+                          placeholder="ms"
+                          width="150px"
+                          label="Interval QTc"
+                        />
+                        <span>ms</span>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="field">
                     <FormikControl
-                      control="input"
-                      type="text"
-                      name="dureeOndeP"
-                      placeholder="ms"
-                      width="150px"
-                      label="Durée onde P"
-                    />
-                    <span>ms</span>
-                  </div>
-
-                  <div className="field">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="dureeQRS"
-                      placeholder="ms"
-                      width="150px"
-                      label="Durée du QRS"
-                    />
-                    <span>ms</span>
-                  </div>
-
-                  <div className="field">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="morphologie"
-                      placeholder="ms"
-                      width="150px"
-                      label="Interval PR"
-                    />
-                    <span>ms</span>
-                  </div>
-                  <div className="field">
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="intervalQT"
-                      placeholder="ms"
-                      width="150px"
-                      label="Interval QT"
-                    />
-                    <span>ms</span>
-                  </div>
-
-                  <div className="field">
-                    <FormikControl
-                      control="checkbox"
+                      control="radio"
                       name="bbg"
                       options={BBGOptions}
                     />
-                    <FormikControl
+                    {/* <FormikControl
                       control="checkbox"
                       name="bbd"
                       options={BBDOptions}
-                    />
+                    /> */}
                   </div>
 
                   <FormikControl
@@ -217,7 +246,7 @@ export default function ECG() {
                     name="hvg"
                     options={HVGOptions}
                   />
-                  {formik.values.hvg.length !== 0 ? (
+                  {/* {formik.values.hvg.length !== 0 ? (
                     <div className="field first">
                       <FormikControl
                         control="input"
@@ -236,7 +265,7 @@ export default function ECG() {
                     </div>
                   ) : (
                     ""
-                  )}
+                  )} */}
 
                   <div className="field">
                     <FormikControl
@@ -316,8 +345,6 @@ const StyledDiv = styled.div`
         span {
           justify-self: center;
           align-self: center;
-          margin-top: 1rem;
-          margin-left: 1rem;
         }
       }
       .button-container {

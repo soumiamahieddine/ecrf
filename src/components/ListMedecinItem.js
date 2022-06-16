@@ -8,6 +8,7 @@ export default function ListMedecinItem({
   sexe,
   residence,
   email,
+  secteur,
   dateInclusion,
   onClick,
   width = "70vw",
@@ -40,6 +41,9 @@ export default function ListMedecinItem({
       </div>
       <div className="sexe">
         <h3>{sexe} </h3>
+      </div>
+      <div className="secteur">
+        <h3>{secteur} </h3>
       </div>
       <div className="residence">
         <h3>{residence}</h3>

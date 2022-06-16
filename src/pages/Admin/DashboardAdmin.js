@@ -68,7 +68,7 @@ export default function DashboardAdmin() {
               {focus === "startDate" ? " Date Début" : " Date Fin"}.
             </p>
           </div>
-          <div className="datePickerWrapper" className="date-input-field">
+          <div className="datePickerWrapper date-input-field">
             <DateRangePickerCalendar
               startDate={startDate}
               endDate={endDate}

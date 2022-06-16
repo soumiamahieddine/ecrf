@@ -7,6 +7,9 @@ import * as Yup from "yup";
 import FormikControl from "../../components/FormikControl";
 import NiceButton from "../../components/NiceButton";
 import { app2, createUserProfilDocument } from "../../firebase/firebase.utils";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import formikControl from "../../components/FormikControl";
 
 export default function AddDoctor() {
   const sexeOptions = [
@@ -16,6 +19,10 @@ export default function AddDoctor() {
   const typeOptions = [
     { key: "admin", value: "admin" },
     { key: "medecin", value: "medecin" },
+  ];
+  const secteurOptions = [
+    { key: "Publique", value: "Publique" },
+    { key: "Liberal", value: "Liberal" },
   ];
   const residenceOptions = [
     { key: "", value: "" },
@@ -27,6 +34,7 @@ export default function AddDoctor() {
   ];
   const initialValues = {
     nom: "",
+    secteur: "",
     sexe: "",
     residence: "",
     email: "",
@@ -36,16 +44,27 @@ export default function AddDoctor() {
   };
 
   const validationSchema = Yup.object({
-    nom: Yup.string().required(),
-    sexe: Yup.string().required(),
-    residence: Yup.string().required(),
-    email: Yup.string().required(),
-    password: Yup.string().required(),
-    confirmPassword: Yup.string().required(),
-    type: Yup.string().required(),
+    nom: Yup.string().required("Ce champs est obligatoire"),
+    sexe: Yup.string().required("Ce champs est obligatoire"),
+    secteur: Yup.string().required("Ce champs est obligatoire"),
+    residence: Yup.string().required("Ce champs est obligatoire"),
+    email: Yup.string().required("Ce champs est obligatoire"),
+    password: Yup.string().required("Ce champs est obligatoire"),
+    confirmPassword: Yup.string()
+      .required("Ce champs est obligatoire")
+      .oneOf([Yup.ref("password"), null], "Mot de passe incorrect"),
+    type: Yup.string().required("Ce champs est obligatoire"),
   });
 
-  const onSubmit = ({ email, password, sexe, residence, nom, type }) => {
+  const onSubmit = ({
+    email,
+    password,
+    sexe,
+    residence,
+    nom,
+    type,
+    secteur,
+  }) => {
     app2
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -57,10 +76,41 @@ export default function AddDoctor() {
           nom,
           sexe,
           residence,
+          secteur,
         });
+        notify();
         app2.auth().signOut();
-        window.location.reload(false);
+        //window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error);
+
+        if (error.code == "auth/email-already-in-use") {
+          notifyInUse();
+        } else if (error.code == "auth/invalid-email") {
+          notifyInvalid();
+        } else if (error.code == "auth/operation-not-allowed") {
+          notifyNotAllowed();
+        } else if (error.code == "auth/weak-password") {
+          notifyWeakPassword();
+        }
       });
+  };
+
+  const notify = () => {
+    toast.success(`Medecin ajouté avec succès`);
+  };
+  const notifyInUse = () => {
+    toast.error(`Cet email existe déja`);
+  };
+  const notifyInvalid = () => {
+    toast.error(`Cet email est invalide`);
+  };
+  const notifyNotAllowed = () => {
+    toast.error(`Une erreur s'est produite`);
+  };
+  const notifyWeakPassword = () => {
+    toast.error(`Mot de passe trés court`);
   };
 
   return (
@@ -93,6 +143,14 @@ export default function AddDoctor() {
                     label="type"
                     options={typeOptions}
                   />
+
+                  <FormikControl
+                    control="radio"
+                    name="secteur"
+                    label="secteur"
+                    options={secteurOptions}
+                  />
+
                   <FormikControl
                     control="radio"
                     name="sexe"
@@ -134,11 +192,8 @@ export default function AddDoctor() {
                   </div>
 
                   <div className="button-container">
-                    <NiceButton
-                      title="Créer médecin"
-                      disabled={formik.isSubmitting}
-                      type="submit"
-                    />
+                    <NiceButton title="Créer médecin" type="submit" />
+                    <ToastContainer />
                   </div>
                 </Form>
               );

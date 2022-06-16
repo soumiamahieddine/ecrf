@@ -16,13 +16,17 @@ import Horibar from "../../../components/Horibar";
 import VertiBar from "../../../components/VertiBar";
 import NextButton from "../../../components/NextButton";
 import PrevButton from "../../../components/PrevButton";
+import { SnapshotMetadata } from "firebase/firestore";
 
 export default function FacteursDeRisqueCardioVasculaire() {
   const navigate = useNavigate();
   const htaOptions = [{ key: "Oui", value: "oui" }];
   const diabeteOptions = [{ key: "Oui", value: "oui" }];
   const dyslipidemieOptions = [{ key: "Oui", value: "oui" }];
-  const sedentariteOptions = [{ key: "Oui", value: "oui" }];
+  const sedentariteOptions = [
+    { key: "Oui", value: "oui" },
+    { key: "Non", value: "non" },
+  ];
   const tabagismeOptions = [
     { key: "Oui", value: "oui" },
     { key: "Non", value: "non" },
@@ -43,8 +47,59 @@ export default function FacteursDeRisqueCardioVasculaire() {
       value: "1",
     },
     {
-      key: "+2",
-      value: "+2",
+      key: "2",
+      value: "2",
+    },
+    {
+      key: "3",
+      value: "3",
+    },
+    {
+      key: "4",
+      value: "4",
+    },
+    {
+      key: "5",
+      value: "5",
+    },
+    {
+      key: "6",
+      value: "6",
+    },
+    {
+      key: "7",
+      value: "7",
+    },
+    {
+      key: "8",
+      value: "8",
+    },
+    {
+      key: "9",
+      value: "9",
+    },
+  ];
+
+  const scoreHASOptions = [
+    {
+      key: "0",
+      value: "0",
+    },
+    {
+      key: "1",
+      value: "1",
+    },
+    {
+      key: "3",
+      value: "3",
+    },
+    {
+      key: "4",
+      value: "4",
+    },
+    {
+      key: "5",
+      value: "5",
     },
   ];
 
@@ -59,7 +114,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
     dyslipidemieDate: "",
     tabagisme: "",
     consommationAlcool: "",
-    sedentarite: [],
+    sedentarite: "",
     scoreCHAD: "",
     scoreHasBled: "",
   };
@@ -82,7 +137,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
     consommationAlcool: Yup.string(
       "ce champs doit être alpahnumiérique"
     ).required("ce champs est obligatoire"),
-    sedentarite: Yup.array().required("ce champs est obligatoire"),
+    sedentarite: Yup.string().required("ce champs est obligatoire"),
     scoreCHAD: Yup.string().required("ce champs est obligatoire"),
     scoreHasBled: Yup.string("ce champs doit être alpahnumiérique"),
   });
@@ -147,6 +202,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
                         placeholder="m"
                         width="100px"
                         label="Taille"
+                        unit="m"
                       />
                       <FormikControl
                         control="input"
@@ -155,6 +211,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
                         placeholder="kg"
                         width="100px"
                         label="Poids"
+                        unit="kg"
                       />
                     </div>
                     <div className="field">
@@ -168,7 +225,8 @@ export default function FacteursDeRisqueCardioVasculaire() {
                         <FormikControl
                           control="input"
                           name="htaDate"
-                          placeholder="depuis"
+                          placeholder="ancienneté"
+                          unit="an(s)"
                         />
                       ) : (
                         ""
@@ -185,7 +243,8 @@ export default function FacteursDeRisqueCardioVasculaire() {
                         <FormikControl
                           control="input"
                           name="diabeteDate"
-                          placeholder="depuis"
+                          placeholder="ancienneté"
+                          unit="an(s)"
                         />
                       ) : (
                         ""
@@ -202,7 +261,8 @@ export default function FacteursDeRisqueCardioVasculaire() {
                         <FormikControl
                           control="input"
                           name="dyslipidemieDate"
-                          placeholder="depuis"
+                          placeholder="ancienneté"
+                          unit="an(s)"
                         />
                       ) : (
                         ""
@@ -221,7 +281,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
                       options={alcoolOptions}
                     />
                     <FormikControl
-                      control="checkbox"
+                      control="radio"
                       name="sedentarite"
                       label="Sédentarité"
                       options={sedentariteOptions}
@@ -229,7 +289,7 @@ export default function FacteursDeRisqueCardioVasculaire() {
                     <h2>Risque thrombo embolique </h2>
                     <div className="field">
                       <FormikControl
-                        control="radio"
+                        control="select"
                         name="scoreCHAD"
                         label="score CHADS2SVAC"
                         options={scoreCHADOptions}
@@ -237,12 +297,10 @@ export default function FacteursDeRisqueCardioVasculaire() {
                     </div>
                     <h2>Risque hémorragique </h2>
                     <FormikControl
-                      control="input"
-                      type="text"
+                      control="select"
                       name="scoreHasBled"
                       label="Score HAS BLED"
-                      placeholder="Score"
-                      width="300px"
+                      options={scoreHASOptions}
                     />
 
                     <div className="button-container">

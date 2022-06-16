@@ -19,6 +19,8 @@ import NextButton from "../../../components/NextButton";
 export default function Suivi12() {
   const navigate = useNavigate();
   const initialValues = {
+    reductionDosageS12: [],
+    causeReductionS12: "",
     etatPatientControleS12: "",
     persistanceS12: [],
     persistanceOptionsS12: [],
@@ -43,6 +45,8 @@ export default function Suivi12() {
     strategieFrequence1S12: [],
   };
   const validationSchema = Yup.object({
+    reductionDosageS12: Yup.array(),
+    causeReductionS12: Yup.string(),
     etatPatientControleS12: Yup.string(),
     persistanceS12: Yup.array(),
     complicationS12: Yup.array(),
@@ -100,6 +104,17 @@ export default function Suivi12() {
     });
     return unsubscribe;
   };
+
+  const reductionDosageOptions12 = [
+    { key: "reduction de dosage", value: "reduction de dosage" },
+  ];
+
+  const causeReductionOptionsS12 = [
+    { key: "Insuffisance rénale", value: "Insuffisance rénale" },
+    { key: "Poids", value: "Poids" },
+    { key: "Autre", value: "Autre" },
+  ];
+
   const etatOptions = [
     {
       key: "vivant",
@@ -306,8 +321,8 @@ export default function Suivi12() {
       value: "Amiodarone",
     },
     {
-      key: "flecainid",
-      value: "flecainid",
+      key: "flecainide",
+      value: "flecainide",
     },
     {
       key: "Sotalol",
@@ -363,12 +378,12 @@ export default function Suivi12() {
                 <Form>
                   <div>
                     <h2>Évaluation clinique </h2>
-                    <FormikControl
+                    {/* <FormikControl
                       control="radio"
                       name="etatPatientControleS12"
                       options={etatOptions}
                       label="État du patient au contrôle "
-                    />
+                    /> */}
                     <div className="feild">
                       <FormikControl
                         control="checkbox"
@@ -453,15 +468,37 @@ export default function Suivi12() {
                             options={traitementOptionOptions1}
                           />
                           {formik.values.traitementOption1S12.length !== 0 ? (
-                            <FormikControl
-                              control="select"
-                              name="anticoagulantOralS12"
-                              options={traitementRadioOptions1}
-                            />
+                            <div className="child">
+                              <FormikControl
+                                control="select"
+                                name="anticoagulantOralS12"
+                                options={traitementRadioOptions1}
+                              />
+                            </div>
                           ) : (
                             ""
                           )}
                         </div>
+
+                        <div className="field">
+                          <FormikControl
+                            control="checkbox"
+                            name="reductionDosageS12"
+                            options={reductionDosageOptions12}
+                          />
+                          {formik.values.reductionDosageS12.length !== 0 ? (
+                            <div className="child">
+                              <FormikControl
+                                control="radio"
+                                name="causeReductionS12"
+                                options={causeReductionOptionsS12}
+                              />
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+
                         <div className="field">
                           <FormikControl
                             control="checkbox"

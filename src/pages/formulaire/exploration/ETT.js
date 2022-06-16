@@ -23,7 +23,7 @@ export default function ETT() {
     masseVG: "",
     FEVG: "",
     volumeOG: "",
-    thrombusIntraAuriculaire: [],
+    thrombusIntraAuriculaire: "",
     surfaceOD: "",
     PAPS: "",
   };
@@ -36,7 +36,9 @@ export default function ETT() {
     volumeOG: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
     ),
-    thrombusIntraAuriculaire: Yup.array(),
+    thrombusIntraAuriculaire: Yup.string().required(
+      "ce champs est obligatoire"
+    ),
 
     surfaceOD: Yup.string("ce champs doit être alpahnumiérique").required(
       "ce champs est obligatoire"
@@ -46,7 +48,10 @@ export default function ETT() {
     ),
   });
 
-  const trombusIntraAuriculaireOptions = [{ key: "Oui", value: "oui" }];
+  const trombusIntraAuriculaireOptions = [
+    { key: "Oui", value: "oui" },
+    { key: "Non", value: "non" },
+  ];
   const masseFGOptionOptions = [
     { key: "Oui", value: "oui" },
     { key: "non", value: "non" },
@@ -119,7 +124,7 @@ export default function ETT() {
                       control="input"
                       type="text"
                       name="FEVG"
-                      placeholder="%"
+                      unit="%"
                       width="100px"
                       label="FEVG"
                     />
@@ -133,12 +138,13 @@ export default function ETT() {
                       placeholder=""
                       width="150px"
                       label="Volume de l'OG"
+                      unit="mml/m² (de surface corporelle)"
                     />
                   </div>
 
                   <div className="field">
                     <FormikControl
-                      control="checkbox"
+                      control="radio"
                       name="thrombusIntraAuriculaire"
                       options={trombusIntraAuriculaireOptions}
                       label="Thrombus Intra Auriculaire"
@@ -152,7 +158,7 @@ export default function ETT() {
                       control="input"
                       type="text"
                       name="surfaceOD"
-                      placeholder="cm²"
+                      unit="cm²"
                       width="100px"
                       label="Surface OD"
                     />
@@ -160,7 +166,7 @@ export default function ETT() {
                       control="input"
                       type="text"
                       name="PAPS"
-                      placeholder="mmHG"
+                      unit="mmHG"
                       width="100px"
                       label="PAPS"
                     />

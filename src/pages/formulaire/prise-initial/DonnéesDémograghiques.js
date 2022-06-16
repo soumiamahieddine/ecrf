@@ -43,9 +43,10 @@ export default function DonnéesDémograghiques() {
   ];
   const niveauOptions = [
     { key: "", value: "" },
-    { key: "-2", value: "-2" },
-    { key: "2-4", value: "2-4" },
-    { key: "4+", value: "4+" },
+    { key: "groupe 1", value: "groupe 1" },
+    { key: "groupe 2", value: "groupe 2" },
+    { key: "groupe 3", value: "groupe 3" },
+    { key: "groupe 4", value: "groupe 4" },
   ];
 
   const initialValues = {
@@ -58,6 +59,7 @@ export default function DonnéesDémograghiques() {
     assurance: "",
     niveau: "",
     num: "",
+    num2: "",
   };
   const validationSchema = Yup.object({
     circonstance: Yup.string("ce champs doit être alpahnumiérique").required(
@@ -85,6 +87,7 @@ export default function DonnéesDémograghiques() {
       "ce champs est obligatoire"
     ),
     num: Yup.string("ce champs doit être alpahnumiérique"),
+    num2: Yup.string("ce champs doit être alpahnumiérique"),
   });
 
   const [wilayas, setWilayas] = useState([]);
@@ -203,14 +206,22 @@ export default function DonnéesDémograghiques() {
                     control="select"
                     name="niveau"
                     label="Niveau socio-économique"
-                    width="100px"
+                    width="130px"
                     options={niveauOptions}
                   />
                   <FormikControl
                     control="input"
                     type="text"
                     name="num"
-                    label="Numéro de téléphonee"
+                    label="Numéro de téléphone"
+                    placeholder="+213 xx xx xx xx xx "
+                    width="180px"
+                  />
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="num2"
+                    label="Numéro de téléphone du parent"
                     placeholder="+213 xx xx xx xx xx "
                     width="180px"
                   />

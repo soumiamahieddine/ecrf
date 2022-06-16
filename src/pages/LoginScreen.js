@@ -7,6 +7,7 @@ import FormikControl from "../components/FormikControl";
 import logo from "../img/logo.svg";
 import { auth, firestore } from "../firebase/firebase.utils";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
@@ -42,6 +43,34 @@ export default function LoginScreen() {
       .signInWithEmailAndPassword(email, password)
       .catch((e) => alert(e.message));
   };
+
+  const emailSent = () => {
+    toast.success(
+      `Un email de réinitialisation du mot de passe vous a été envoyé.\nVérifier votre email.`
+    );
+  };
+  const emailTip = () => {
+    toast.warning(
+      `Si vous ne trouvez pas l'email, cherchez dans la section "Spam".`
+    );
+  };
+
+  const errorSending = (e) => {
+    toast.error(e);
+  };
+
+  const resetPassword = async (email) => {
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        emailSent();
+        emailTip();
+      })
+      .catch((e) => {
+        errorSending(e.message);
+      });
+  };
+
   return (
     <Page>
       <div className="container">
@@ -57,6 +86,7 @@ export default function LoginScreen() {
           {(formik) => (
             <Form className="form">
               <FormikControl
+                className="inputt"
                 control="input"
                 type="email"
                 name="email"
@@ -64,6 +94,7 @@ export default function LoginScreen() {
                 width="350px"
               />
               <FormikControl
+                className="inputt"
                 control="input"
                 type="password"
                 name="password"
@@ -71,12 +102,22 @@ export default function LoginScreen() {
                 width="350px"
               />
 
-              <button type="submit">LOGIN</button>
+              <button className="myButton" type="submit">
+                LOGIN
+              </button>
               <p>
                 Veuillez introduire votre nom d'utilisateur et mot de passe
                 qu'on vous a fourni, au cas ou vous avez oublié votre mot de
                 passe veuillez nous contacter en{" "}
-                <Link to="/motDePasseOublier">cliquant ici</Link>
+                <button
+                  className="atag"
+                  onClick={function () {
+                    resetPassword(formik.values.email);
+                  }}
+                >
+                  cliquant ici
+                </button>
+                <ToastContainer />
               </p>
             </Form>
           )}
@@ -96,9 +137,12 @@ const Page = styled.div`
   .container {
     background: #243153;
     padding: 3rem;
-    width: 27vw;
-    height: 60vh;
+    width: 500px;
+    height: 550px;
     border-radius: 25px;
+  }
+  .inputt {
+    margin-left: 15px;
   }
   .logo {
     display: flex;
@@ -120,14 +164,25 @@ const Page = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    button {
+    .myButton {
       background: #7481a4;
-      width: 100%;
+      width: 300px;
       height: 40px;
       border: 3px solid #7481a4;
       border-radius: 10px;
       color: white;
       font-size: 1rem;
+      cursor: pointer;
+    }
+    .atag {
+      background: none !important;
+      border: none;
+      padding: 0 !important;
+      /*optional*/
+      font-family: arial, sans-serif;
+      /*input has OS specific font-family*/
+      color: white;
+      text-decoration: underline;
       cursor: pointer;
     }
     p {

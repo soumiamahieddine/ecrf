@@ -101,8 +101,8 @@ export default function TraitementDeLaFA() {
       value: "Amiodarone",
     },
     {
-      key: "flecainid",
-      value: "flecainid",
+      key: "flecainide",
+      value: "flecainide",
     },
     {
       key: "Sotalol",
