@@ -75,9 +75,12 @@ const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+
     .list {
       border-radius: 10px;
       overflow: hidden;
+      width: 100%;
     }
   }
 `;

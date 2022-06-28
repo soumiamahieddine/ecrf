@@ -258,11 +258,11 @@ export default function Dashboard() {
               onClick={async () => {
                 await addPatient();
               }}
-              imgName={plus}
+              imgName={"fa-solid fa-circle-plus"}
               name="Ajouter un Patient"
             />
             <DashboardButton
-              imgName={modify}
+              imgName={"fa-solid fa-pen"}
               name="Modifier un Patient"
               onClick={() => {
                 navigate("/listPatients");
@@ -279,9 +279,9 @@ export default function Dashboard() {
             />
           </div>
         </div>
-        <div className="widget widgetOther">
+        {/* <div className="widget widgetOther">
           <Covid19 />
-        </div>
+        </div> */}
         <div
           className="widget widgetOther historique"
           onClick={() => {
@@ -302,10 +302,10 @@ const StyledDiv = styled.div`
   .widgets {
     display: flex;
     margin: 2rem 5rem;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   .widget {
-    flex: 1 1 45rem;
+    width: 100%;
     height: 70vh;
     margin: 2rem 1rem;
   }

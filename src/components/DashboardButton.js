@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function DashboardButton({ imgName, name, ...rest }) {
   return (
     <StyledButton {...rest}>
-      <img src={imgName} alt="" />
+      <i class={imgName}></i>
       {name}
     </StyledButton>
   );
@@ -26,15 +26,16 @@ const StyledButton = styled.button`
   border-radius: 15px;
   background: white;
   transition: all 0.2s ease;
-  width: 80%;
+  width: 350px;
 
   &:hover {
     background: #243153;
     color: white;
   }
 
-  img {
-    margin-right: 1rem;
+  i {
+    font-size: 1.6rem;
+    margin-right: 2rem;
     width: 1.5rem;
   }
 `;

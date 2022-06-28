@@ -38,7 +38,7 @@ export default function Nav() {
                 navigate("/admindashboard");
               }}
             >
-              <img src={home} alt="" />
+              <i style={{ marginRight: "20px" }} class="fa-solid fa-house"></i>
               <span>Acceuil</span>
             </button>
           ) : (
@@ -47,7 +47,7 @@ export default function Nav() {
                 navigate("/dashboard");
               }}
             >
-              <img src={home} alt="" />
+              <i style={{ marginRight: "20px" }} class="fa-solid fa-house"></i>
               <span>Acceuil</span>
             </button>
           )}
@@ -59,7 +59,11 @@ export default function Nav() {
                 navigate("/listmedecins");
               }}
             >
-              <img src={listPatients} alt="" /> <span>Liste des medecins</span>
+              <i
+                style={{ marginRight: "20px" }}
+                class="fa-solid fa-list-ul"
+              ></i>{" "}
+              <span>Liste des medecins</span>
             </button>
           ) : (
             <button
@@ -67,16 +71,24 @@ export default function Nav() {
                 navigate("/listPatients");
               }}
             >
-              <img src={listPatients} alt="" /> <span>Liste des patients</span>
+              <i
+                style={{ marginRight: "20px" }}
+                class="fa-solid fa-list-ul"
+              ></i>{" "}
+              <span>Liste des patients</span>
             </button>
           )}
         </li>
         <li>
           <button>
-            <img src={location} alt="" />
-            <span> Répartition des patients</span>
+            <i
+              style={{ marginRight: "20px" }}
+              class="fa-solid fa-circle-info"
+            ></i>
+            <span> A propos</span>
           </button>
         </li>
+
         <li>
           <button
             onClick={async () => {
@@ -86,7 +98,10 @@ export default function Nav() {
               window.location.reload(false);
             }}
           >
-            <img src={logout} alt="" />
+            <i
+              style={{ marginRight: "20px" }}
+              class="fa-solid fa-arrow-right-from-bracket"
+            ></i>
             <span>Déconnecter</span>
           </button>
         </li>

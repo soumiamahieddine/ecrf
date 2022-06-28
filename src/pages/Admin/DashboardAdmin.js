@@ -10,7 +10,7 @@ import { enGB } from "date-fns/locale";
 import { DateRangePickerCalendar, START_DATE } from "react-nice-dates";
 import "react-nice-dates/build/style.css";
 import "./NiceDatesStyle.scss";
-import Covid19 from "../../components/WilayasData";
+//import Covid19 from "../../components/WilayasData";
 import PageTitle from "../../components/PageTitle";
 import HistListPatients from "../HistListPatients";
 import dates from "../../data/dates";
@@ -34,14 +34,14 @@ export default function DashboardAdmin() {
         <div id="firstWidget" className=" widget">
           <div className="buttons">
             <DashboardButton
-              imgName={modify}
+              imgName={"fa-solid fa-circle-plus"}
               name="Ajouter Medecin"
               onClick={() => {
                 navigate("/addDoctor");
               }}
             />
             <DashboardButton
-              imgName={plus}
+              imgName={"fa-solid fa-list-ul"}
               name="Liste des medecins"
               onClick={() => {
                 navigate("/listmedecins");
@@ -80,9 +80,9 @@ export default function DashboardAdmin() {
             />
           </div>
         </div>
-        <div className="widget widgetOther">
+        {/* <div className="widget widgetOther">
           <Covid19 />
-        </div>
+        </div> */}
         <div id="historique" className="widget widgetOther">
           <h3>Historique</h3>
           <HistListPatients />
@@ -99,18 +99,22 @@ const StyledDiv = styled.div`
   .widgets {
     display: flex;
     margin: 2rem 5rem;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   .widget {
-    flex: 1 1 45rem;
-    height: 70.4vh;
+    width: 100%;
+    height: 70vh;
     margin: 2rem 1rem;
   }
   .widgetOther {
-    height: 70.4vh;
+    height: 70vh;
     border: solid 2px #243153;
     border-radius: 25px;
     overflow: hidden;
+
+    &.historique {
+      cursor: pointer;
+    }
   }
 
   #firstWidget {
