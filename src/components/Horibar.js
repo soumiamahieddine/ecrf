@@ -5,7 +5,7 @@ import HoriBarItem from "./HoribarItem";
 export default function Horibar({ number }) {
   const Bar = styled.div`
     height: 12vh;
-    width: 80vw;
+    width: 70vw;
     background: transparent;
     display: flex;
     justify-content: center;
@@ -13,7 +13,7 @@ export default function Horibar({ number }) {
     margin: 1rem 0rem;
     .list {
       height: 12vh;
-      width: 80vw;
+      width: 79vw;
       #liste li:nth-child(${number}) {
         .outerCircle {
           display: flex;

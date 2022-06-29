@@ -16,7 +16,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: flex-start;
   height: 8vh;
-  width: 80vw;
+  width: 79vw;
   background: transparent;
   position: relative;
   h1 {
@@ -26,7 +26,7 @@ const Title = styled.div`
   }
   .sep {
     height: 1px;
-    width: 80vw;
+    width: 79vw;
     background: #7481a4;
     position: absolute;
     bottom: 0;

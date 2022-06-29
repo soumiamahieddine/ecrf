@@ -131,7 +131,7 @@ export default function Evaluation() {
 }
 
 const StyledDiv = styled.div`
-  width: 80vw;
+  width: 79vw;
 
   height: 100vh;
   /* .formControl {

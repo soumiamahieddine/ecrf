@@ -311,7 +311,7 @@ export default function AutreTraitementMedical() {
 }
 
 const StyledDiv = styled.div`
-  width: 80vw;
+  width: 79vw;
 
   height: 100vh;
   /* .formControl {

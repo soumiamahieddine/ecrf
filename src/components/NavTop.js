@@ -86,7 +86,7 @@ export default function NavTop({ name }) {
 
 const NavBar = styled.div`
   height: 10vh;
-  width: 80vw;
+  width: 79vw;
   background: #7481a4;
   display: flex;
   flex-direction: row;
@@ -192,7 +192,7 @@ const NavBar = styled.div`
   .sep-menu {
     width: 18vw;
     height: 2px;
-    margin: 0rem 1rem;
+    //margin: 0rem 1rem;
     background: black;
   }
   .profil-pic {

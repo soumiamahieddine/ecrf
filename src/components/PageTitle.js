@@ -71,8 +71,8 @@ const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0rem 3rem;
-  height: 80px;
-  width: 80vw;
+  min-height: 10vh;
+  width: 79vw;
   background: transparent;
   border-bottom: 1px solid #7481a4;
 

@@ -113,7 +113,7 @@ export default function PatientInfos() {
 }
 
 const StyledDiv = styled.div`
-  width: 80vw;
+  width: 79vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
