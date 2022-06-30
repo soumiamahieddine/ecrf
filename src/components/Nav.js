@@ -28,10 +28,10 @@ export default function Nav() {
     return unsubscribe;
   }, []);
   return (
-    <StyledNav>
+    <StyledNav className="stick">
       <div className="logo">
         <img src={logo} alt="" />
-        <h1>RegiStar</h1>
+        <h1>REGAL-AF</h1>
       </div>
 
       <Modal
@@ -42,18 +42,18 @@ export default function Nav() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(255, 255, 255, 0.75)",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
             transition: "0.5s ease",
           },
           content: {
             position: "absolute",
-            top: "150px",
+            top: "100px",
             left: "400px",
             right: "400px",
-            bottom: "150px",
+            bottom: "100px",
             border: "1px solid #ccc",
             background: "#fff",
-            overflow: "auto",
+
             WebkitOverflowScrolling: "touch",
             borderRadius: "25px",
             border: "solid 2px #243153",
@@ -70,9 +70,30 @@ export default function Nav() {
         onRequestClose={() => setModalIsOpen(false)}
       >
         <div>
-          <h1 style={{ fontSize: "3rem", marginBottom: "40px" }}>A propos</h1>
+          <button
+            style={{
+              fontSize: "25px",
+              border: "none",
+              background: "white",
+              cursor: "pointer",
+              position: "absolute",
+              top: 20,
+              right: 40,
+            }}
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h1
+            style={{
+              fontSize: "3rem",
+              marginBottom: "1.8rem",
+              marginTop: "3rem",
+            }}
+          >
+            A propos
+          </h1>
           <img src={logoAlamo} style={{ width: "120px" }}></img>
-          <h2 style={{ fontSize: "2rem", margin: "18px" }}>Eurl Alamo</h2>
+          <h2 style={{ fontSize: "2rem", margin: "10px" }}>Eurl Alamo</h2>
           <p style={{ fontSize: "1.5rem" }}>
             Adresse : 21 Rue Redha Houhou Sidi M'hamed Alger, Algérie.
           </p>
@@ -166,8 +187,11 @@ export default function Nav() {
 }
 
 const StyledNav = styled.div`
+  z-index: 99;
+  position: sticky;
+  top: 0;
   width: 20vw;
-  height: 150vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   // margin: auto;
@@ -200,6 +224,8 @@ const StyledNav = styled.div`
     font-size: 1.2rem;
   }
   ul {
+    position: sticky;
+    top: 15vh;
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -234,6 +260,8 @@ const StyledNav = styled.div`
     }
   }
   .logo {
+    position: sticky;
+    top: 15vh;
     width: 100%;
     display: flex;
     flex-direction: row;

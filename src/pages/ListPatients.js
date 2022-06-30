@@ -453,5 +453,6 @@ const StyledDiv = styled.div`
     display: flex;
     justify-content: center;
     gap: 0.5rem;
+    margin-bottom: 80px;
   }
 `;

@@ -13,7 +13,8 @@ const GlobalStyle = createGlobalStyle`
 body{
     background: white;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+    /* overflow-x: hidden;
+} */
 
 
 `;

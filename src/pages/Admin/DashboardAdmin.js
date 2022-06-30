@@ -98,7 +98,8 @@ const StyledDiv = styled.div`
 
   .widgets {
     display: flex;
-    margin: 2rem 5rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
     justify-content: space-around;
   }
   .widget {

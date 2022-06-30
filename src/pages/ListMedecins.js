@@ -29,7 +29,7 @@ export default function ListMedecins() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title title="Listes des Patients" />
+      <Title title="Listes des Médecins" />
       <div className="list-container">
         <div className="list">
           <ListMedecinItem
@@ -65,7 +65,7 @@ export default function ListMedecins() {
                     email={patient.email}
                     residence={patient.residence}
                     sexe={patient.sexe}
-                    secteur={patient.secteur} 
+                    secteur={patient.secteur}
                     onClick={() => navigate(`/listPatientsAdmin/${patient.id}`)}
                     color="#243153"
                     background="#cdd7f3"

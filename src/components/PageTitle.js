@@ -72,7 +72,7 @@ const Title = styled.div`
   align-items: center;
   padding: 0rem 3rem;
   min-height: 10vh;
-  width: 79vw;
+  width: 80vw;
   background: transparent;
   border-bottom: 1px solid #7481a4;
 

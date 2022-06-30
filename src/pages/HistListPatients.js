@@ -79,7 +79,6 @@ const StyledDiv = styled.div`
 
     .list {
       border-radius: 10px;
-      overflow: hidden;
       width: 100%;
     }
   }

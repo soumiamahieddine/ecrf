@@ -379,7 +379,7 @@ export default function ListPatientsAdmin() {
   return (
     <StyledDiv>
       <NavTop />
-      <Title title="Listes des Patients" />
+      <Title title="Liste des patients" />
       <div className="list-container">
         <div className="list">
           <ListPatientsItem

@@ -15,10 +15,14 @@ const Title = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 8vh;
   width: 79vw;
-  background: transparent;
+  background: white;
   position: relative;
+  position: sticky;
+  top: 0;
+
+  min-height: 10vh;
+
   h1 {
     color: #243153;
     font-size: 1.3rem;

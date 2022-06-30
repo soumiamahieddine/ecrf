@@ -86,7 +86,7 @@ export default function NavTop({ name }) {
 
 const NavBar = styled.div`
   height: 10vh;
-  width: 79vw;
+  width: 81vw;
   background: #7481a4;
   display: flex;
   flex-direction: row;
